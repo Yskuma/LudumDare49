@@ -108,7 +108,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
-        playerPos = new PositionComponent(260,180);
+        playerPos = new PositionComponent(340,300);
         engine.addEntity((new Entity())
                 .add(playerPos)
                 .add(new VelocityComponent(0,0))
