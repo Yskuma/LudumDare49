@@ -6,6 +6,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: {
 		file: font-export.fnt
 	}
+	small: {
+		file: small.fnt
+	}
 	title: {
 		file: font-title-export.fnt
 	}

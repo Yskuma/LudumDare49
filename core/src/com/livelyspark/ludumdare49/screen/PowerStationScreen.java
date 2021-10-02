@@ -3,6 +3,7 @@ package com.livelyspark.ludumdare49.screen;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,14 +17,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
-import com.livelyspark.ludumdare49.enums.Actions;
 import com.livelyspark.ludumdare49.enums.Shapes;
+import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ActiveActions;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableCompleteSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
+import com.livelyspark.ludumdare49.input.DebugControlSystem;
+import com.livelyspark.ludumdare49.systems.debug.DebugReactorSystem;
 import com.livelyspark.ludumdare49.systems.render.ActionRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.ShapeRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
@@ -40,6 +43,8 @@ public class PowerStationScreen extends AbstractScreen {
     private PositionComponent playerPos;
     private ActionableComponent actionableComponent;
     private Label actionLabel;
+    private PowerStation powerStation;
+    private InputMultiplexer inputMultiplexer;
 
     public PowerStationScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -66,6 +71,9 @@ public class PowerStationScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        inputMultiplexer = new InputMultiplexer();
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
         camera = new OrthographicCamera(320,240);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
@@ -82,6 +90,8 @@ public class PowerStationScreen extends AbstractScreen {
         TiledMapTileLayer wallLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Walls");
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
+
+        powerStation = new PowerStation();
 
         ActiveActions activeActions = new ActiveActions();
 
@@ -104,6 +114,10 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera));
+
+        //Debug
+        engine.addSystem(new DebugReactorSystem(powerStation, camera.viewportWidth, camera.viewportHeight));
+        inputMultiplexer.addProcessor(new DebugControlSystem(powerStation));
 
         //StageSystem
         engine.addSystem(new Stage01System(activeActions));

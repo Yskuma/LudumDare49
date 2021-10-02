@@ -23,6 +23,12 @@ public class ReactorSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
+
+        if(ps.isPaused)
+        {
+            return;
+        }
+
         ps.deltaFuelAtoms = 0.44f * (1 - ps.controlRodPosition) * (ps.deltaSlowNeutrons * deltaTime);
         ps.deltaSlowNeutrons = 2.5f * ps.coolantLevel * ps.deltaFuelAtoms
                 + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
@@ -34,21 +40,21 @@ public class ReactorSystem extends EntitySystem {
         float deltaReactorHeat = ps.deltaFuelAtoms * ps.heatPerFission * deltaTime;
         float deltaTurbineHeat = 0;
         if(ps.coolantLevel > 0 && ps.pumpOK) {
-            deltaTurbineHeat = ps.coolantPumpSpeed * ps.coolantFlowMax * ps.coolantThermalMass * ps.tempReactor * deltaTime;
+            deltaTurbineHeat = ps.coolantPumpSpeed * ps.coolantFlowMax * ps.coolantThermalMass * ps.reactorTemp * deltaTime;
         }
         // TODO: Deal with coolant temp changes
 
         ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat;
 
-        ps.tempReactor = ps.reactorHeat / ((ps.coolantLevel * ps.coolantThermalMass) + ps.reactorThermalMass);
+        ps.reactorTemp = ps.reactorHeat / ((ps.coolantLevel * ps.coolantThermalMass) + ps.reactorThermalMass);
 
-        if(ps.tempReactor < 373)
+        if(ps.reactorTemp < 373)
         {
             ps.power = 0;
         }
-        else if(ps.tempReactor >= 373 && ps.tempReactor < 673)
+        else if(ps.reactorTemp >= 373 && ps.reactorTemp < 673)
         {
-            float e = (ps.tempReactor - 373)/(673 - 373);
+            float e = (ps.reactorTemp - 373)/(673 - 373);
             ps.power = (deltaTurbineHeat * e) / deltaTime;
         }
         else
