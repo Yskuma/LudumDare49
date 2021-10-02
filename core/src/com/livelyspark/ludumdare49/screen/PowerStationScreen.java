@@ -86,9 +86,9 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Movement/Position Systems
         engine.addSystem(new PlayerMovementSystem());
-        engine.addSystem(new WallCollisionSystem(wallLayer));
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
+        engine.addSystem(new WallCollisionSystem(wallLayer));
 
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));

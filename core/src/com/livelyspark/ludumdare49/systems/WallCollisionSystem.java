@@ -17,58 +17,51 @@ public class WallCollisionSystem extends IteratingSystem {
 
     private final TiledMapTileLayer tileLayer;
     private ComponentMapper<SpriteComponent> sm = ComponentMapper.getFor(SpriteComponent.class);
-    private ComponentMapper<VelocityComponent> mm = ComponentMapper.getFor(VelocityComponent.class);
+    private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
 
     public WallCollisionSystem(TiledMapTileLayer tileLayer) {
-        super(Family.all(SpriteComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
+        super(Family.all(SpriteComponent.class, PositionComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
         this.tileLayer = tileLayer;
     }
 
     @Override
-    public void processEntity (Entity entity, float deltaTime) {
+    public void processEntity(Entity entity, float deltaTime) {
         SpriteComponent sprite = sm.get(entity);
-        VelocityComponent velocity = mm.get(entity);
-
+        PositionComponent pos = pm.get(entity);
+        VelocityComponent vel = vm.get(entity);
         Rectangle br = sprite.sprite.getBoundingRectangle();
 
-        if(velocity.y > 0)
+        int xleft = (int)((br.x) / 16);
+        int xright = (int)((br.x + br.width)/ 16);
+        int ytop = (int)((br.y + br.height) / 16);
+        int ybottom= (int)((br.y) / 16);
+
+        boolean walltl = (tileLayer.getCell(xleft, ytop) != null);
+        boolean walltr = (tileLayer.getCell(xright, ytop) != null);
+        boolean wallbl = (tileLayer.getCell(xleft, ybottom) != null);
+        boolean wallbr = (tileLayer.getCell(xright, ybottom) != null);
+
+        if((walltl || walltr) && vel.y > 0)
         {
-            int tileX = (int)(br.x / 16);
-            int tileY = (int)((br.y + br.height + (velocity.y * deltaTime)) / 16);
-            boolean hasWall = tileLayer.getCell(tileX, tileY) != null;
-            if(hasWall){
-                velocity.y = 0;
-            }
+            pos.y = (ytop * 16) - (br.height / 2) - 0.1f;
         }
 
-        if(velocity.y < 0)
+        if((wallbl || wallbr) && vel.y < 0)
         {
-            int tileX = (int)(br.x / 16);
-            int tileY = (int)((br.y + (velocity.y * deltaTime)) / 16);
-            boolean hasWall = tileLayer.getCell(tileX, tileY) != null;
-            if(hasWall){
-                velocity.y = 0;
-            }
+            pos.y = (ytop * 16) + (br.height / 2) + 0.1f;
         }
 
-        if(velocity.x > 0)
+        if((walltr || wallbr) && vel.x > 0)
         {
-            int tileX = (int)((br.x + br.width + (velocity.x * deltaTime)) / 16);
-            int tileY = (int)(br.y / 16);
-            boolean hasWall = tileLayer.getCell(tileX, tileY) != null;
-            if(hasWall){
-                velocity.x = 0;
-            }
+            pos.x = (xright * 16) - (br.width / 2) - 0.1f;
         }
 
-        if(velocity.x < 0)
+        if((walltl || wallbl) && vel.x < 0)
         {
-            int tileX = (int)((br.x + (velocity.x * deltaTime))  / 16);
-            int tileY = (int)(br.y / 16);
-            boolean hasWall = tileLayer.getCell(tileX, tileY) != null;
-            if(hasWall){
-                velocity.x = 0;
-            }
+            pos.x = (xright * 16) + (br.width / 2) + 0.1f;
         }
+
+        sprite.sprite.setCenter(pos.x, pos.y);
     }
 }
