@@ -131,6 +131,26 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PositionComponent(340,330))
                 .add(new SpriteComponent(new Sprite(desk)))
         );
+
+        TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("pump");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(70,860))
+                .add(new SpriteComponent(new Sprite(pump)))
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(48,640))
+                .add(new SpriteComponent(new Sprite(pump)))
+        );
+
+
+        TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("pipe");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(22,860))
+                .add(new SpriteComponent(new Sprite(pipe)))
+        );
 /*
         actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantLeak);
         engine.addEntity((new Entity())

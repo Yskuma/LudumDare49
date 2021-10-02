@@ -1,12 +1,26 @@
 
 actionables.png
-size: 32, 32
+size: 128, 32
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 desk
   rotate: false
-  xy: 2, 2
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+pump
+  rotate: false
+  xy: 32, 0
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+pipe
+  rotate: false
+  xy: 96, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

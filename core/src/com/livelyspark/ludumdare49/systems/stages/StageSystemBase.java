@@ -44,11 +44,12 @@ public abstract class StageSystemBase extends IntervalSystem {
 
                 switch (event.events){
                     case StartNote:
-                        StartNote();
+                        DoStartNote();
                         break;
                     case EarthQuake:
                         break;
                     case CoolantLeak:
+                        DoCoolantLeak();
                         break;
                     case GloriousLeader:
                         break;
@@ -57,9 +58,10 @@ public abstract class StageSystemBase extends IntervalSystem {
                     case RebelInvasion:
                         break;
                     case PartBreakdownOne:
-                        PartBreakdownOne();
+                        DoPartBreakdownOne();
                         break;
                     case PartBreakdownTwo:
+                        DoPartBreakdownTwo();
                         break;
                     case PartBreakdownThree:
                         break;
@@ -70,17 +72,33 @@ public abstract class StageSystemBase extends IntervalSystem {
         }
     }
 
-    private void StartNote(){
+
+
+    private void DoCoolantLeak() {
+        actionableComponent = new ActionableComponent(1f, 2.0f,25, Color.RED, Actions.CoolantLeak);
+        this.getEngine().addEntity((new Entity())
+                .add(new PositionComponent(27,855))
+                .add(actionableComponent));
+    }
+
+    private void DoStartNote(){
         actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Actions.ReadNote);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(338,332))
                 .add(actionableComponent));
     }
 
-    private void PartBreakdownOne(){
-        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantPumpBreakdown);
+    private void DoPartBreakdownOne(){
+        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Actions.CoolantPumpBreakdown);
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(300,150))
+                .add(new PositionComponent(70,860))
+                .add(actionableComponent));
+    }
+
+    private void DoPartBreakdownTwo() {
+        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Actions.CoolantPumpBreakdown);
+        this.getEngine().addEntity((new Entity())
+                .add(new PositionComponent(48,640))
                 .add(actionableComponent));
     }
 

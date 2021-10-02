@@ -19,7 +19,6 @@ public class ActionableCompleteSystem  extends IteratingSystem {
 
         if(ac.isDone){
             switch (ac.action){
-
                 case ReadNote:
                     DoReadNote();
                     break;
@@ -34,6 +33,7 @@ public class ActionableCompleteSystem  extends IteratingSystem {
                 case OSReinstall:
                     break;
             }
+
             this.getEngine().removeEntity(entity);
         }
     }
