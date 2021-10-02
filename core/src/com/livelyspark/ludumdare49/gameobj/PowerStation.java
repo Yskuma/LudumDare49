@@ -4,28 +4,30 @@ public class PowerStation {
     public final float heatPerFission = 42;
     public final float coolantLevelMax = 42;
     public final float coolantThermalMass = 42;
+    public final float reactorThermalMass = 42;
     public final float tempAmbient = 42;
+    public final float coolantFlowMax = 1;
 
-    public float controlRodPosition;
+    public boolean pumpOK = false;
+    public boolean coolantLeakActive = false;
+    public boolean artificialNeutronActive = true;
 
-    public float coolantLevel;
-    public float coolantPumpSpeed;
+    public float controlRodPosition = 1;
+    public float coolantPumpSpeed = 1;
 
-    public float coolantFlowMax;
-    public boolean coolantLeakActive;
-    public float coolantLeakRate;
-    public boolean pumpOK;
+    public float coolantLevel = 1;
 
-    public boolean artificialNeutronActive;
+    public float coolantLeakRate = 0.01f;
 
-    public float tempReactor;
+    public float reactorHeat= 42;
+    public float reactorTemp = 42;
 
-    public float reactorThermalMass;
+    public float deltaFuelAtoms = 0;
+    public float deltaArtificialNeutrons = 0;
+    public float deltaSlowNeutrons = 0;
 
-    public float deltaArtificialNeutrons;
-    public float deltaSlowNeutrons;
-    public float deltaFuelAtoms;
+    public float power = 0;
 
-    public float reactorHeat;
-    public float power;
+    public boolean isPaused = false;
+    public boolean isDebug = false;
 }
