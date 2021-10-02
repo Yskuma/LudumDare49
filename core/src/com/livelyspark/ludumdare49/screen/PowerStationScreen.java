@@ -60,15 +60,12 @@ public class PowerStationScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.position.set(width / 2, height / 2, 0);
-        camera.update();
+
     }
 
     @Override
     public void show() {
-        camera = new OrthographicCamera(640,480);
+        camera = new OrthographicCamera(320,240);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
 
