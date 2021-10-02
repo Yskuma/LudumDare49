@@ -21,11 +21,13 @@ import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
+import com.livelyspark.ludumdare49.systems.action.ActionableCompleteSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
 import com.livelyspark.ludumdare49.systems.render.ActionRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.ShapeRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.TiledRenderSystem;
+import com.livelyspark.ludumdare49.systems.stages.Stage01System;
 
 public class PowerStationScreen extends AbstractScreen {
 
@@ -50,7 +52,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.update(delta);
 
         posLabel.setText(playerPos.x + ", " + playerPos.y);
-        actionLabel.setText("Act: " + actionableComponent.timeActivated);
+        //actionLabel.setText("Act: " + actionableComponent.timeActivated);
 
         stage.act();
         stage.draw();
@@ -95,20 +97,25 @@ public class PowerStationScreen extends AbstractScreen {
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
         engine.addSystem(new ActionableDecaySystem());
+        engine.addSystem(new ActionableCompleteSystem());
 
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera));
+
+        //StageSystem
+        engine.addSystem(new Stage01System());
     }
 
     private void addEntities() {
         TextureAtlas atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
+        TextureAtlas actionablesAtlas = assetManager.get("textures/actionables.atlas", TextureAtlas.class);
 
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
-        playerPos = new PositionComponent(260,180);
+        playerPos = new PositionComponent(340,300);
         engine.addEntity((new Entity())
                 .add(playerPos)
                 .add(new VelocityComponent(0,0))
@@ -119,6 +126,15 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new WallCollisionComponent())
         );
 
+        //Add Actionables
+
+        TextureAtlas.AtlasRegion desk = actionablesAtlas.findRegion("desk");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(340,330))
+                .add(new SpriteComponent(new Sprite(desk)))
+        );
+/*
         actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantLeak);
         engine.addEntity((new Entity())
                 .add(new PositionComponent(150,150))
@@ -134,7 +150,7 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PositionComponent(300,150))
                 .add(new ActionableComponent(10f, 0.5f,64, Color.BLUE, Actions.HackedComputer))
         );
-
+*/
     }
 
     @Override
