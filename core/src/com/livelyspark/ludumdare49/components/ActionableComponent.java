@@ -2,6 +2,7 @@ package com.livelyspark.ludumdare49.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Color;
+import com.livelyspark.ludumdare49.enums.Actions;
 
 public class ActionableComponent implements Component {
 
@@ -18,13 +19,16 @@ public class ActionableComponent implements Component {
     public boolean isActive = false;
     public boolean isDone = false;
 
-    public ActionableComponent(float timeToActivate, float decayRate, float size, Color color)
+    public Actions action;
+
+    public ActionableComponent(float timeToActivate, float decayRate, float size, Color color, Actions action)
     {
         this.timeToActivate = timeToActivate;
         this.decayRate = decayRate;
         this.size = size;
         this.color = color;
         this.activationDist = (size / 2) + 16;
+        this.action = action;
     }
 
 

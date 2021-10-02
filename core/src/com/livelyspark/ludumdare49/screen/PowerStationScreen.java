@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.Actions;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
@@ -117,7 +118,7 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new WallCollisionComponent())
         );
 
-        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED);
+        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantLeak);
         engine.addEntity((new Entity())
                 .add(new PositionComponent(150,150))
                 .add(actionableComponent)
@@ -125,12 +126,12 @@ public class PowerStationScreen extends AbstractScreen {
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(200,150))
-                .add(new ActionableComponent(1f, 10.0f,32, Color.GREEN))
+                .add(new ActionableComponent(1f, 10.0f,32, Color.GREEN, Actions.CoolantPumpBreakdown))
         );
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(300,150))
-                .add(new ActionableComponent(10f, 0.5f,64, Color.BLUE))
+                .add(new ActionableComponent(10f, 0.5f,64, Color.BLUE, Actions.HackedComputer))
         );
 
     }
