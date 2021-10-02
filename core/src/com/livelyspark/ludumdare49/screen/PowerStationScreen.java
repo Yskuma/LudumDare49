@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.Actions;
 import com.livelyspark.ludumdare49.enums.Shapes;
+import com.livelyspark.ludumdare49.gameobj.ActiveActions;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
@@ -82,6 +83,8 @@ public class PowerStationScreen extends AbstractScreen {
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
 
+        ActiveActions activeActions = new ActiveActions();
+
         //Camera Systems
         engine.addSystem(new CameraSystem(camera));
 
@@ -94,16 +97,16 @@ public class PowerStationScreen extends AbstractScreen {
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
         engine.addSystem(new ActionableDecaySystem());
-        engine.addSystem(new ActionableCompleteSystem());
+        engine.addSystem(new ActionableCompleteSystem(activeActions));
 
         //Renderers
-        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
+        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera));
 
         //StageSystem
-        engine.addSystem(new Stage01System());
+        engine.addSystem(new Stage01System(activeActions));
     }
 
     private void addEntities() {
