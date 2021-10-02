@@ -1,18 +1,24 @@
 package com.livelyspark.ludumdare49.systems.stages;
 
+import com.livelyspark.ludumdare49.gameobj.ActiveActions;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.enums.Events;
 import com.livelyspark.ludumdare49.stages.Stage;
 
 public class Stage01System extends StageSystemBase {
+    public Stage01System(ActiveActions activeActions) {
+        super(activeActions);
+    }
+
     @Override
     protected void GenerateStage() {
         thisStage = new Stage(
                 new Event[]{
                         new Event(Events.StartNote, 0.0),
-                        new Event(Events.CoolantLeak, 25.0),
-                        new Event(Events.PartBreakdownOne, 50.0),
-                        new Event(Events.GloriousLeader, 75.0)
+                        new Event(Events.CoolantLeak, 0.0),
+                        new Event(Events.PartBreakdownOne, 0.0),
+                        new Event(Events.PartBreakdownTwo, 0.0),
+                        new Event(Events.OppositionHacker, 0.0)
                 },
                 1000.0
         );

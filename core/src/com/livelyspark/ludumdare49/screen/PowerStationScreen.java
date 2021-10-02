@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ActiveActions;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
@@ -92,6 +93,8 @@ public class PowerStationScreen extends AbstractScreen {
 
         powerStation = new PowerStation();
 
+        ActiveActions activeActions = new ActiveActions();
+
         //Camera Systems
         engine.addSystem(new CameraSystem(camera));
 
@@ -104,10 +107,10 @@ public class PowerStationScreen extends AbstractScreen {
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
         engine.addSystem(new ActionableDecaySystem());
-        engine.addSystem(new ActionableCompleteSystem());
+        engine.addSystem(new ActionableCompleteSystem(activeActions));
 
         //Renderers
-        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
+        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera));
@@ -117,7 +120,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new DebugControlSystem(powerStation));
 
         //StageSystem
-        engine.addSystem(new Stage01System());
+        engine.addSystem(new Stage01System(activeActions));
     }
 
     private void addEntities() {
@@ -144,6 +147,33 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(340,330))
                 .add(new SpriteComponent(new Sprite(desk)))
+        );
+
+        TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("pump");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(70,860))
+                .add(new SpriteComponent(new Sprite(pump)))
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(48,640))
+                .add(new SpriteComponent(new Sprite(pump)))
+        );
+
+
+        TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("pipe");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(22,860))
+                .add(new SpriteComponent(new Sprite(pipe)))
+        );
+
+        TextureAtlas.AtlasRegion computer = actionablesAtlas.findRegion("computer");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(224,640))
+                .add(new SpriteComponent(new Sprite(computer)))
         );
 /*
         actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantLeak);
