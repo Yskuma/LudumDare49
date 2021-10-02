@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.screen.LoadingScreen;
 import com.livelyspark.ludumdare49.screen.MainMenuScreen;
+import com.livelyspark.ludumdare49.screen.PowerStationScreen;
 import com.livelyspark.ludumdare49.screen.Screens;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
 
     private LoadingScreen loadingScreen;
     private MainMenuScreen mainMenuScreen;
+    private PowerStationScreen powerStationScreen;
 
     public void switchScreen(Screens screen)  {
         switch (screen) {
@@ -29,6 +31,10 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
             case MainMenu:
                 if(mainMenuScreen == null){mainMenuScreen = new MainMenuScreen(this, assetManager);}
                 setScreen(mainMenuScreen);
+                break;
+            case PowerStation:
+                if(powerStationScreen == null){powerStationScreen = new PowerStationScreen(this, assetManager);}
+                setScreen(powerStationScreen);
                 break;
         }
     }

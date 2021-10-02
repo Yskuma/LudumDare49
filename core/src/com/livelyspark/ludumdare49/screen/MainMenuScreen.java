@@ -34,6 +34,7 @@ public class MainMenuScreen extends AbstractScreen {
     private Stage stage;
     private Label titleLabel;
     private EdgeBounceSystem ebs;
+    private Label clickContinueLabel;
 
     public MainMenuScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -48,6 +49,10 @@ public class MainMenuScreen extends AbstractScreen {
 
         stage.act();
         stage.draw();
+
+        if (Gdx.input.isTouched()) { // If the screen is touched after the game is done loading, go to the main menu screen
+            screenManager.switchScreen(Screens.PowerStation);
+        }
     }
 
     @Override
@@ -60,6 +65,9 @@ public class MainMenuScreen extends AbstractScreen {
         titleLabel.setX((stage.getWidth() - titleLabel.getWidth()) / 2);
         titleLabel.setY((stage.getHeight() - titleLabel.getHeight()) / 2);
 
+        clickContinueLabel.setX((stage.getWidth() - titleLabel.getWidth()) / 2);
+        clickContinueLabel.setY(((stage.getHeight() - titleLabel.getHeight()) / 2) - 50);
+
         ebs.setBounds(new Rectangle(0, 0, width, height));
     }
 
@@ -70,7 +78,10 @@ public class MainMenuScreen extends AbstractScreen {
         stage = new Stage();
 
         titleLabel = new Label("Main Menu", uiSkin, "bigTitleBitmap", Color.WHITE);
+        clickContinueLabel = new Label("Click To Continue", uiSkin, "font", Color.WHITE);
+
         stage.addActor(titleLabel);
+        stage.addActor(clickContinueLabel);
 
         addEntities();
 
@@ -80,7 +91,6 @@ public class MainMenuScreen extends AbstractScreen {
         engine.addSystem(new SpritePositionSystem());
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(ebs);
-
     }
 
     private void addEntities() {
