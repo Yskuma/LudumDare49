@@ -18,6 +18,9 @@ import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
+import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
+import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
+import com.livelyspark.ludumdare49.systems.render.ActionRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.ShapeRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
 import com.livelyspark.ludumdare49.systems.render.TiledRenderSystem;
@@ -30,6 +33,8 @@ public class PowerStationScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer tiledRenderer;
     private Label posLabel;
     private PositionComponent playerPos;
+    private ActionableComponent actionableComponent;
+    private Label actionLabel;
 
     public PowerStationScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -43,6 +48,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.update(delta);
 
         posLabel.setText(playerPos.x + ", " + playerPos.y);
+        actionLabel.setText("Act: " + actionableComponent.timeActivated);
 
         stage.act();
         stage.draw();
@@ -63,21 +69,32 @@ public class PowerStationScreen extends AbstractScreen {
         stage = new Stage();
 
         posLabel = new Label("a,a", uiSkin, "font", Color.WHITE);
+        actionLabel = new Label("a", uiSkin, "font", Color.WHITE);
+        actionLabel.setPosition(0, 40);
+
         stage.addActor(posLabel);
-        //stage.addActor(titleLabel);
+        stage.addActor(actionLabel);
 
         tiledRenderer = new OrthogonalTiledMapRenderer(assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class));
         addEntities();
 
+        //Camera Systems
         engine.addSystem(new CameraSystem(camera));
+
+        //Movement/Position Systems
         engine.addSystem(new PlayerMovementSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
+
+        //Action Systems
+        engine.addSystem(new ActionableActivateSystem(playerPos));
+        engine.addSystem(new ActionableDecaySystem());
 
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
+        engine.addSystem(new ActionRenderSystem(camera));
     }
 
     private void addEntities() {
@@ -93,6 +110,22 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PlayerComponent())
                 .add(new CameraTargetComponent())
                 .add(new ShapeComponent(Shapes.CIRCLE, Color.RED, 32))
+        );
+
+        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED);
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(150,150))
+                .add(actionableComponent)
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(200,150))
+                .add(new ActionableComponent(1f, 10.0f,32, Color.GREEN))
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(300,150))
+                .add(new ActionableComponent(10f, 0.5f,64, Color.BLUE))
         );
 
     }

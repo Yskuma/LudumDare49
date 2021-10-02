@@ -49,7 +49,7 @@ public class PlayerMovementSystem extends IteratingSystem {
         }
 
         velVec = velVec.nor().scl(speed);
-        velocity.velocityX = velVec.x;
-        velocity.velocityY = velVec.y;
+        velocity.x = velVec.x;
+        velocity.y = velVec.y;
     }
 }

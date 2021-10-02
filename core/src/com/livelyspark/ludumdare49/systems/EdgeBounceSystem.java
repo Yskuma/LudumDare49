@@ -36,24 +36,24 @@ public class EdgeBounceSystem extends IteratingSystem {
 
         Rectangle sRect = sprite.sprite.getBoundingRectangle();
 
-        if(velocity.velocityX < 0 && sRect.x < 0)
+        if(velocity.x < 0 && sRect.x < 0)
         {
-            velocity.velocityX *= -1;
+            velocity.x *= -1;
         }
 
-        if(velocity.velocityY < 0 && sRect.y < 0)
+        if(velocity.y < 0 && sRect.y < 0)
         {
-            velocity.velocityY *= -1;
+            velocity.y *= -1;
         }
 
-        if(velocity.velocityX > 0 && sRect.x + sRect.width > bounds.width)
+        if(velocity.x > 0 && sRect.x + sRect.width > bounds.width)
         {
-            velocity.velocityX *= -1;
+            velocity.x *= -1;
         }
 
-        if(velocity.velocityY > 0 && sRect.y + sRect.height > bounds.height)
+        if(velocity.y > 0 && sRect.y + sRect.height > bounds.height)
         {
-            velocity.velocityY *= -1;
+            velocity.y *= -1;
         }
     }
 }

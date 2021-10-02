@@ -9,12 +9,22 @@ public class ActionableComponent implements Component {
     public final float timeToActivate;
     public final float decayRate;
 
-    float timeActivated = 0.0f;
+    public float activationDist;
 
-    public ActionableComponent(float timeToActivate, float decayRate)
+    public Color color;
+    public float size;
+
+    public float timeActivated = 0.0f;
+    public boolean isActive = false;
+    public boolean isDone = false;
+
+    public ActionableComponent(float timeToActivate, float decayRate, float size, Color color)
     {
         this.timeToActivate = timeToActivate;
         this.decayRate = decayRate;
+        this.size = size;
+        this.color = color;
+        this.activationDist = (size / 2) + 16;
     }
 
 

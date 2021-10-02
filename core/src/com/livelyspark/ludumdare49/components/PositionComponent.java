@@ -1,13 +1,15 @@
 package com.livelyspark.ludumdare49.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
 
-public class PositionComponent implements Component {
-    public float x;
-    public float y;
+public class PositionComponent extends Vector2 implements Component {
 
     public PositionComponent (float x, float y) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
+    }
+
+    public PositionComponent() {
+        super();
     }
 }

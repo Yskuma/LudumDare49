@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.math.Vector2;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.components.VelocityComponent;
 
@@ -21,7 +22,6 @@ public class MovementSystem extends IteratingSystem {
         PositionComponent position = pm.get(entity);
         VelocityComponent velocity = mm.get(entity);
 
-        position.x += velocity.velocityX * deltaTime;
-        position.y += velocity.velocityY * deltaTime;
+        position.add(new Vector2(velocity).scl(deltaTime));
     }
 }

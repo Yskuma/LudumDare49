@@ -73,7 +73,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        camera = new OrthographicCamera(200, 400);
+        camera = new OrthographicCamera(640,480);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
 
