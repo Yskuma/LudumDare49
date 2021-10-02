@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -75,7 +76,9 @@ public class PowerStationScreen extends AbstractScreen {
         stage.addActor(posLabel);
         stage.addActor(actionLabel);
 
-        tiledRenderer = new OrthogonalTiledMapRenderer(assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class));
+        TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
+        TiledMapTileLayer wallLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Walls");
+        tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
 
         //Camera Systems
@@ -83,6 +86,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Movement/Position Systems
         engine.addSystem(new PlayerMovementSystem());
+        engine.addSystem(new WallCollisionSystem(wallLayer));
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
 
@@ -110,6 +114,7 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PlayerComponent())
                 .add(new CameraTargetComponent())
                 .add(new ShapeComponent(Shapes.CIRCLE, Color.RED, 32))
+                .add(new WallCollisionComponent())
         );
 
         actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED);

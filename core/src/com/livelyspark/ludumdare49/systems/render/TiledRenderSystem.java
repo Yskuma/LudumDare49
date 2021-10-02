@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.livelyspark.ludumdare49.components.CameraTargetComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
@@ -15,8 +16,6 @@ public class TiledRenderSystem extends EntitySystem {
 
     private final OrthographicCamera camera;
     private final OrthogonalTiledMapRenderer renderer;
-
-    private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
 
     public TiledRenderSystem(OrthogonalTiledMapRenderer renderer, OrthographicCamera camera) {
         super();
