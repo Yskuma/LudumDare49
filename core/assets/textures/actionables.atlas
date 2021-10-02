@@ -25,3 +25,10 @@ pipe
   orig: 32, 32
   offset: 0, 0
   index: -1
+computer
+  rotate: false
+  xy: 128, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

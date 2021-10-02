@@ -54,6 +54,7 @@ public abstract class StageSystemBase extends IntervalSystem {
                     case GloriousLeader:
                         break;
                     case OppositionHacker:
+                        DoOppositionHacker();
                         break;
                     case RebelInvasion:
                         break;
@@ -73,6 +74,12 @@ public abstract class StageSystemBase extends IntervalSystem {
     }
 
 
+    private void DoStartNote(){
+        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Actions.ReadNote);
+        this.getEngine().addEntity((new Entity())
+                .add(new PositionComponent(338,332))
+                .add(actionableComponent));
+    }
 
     private void DoCoolantLeak() {
         actionableComponent = new ActionableComponent(1f, 2.0f,25, Color.RED, Actions.CoolantLeak);
@@ -81,10 +88,10 @@ public abstract class StageSystemBase extends IntervalSystem {
                 .add(actionableComponent));
     }
 
-    private void DoStartNote(){
-        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Actions.ReadNote);
+    private void DoOppositionHacker() {
+        actionableComponent = new ActionableComponent(1f, 2.0f,32, Color.RED, Actions.HackedComputer);
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(338,332))
+                .add(new PositionComponent(224,638))
                 .add(actionableComponent));
     }
 
