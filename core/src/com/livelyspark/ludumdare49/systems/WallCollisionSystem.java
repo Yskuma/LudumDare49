@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,16 +15,19 @@ import com.livelyspark.ludumdare49.components.SpriteComponent;
 import com.livelyspark.ludumdare49.components.VelocityComponent;
 import com.livelyspark.ludumdare49.components.WallCollisionComponent;
 
+import java.util.Iterator;
+
 public class WallCollisionSystem extends IteratingSystem {
 
-    private final TiledMapTileLayer tileLayer;
+
+    private final TiledMap tiledMap;
     private ComponentMapper<SpriteComponent> sm = ComponentMapper.getFor(SpriteComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
 
-    public WallCollisionSystem(TiledMapTileLayer tileLayer) {
+    public WallCollisionSystem(TiledMap tiledMap ) {
         super(Family.all(SpriteComponent.class, PositionComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
-        this.tileLayer = tileLayer;
+        this.tiledMap = tiledMap;
     }
 
     @Override
@@ -37,10 +42,10 @@ public class WallCollisionSystem extends IteratingSystem {
         int ytop = (int)((br.y + br.height) / 16);
         int ybottom= (int)((br.y) / 16);
 
-        boolean walltl = (tileLayer.getCell(xleft, ytop) != null);
-        boolean walltr = (tileLayer.getCell(xright, ytop) != null);
-        boolean wallbl = (tileLayer.getCell(xleft, ybottom) != null);
-        boolean wallbr = (tileLayer.getCell(xright, ybottom) != null);
+        boolean walltl = isBlocked(xleft, ytop);
+        boolean walltr = isBlocked(xright, ytop);
+        boolean wallbl = isBlocked(xleft, ybottom);
+        boolean wallbr = isBlocked(xright, ybottom);
 
         if((walltl || walltr) && vel.y > 0)
         {
@@ -63,5 +68,18 @@ public class WallCollisionSystem extends IteratingSystem {
         }
 
         sprite.sprite.setCenter(pos.x, pos.y);
+    }
+
+    private boolean isBlocked(int x, int y)
+    {
+        for (MapLayer mapLayer : tiledMap.getLayers()) {
+            TiledMapTileLayer ml = (TiledMapTileLayer) mapLayer;
+            Boolean layerBlocks = ml.getProperties().get("Blocks", false, Boolean.class);
+            if (layerBlocks && (ml.getCell(x, y) != null)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

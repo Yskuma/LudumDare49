@@ -87,7 +87,6 @@ public class PowerStationScreen extends AbstractScreen {
 
         //TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
         TiledMap tiledMap = assetManager.get("tilemaps/powerstation.tmx", TiledMap.class);
-        TiledMapTileLayer wallLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Walls");
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
 
@@ -102,7 +101,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new PlayerMovementSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
-        engine.addSystem(new WallCollisionSystem(wallLayer));
+        engine.addSystem(new WallCollisionSystem(tiledMap));
 
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
