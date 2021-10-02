@@ -77,7 +77,8 @@ public class PowerStationScreen extends AbstractScreen {
         stage.addActor(posLabel);
         stage.addActor(actionLabel);
 
-        TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
+        //TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
+        TiledMap tiledMap = assetManager.get("tilemaps/powerstation.tmx", TiledMap.class);
         TiledMapTileLayer wallLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Walls");
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
@@ -107,7 +108,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
-        playerPos = new PositionComponent(0,0);
+        playerPos = new PositionComponent(260,180);
         engine.addEntity((new Entity())
                 .add(playerPos)
                 .add(new VelocityComponent(0,0))

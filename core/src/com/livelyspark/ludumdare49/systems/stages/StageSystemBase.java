@@ -5,6 +5,7 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
+import com.livelyspark.ludumdare49.enums.Actions;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.stages.Stage;
 
@@ -64,7 +65,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     }
 
     private void PartBreakdownOne(){
-        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED);
+        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantPumpBreakdown);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(150,150))
                 .add(actionableComponent));
