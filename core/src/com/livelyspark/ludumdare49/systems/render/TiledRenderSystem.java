@@ -1,4 +1,4 @@
-package com.livelyspark.ludumdare49.systems;
+package com.livelyspark.ludumdare49.systems.render;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;

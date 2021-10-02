@@ -1,4 +1,4 @@
-package com.livelyspark.ludumdare49.systems;
+package com.livelyspark.ludumdare49.systems.render;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;

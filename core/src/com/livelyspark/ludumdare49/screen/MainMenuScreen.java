@@ -7,7 +7,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,11 +18,12 @@ import com.livelyspark.ludumdare49.components.EdgeBounceComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.components.SpriteComponent;
 import com.livelyspark.ludumdare49.components.VelocityComponent;
+import com.livelyspark.ludumdare49.enums.Screens;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.EdgeBounceSystem;
 import com.livelyspark.ludumdare49.systems.MovementSystem;
 import com.livelyspark.ludumdare49.systems.SpritePositionSystem;
-import com.livelyspark.ludumdare49.systems.SpriteRenderSystem;
+import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
 
 import java.util.Random;
 

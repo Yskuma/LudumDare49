@@ -8,7 +8,7 @@ import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.screen.LoadingScreen;
 import com.livelyspark.ludumdare49.screen.MainMenuScreen;
 import com.livelyspark.ludumdare49.screen.PowerStationScreen;
-import com.livelyspark.ludumdare49.screen.Screens;
+import com.livelyspark.ludumdare49.enums.Screens;
 
 import java.util.HashMap;
 

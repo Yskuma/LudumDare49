@@ -11,16 +11,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
-
-import java.util.Random;
+import com.livelyspark.ludumdare49.systems.render.ShapeRenderSystem;
+import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
+import com.livelyspark.ludumdare49.systems.render.TiledRenderSystem;
 
 public class PowerStationScreen extends AbstractScreen {
 
@@ -73,8 +73,11 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new PlayerMovementSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
+
+        //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new SpriteRenderSystem(camera));
+        engine.addSystem(new ShapeRenderSystem(camera));
     }
 
     private void addEntities() {
@@ -88,7 +91,9 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new VelocityComponent(0,0))
                 .add(new SpriteComponent(new Sprite(dude)))
                 .add(new PlayerComponent())
-                .add(new CameraTargetComponent()));
+                .add(new CameraTargetComponent())
+                .add(new ShapeComponent(Shapes.CIRCLE, Color.RED, 32))
+        );
 
     }
 
