@@ -9,6 +9,7 @@ public class Stage01System extends StageSystemBase {
     protected void GenerateStage() {
         thisStage = new Stage(
                 new Event[]{
+                        new Event(Events.StartNote, 0.0),
                         new Event(Events.CoolantLeak, 25.0),
                         new Event(Events.PartBreakdownOne, 50.0),
                         new Event(Events.GloriousLeader, 75.0)

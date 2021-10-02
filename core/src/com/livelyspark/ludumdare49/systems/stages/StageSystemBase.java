@@ -38,8 +38,14 @@ public abstract class StageSystemBase extends IntervalSystem {
         for (int i = 0; i < thisStage.events.length; i++) {
             Event event = thisStage.events[i];
             if(!event.triggered
-                    && event.triggerPercent >= thisStage.completionPercent){
+                    && thisStage.completionPercent >= event.triggerPercent){
+
+                event.triggered = true;
+
                 switch (event.events){
+                    case StartNote:
+                        StartNote();
+                        break;
                     case EarthQuake:
                         break;
                     case CoolantLeak:
@@ -64,10 +70,17 @@ public abstract class StageSystemBase extends IntervalSystem {
         }
     }
 
+    private void StartNote(){
+        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Actions.ReadNote);
+        this.getEngine().addEntity((new Entity())
+                .add(new PositionComponent(338,332))
+                .add(actionableComponent));
+    }
+
     private void PartBreakdownOne(){
         actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantPumpBreakdown);
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(150,150))
+                .add(new PositionComponent(300,150))
                 .add(actionableComponent));
     }
 

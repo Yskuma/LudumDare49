@@ -45,6 +45,7 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader());
         assetManager.load("textures/dummy.atlas", TextureAtlas.class);
         assetManager.load("textures/sprites.atlas", TextureAtlas.class);
+        assetManager.load("textures/actionables.atlas", TextureAtlas.class);
         assetManager.load("tilemaps/testmapsmall.tmx", TiledMap.class);
         assetManager.load("tilemaps/powerstation.tmx", TiledMap.class);
     }
