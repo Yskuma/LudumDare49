@@ -16,7 +16,7 @@ public abstract class StageSystemBase extends IntervalSystem {
 
     protected Stage thisStage;
     private ActionableComponent actionableComponent;
-    ActiveActions activeActions;
+    private ActiveActions activeActions;
 
     public StageSystemBase(ActiveActions activeActions) {
         super( 1.0f);
@@ -50,6 +50,7 @@ public abstract class StageSystemBase extends IntervalSystem {
                         DoStartNote();
                         break;
                     case EarthQuake:
+                        DoRubble();
                         break;
                     case CoolantLeak:
                         DoCoolantLeak();
@@ -76,11 +77,21 @@ public abstract class StageSystemBase extends IntervalSystem {
         }
     }
 
-
     private void DoStartNote(){
         Actions action = Actions.ReadNote;
 
         actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, action);
+        this.getEngine().addEntity((new Entity())
+                .add(new PositionComponent(338,332))
+                .add(actionableComponent));
+
+        activeActions.activeActions.add(action);
+    }
+
+    private void DoRubble() {
+        Actions action = Actions.Rubble;
+
+        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.YELLOW, action);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(338,332))
                 .add(actionableComponent));

@@ -44,12 +44,17 @@ public class ActionableCompleteSystem  extends IteratingSystem {
                 case OSReinstall:
                     ResolveOSReinstall();
                     break;
+                case Rubble:
+                    ResolveRubble();
+                    break;
             }
 
             activeActions.activeActions.remove(ac.action);
             this.getEngine().removeEntity(entity);
         }
     }
+
+
 
     private void ResolveReadNote() {
     }
@@ -67,5 +72,8 @@ public class ActionableCompleteSystem  extends IteratingSystem {
     }
 
     private void ResolveOSReinstall() {
+    }
+
+    private void ResolveRubble() {
     }
 }

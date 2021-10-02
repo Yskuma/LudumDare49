@@ -6,5 +6,6 @@ public enum Actions {
     WaterPumpBreakdown,
     CoolantPumpBreakdown,
     HackedComputer,
-    OSReinstall
+    OSReinstall,
+    Rubble
 }
