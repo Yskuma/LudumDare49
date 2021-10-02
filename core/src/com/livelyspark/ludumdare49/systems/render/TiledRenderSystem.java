@@ -27,8 +27,10 @@ public class TiledRenderSystem extends EntitySystem {
         this.camera = camera;
         this.renderer = renderer;
         this.activeActions = activeActions;
+
         coolantLayerRendering = false;
         coolantLayer = renderer.getMap().getLayers().get("CoolantLeak1");
+        renderer.getMap().getLayers().remove(coolantLayer);
     }
 
     @Override
@@ -43,10 +45,12 @@ public class TiledRenderSystem extends EntitySystem {
         if(activeActions.activeActions.contains(Actions.CoolantLeak)
         && !coolantLayerRendering){
             renderer.getMap().getLayers().add(coolantLayer);
+            coolantLayerRendering = true;
         }
         else if(!activeActions.activeActions.contains(Actions.CoolantLeak)
                 && coolantLayerRendering){
             renderer.getMap().getLayers().remove(coolantLayer);
+            coolantLayerRendering = false;
         }
     }
 }
