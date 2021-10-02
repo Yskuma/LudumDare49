@@ -93,7 +93,7 @@ public abstract class StageSystemBase extends IntervalSystem {
 
         actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.YELLOW, action);
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(338,332))
+                .add(new PositionComponent(446,512))
                 .add(actionableComponent));
 
         activeActions.activeActions.add(action);

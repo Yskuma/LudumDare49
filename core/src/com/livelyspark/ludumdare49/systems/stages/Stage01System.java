@@ -18,7 +18,8 @@ public class Stage01System extends StageSystemBase {
                         new Event(Events.CoolantLeak, 0.0),
                         new Event(Events.PartBreakdownOne, 0.0),
                         new Event(Events.PartBreakdownTwo, 0.0),
-                        new Event(Events.OppositionHacker, 0.0)
+                        new Event(Events.OppositionHacker, 0.0),
+                        new Event(Events.EarthQuake, 0.0)
                 },
                 1000.0
         );
