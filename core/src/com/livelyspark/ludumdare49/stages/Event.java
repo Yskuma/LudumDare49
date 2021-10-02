@@ -1,13 +1,15 @@
 package com.livelyspark.ludumdare49.stages;
 
-public class Event {
-    public EventType Type;
-    public double TriggerPercent;
-    public boolean Triggered;
+import com.livelyspark.ludumdare49.enums.Events;
 
-    public Event (EventType type, double triggerPercent){
-        Type = type;
-        TriggerPercent = triggerPercent;
-        Triggered = false;
+public class Event {
+    public Events events;
+    public double triggerPercent;
+    public boolean triggered;
+
+    public Event (Events events, double triggerPercent){
+        this.events = events;
+        this.triggerPercent = triggerPercent;
+        this.triggered = false;
     }
 }

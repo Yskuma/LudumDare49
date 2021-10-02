@@ -1,34 +1,29 @@
 package com.livelyspark.ludumdare49.stages;
 
-import java.util.ArrayList;
+import com.livelyspark.ludumdare49.enums.Events;
 
 public class StageGenerator {
-    public Stage Stage1 = new Stage(
-            1,
+    public Stage stage1 = new Stage(
             new Event[]{
-                new Event(EventType.CoolantLeak, 25.0),
-                new Event(EventType.PartBreakdownOne, 50.0),
-                new Event(EventType.GloriousLeader, 75.0)
+                new Event(Events.CoolantLeak, 25.0),
+                new Event(Events.PartBreakdownOne, 50.0),
+                new Event(Events.GloriousLeader, 75.0)
             },
             1000.0
             );
-    public Stage Stage2 = new Stage(
-            1,
+    public Stage stage2 = new Stage(
             new Event[]{},
             1000.0
     );
-    public Stage Stage3 = new Stage(
-            1,
+    public Stage stage3 = new Stage(
             new Event[]{},
             1000.0
     );
-    public Stage Stage4 = new Stage(
-            1,
+    public Stage stage4 = new Stage(
             new Event[]{},
             1000.0
     );
-    public Stage Stage5 = new Stage(
-            1,
+    public Stage stage5 = new Stage(
             new Event[]{},
             1000.0
     );

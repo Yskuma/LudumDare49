@@ -1,21 +1,16 @@
 package com.livelyspark.ludumdare49.stages;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Stage {
 
-    public int Index;
-    public Event[] Events;
-    public double PowerTarget;
-    public double CurrentPower;
-    public double CompletionPercent;
+    public Event[] events;
+    public double powerTarget;
+    public double currentPower;
+    public double completionPercent;
 
-    public Stage(int index, Event[] events, double powerTarget){
-        Index = index;
-        Events = events;
-        PowerTarget = powerTarget;
-        CurrentPower = 0.0;
-        CompletionPercent = 0.0;
+    public Stage(Event[] events, double powerTarget){
+        this.events = events;
+        this.powerTarget = powerTarget;
+        this.currentPower = 0.0;
+        this.completionPercent = 0.0;
     }
 }

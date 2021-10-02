@@ -1,13 +1,13 @@
 package com.livelyspark.ludumdare49.components;
 
 import com.badlogic.ashley.core.Component;
-import com.livelyspark.ludumdare49.stages.EventType;
+import com.livelyspark.ludumdare49.enums.Events;
 
 public class EventComponent implements Component {
-    public EventType Type;
+    public Events Type;
     public boolean InProgress;
 
-    public EventComponent (EventType type){
+    public EventComponent (Events type){
         Type = type;
     }
 }

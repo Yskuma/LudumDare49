@@ -1,6 +1,6 @@
-package com.livelyspark.ludumdare49.stages;
+package com.livelyspark.ludumdare49.enums;
 
-public enum EventType {
+public enum Events {
     EarthQuake,
     CoolantLeak,
     GloriousLeader,
