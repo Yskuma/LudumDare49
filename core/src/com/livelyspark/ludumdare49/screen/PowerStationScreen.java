@@ -101,6 +101,9 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new MessageSystem(screenState));
         inputMultiplexer.addProcessor(new MessageInputProcessor(screenState));
 
+        //Reactor Systems
+        engine.addSystem(new ReactorSystem(powerStation));
+
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
