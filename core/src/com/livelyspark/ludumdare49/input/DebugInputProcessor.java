@@ -11,13 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.livelyspark.ludumdare49.components.CommandComponent;
+import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class DebugInputProcessor implements InputProcessor {
 
     private final PowerStation ps;
+    private final ScreenState state;
 
-    public DebugInputProcessor(PowerStation powerStation) {
+    public DebugInputProcessor(ScreenState state, PowerStation powerStation) {
+        this.state = state;
         this.ps = powerStation;
     }
 
@@ -26,11 +31,11 @@ public class DebugInputProcessor implements InputProcessor {
 
         // This one is always active
         if (keycode == Input.Keys.O) {
-            ps.isDebug = !ps.isDebug;
+            state.isDebug = !state.isDebug;
         }
 
         // If we're not in debug turn the other stuff off
-        if (!ps.isDebug) {
+        if (!state.isDebug) {
             return false;
         }
 
@@ -40,23 +45,19 @@ public class DebugInputProcessor implements InputProcessor {
                 break;
 
             case Input.Keys.LEFT_BRACKET:
-                ps.controlRodPosition -= 0.1f;
-                ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0f, 1f);
+                state.completedCommands.add(Commands.ControlRodDecrease);
                 break;
 
             case Input.Keys.RIGHT_BRACKET:
-                ps.controlRodPosition += 0.1f;
-                ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0f, 1f);
+                state.completedCommands.add(Commands.ControlRodIncrease);
                 break;
 
             case Input.Keys.COMMA:
-                ps.coolantPumpSpeed -= 0.1f;
-                ps.coolantPumpSpeed = MathUtils.clamp(ps.coolantPumpSpeed, 0f, 1f);
+                state.completedCommands.add(Commands.CoolantPumpDecrease);
                 break;
 
             case Input.Keys.PERIOD:
-                ps.coolantPumpSpeed += 0.1f;
-                ps.coolantPumpSpeed = MathUtils.clamp(ps.coolantPumpSpeed, 0f, 1f);
+                state.completedCommands.add(Commands.CoolantPumpIncrease);
                 break;
 
             default:

@@ -33,7 +33,6 @@ public class MessageUiSystem extends EntitySystem {
     @Override
     public void addedToEngine (Engine engine) {
         stage = new Stage();
-        entities = engine.getEntitiesFor(Family.all(SpriteComponent.class).get());
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         Drawable tableBackground = uiSkin.getDrawable("textfield");
 

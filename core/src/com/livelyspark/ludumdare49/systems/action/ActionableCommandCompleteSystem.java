@@ -3,24 +3,28 @@ package com.livelyspark.ludumdare49.systems.action;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
+import com.livelyspark.ludumdare49.components.CommandComponent;
+import com.livelyspark.ludumdare49.components.EffectComponent;
+import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.Effects;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 import java.util.EnumSet;
 
-public class ActionableCompleteSystem extends EntitySystem {
+public class ActionableCommandCompleteSystem extends EntitySystem {
 
     private final ScreenState state;
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
+    private ComponentMapper<CommandComponent> em = ComponentMapper.getFor(CommandComponent.class);
     private ImmutableArray<Entity> entities;
 
-    public ActionableCompleteSystem(ScreenState state)  {
+    public ActionableCommandCompleteSystem(ScreenState state)  {
         this.state = state;
     }
 
     @Override
     public void addedToEngine (Engine engine) {
-        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class, CommandComponent.class).get());
     }
 
     @Override
@@ -31,31 +35,21 @@ public class ActionableCompleteSystem extends EntitySystem {
     @Override
     public void update (float deltaTime) {
 
-        EnumSet<Effects> currentEffects = EnumSet.noneOf(Effects.class);
-        EnumSet<Effects> completedEffects = EnumSet.noneOf(Effects.class);
+        EnumSet<Commands> completedCommands = EnumSet.noneOf(Commands.class);
 
         for(Entity e : entities)
         {
             ActionableComponent ac = am.get(e);
+            CommandComponent cc = em.get(e);
 
             if(ac.isDone){
-                this.getEngine().removeEntity(e);
-            }
-            else
-            {
-                currentEffects.add(ac.effect);
+                completedCommands.add(cc.command);
+                ac.timeActivated = 0;
+                ac.isDone = false;
             }
         }
 
-        for(Effects eff : state.activeEffects) {
-            if(!currentEffects.contains(eff))
-            {
-                completedEffects.add(eff);
-            }
-        }
-
-        state.activeEffects = currentEffects;
-        state.completedEffects = completedEffects;
+        state.completedCommands.addAll(completedCommands);
     }
 
 }

@@ -26,6 +26,7 @@ import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.*;
 import com.livelyspark.ludumdare49.input.DebugInputProcessor;
+import com.livelyspark.ludumdare49.systems.ui.DebugPlayerPosUiSystem;
 import com.livelyspark.ludumdare49.systems.ui.DebugReactorUiSystem;
 import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
@@ -93,8 +94,13 @@ public class PowerStationScreen extends AbstractScreen {
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
         engine.addSystem(new ActionableDecaySystem());
-        engine.addSystem(new ActionableCompleteSystem(screenState));
-        engine.addSystem(new ActionableResolveSystem(screenState));
+
+        engine.addSystem(new ActionableEffectCompleteSystem(screenState));
+        engine.addSystem(new ActionableEffectResolveSystem(screenState));
+
+        engine.addSystem(new ActionableCommandCompleteSystem(screenState));
+        engine.addSystem(new ActionableCommandResolveSystem(screenState, powerStation));
+
         engine.addSystem(new ActionableTiledLayerSystem(tiledMap, screenState));
 
         //Message Systems
@@ -110,15 +116,16 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new AnimationRenderSystem(camera));
-        engine.addSystem(new ActionRenderSystem(camera,assetManager));
-        engine.addSystem(new ActionHintRenderSystem(camera, playerPos, assetManager));
+        engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
+        engine.addSystem(new ActionableEffectHintRenderSystem(camera, playerPos, assetManager));
 
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
 
         //Debug
-        engine.addSystem(new DebugReactorUiSystem(powerStation));
-        inputMultiplexer.addProcessor(new DebugInputProcessor(powerStation));
+        engine.addSystem(new DebugReactorUiSystem(screenState,powerStation));
+        engine.addSystem(new DebugPlayerPosUiSystem(screenState,playerPos));
+        inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
         engine.addSystem(new Stage01System(screenState));
@@ -137,7 +144,6 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new SpriteComponent(new Sprite(dude)))
                 .add(new PlayerComponent())
                 .add(new CameraTargetComponent())
-                .add(new ShapeComponent(Shapes.CIRCLE, Color.RED, 32))
                 .add(new WallCollisionComponent())
         );
 

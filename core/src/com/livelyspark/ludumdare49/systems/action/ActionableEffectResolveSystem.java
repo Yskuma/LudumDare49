@@ -8,12 +8,11 @@ import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 import java.util.EnumSet;
 
-public class ActionableResolveSystem extends EntitySystem {
+public class ActionableEffectResolveSystem extends EntitySystem {
 
     private final ScreenState state;
-    private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
 
-    public ActionableResolveSystem(ScreenState state)  {
+    public ActionableEffectResolveSystem(ScreenState state)  {
         this.state = state;
     }
 
