@@ -81,3 +81,31 @@ turbine5
   orig: 80, 80
   offset: 0, 0
   index: -1
+reactorcool
+  rotate: false
+  xy: 192, 0
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+reactorwarm
+  rotate: false
+  xy: 256, 0
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+reactorhot
+  rotate: false
+  xy: 320, 0
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+controlrods
+  rotate: false
+  xy: 64, 32
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: -1
