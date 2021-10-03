@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -33,8 +34,9 @@ public class MainMenuScreen extends AbstractScreen {
     private OrthographicCamera camera;
     private Stage stage;
     private Label titleLabel;
-    private EdgeBounceSystem ebs;
     private Label clickContinueLabel;
+    private Sprite sprite;
+    private PositionComponent spritePos;
 
     public MainMenuScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -59,91 +61,51 @@ public class MainMenuScreen extends AbstractScreen {
     public void resize(int width, int height) {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
-        camera.position.set(width / 2, height / 2, 0);
+        camera.position.x = width/2;
+        camera.position.y = height/2;
         camera.update();
 
-        titleLabel.setX((stage.getWidth() - titleLabel.getWidth()) / 2);
-        titleLabel.setY((stage.getHeight() - titleLabel.getHeight()) / 2);
+        titleLabel.setX((stage.getWidth() - titleLabel.getWidth() - 30));
+        titleLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 300));
 
-        clickContinueLabel.setX((stage.getWidth() - titleLabel.getWidth()) / 2);
-        clickContinueLabel.setY(((stage.getHeight() - titleLabel.getHeight()) / 2) - 50);
+        spritePos.x = width/2;
+        spritePos.y = height / 2;
 
-        ebs.setBounds(new Rectangle(0, 0, width, height));
+        clickContinueLabel.setX((stage.getWidth() - titleLabel.getWidth() - 30));
+        clickContinueLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 330));
     }
 
     @Override
     public void show() {
-        camera = new OrthographicCamera(640,480);
+        camera = new OrthographicCamera(1040, 592);
+
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
 
-        titleLabel = new Label("Main Menu", uiSkin, "bigTitleBitmap", Color.WHITE);
-        clickContinueLabel = new Label("Click To Continue", uiSkin, "font", Color.WHITE);
+        titleLabel = new Label("Everything's Unstable", uiSkin, "title", Color.WHITE);
+        clickContinueLabel = new Label("Click To Continue", uiSkin, "medium", Color.WHITE);
 
         stage.addActor(titleLabel);
         stage.addActor(clickContinueLabel);
 
         addEntities();
 
-        ebs = new EdgeBounceSystem(new Rectangle(0, 0, 200, 200));
-
-        engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
         engine.addSystem(new SpriteRenderSystem(camera));
-        engine.addSystem(ebs);
     }
 
     private void addEntities() {
-        TextureAtlas atlas = assetManager.get("textures/dummy.atlas", TextureAtlas.class);
+        Texture nuclear = assetManager.get("textures/nuclear.png", Texture.class);
+        sprite = new Sprite(nuclear);
+        sprite.scale(1f);
 
-        TextureAtlas.AtlasRegion redBall = atlas.findRegion("RedBall");
-        TextureAtlas.AtlasRegion blueBall = atlas.findRegion("BlueBall");
-        TextureAtlas.AtlasRegion greenBall = atlas.findRegion("GreenBall");
-        TextureAtlas.AtlasRegion yellowBall = atlas.findRegion("YellowBall");
-
-        engine.addEntity((new Entity())
-                .add(randomPositionComp())
-                .add(randomVelocityComp())
-                .add(new SpriteComponent(new Sprite(redBall)))
-                .add(new EdgeBounceComponent()));
+        spritePos = new PositionComponent();
 
         engine.addEntity((new Entity())
-                .add(randomPositionComp())
-                .add(randomVelocityComp())
-                .add(new SpriteComponent(new Sprite(blueBall)))
-                .add(new EdgeBounceComponent()));
+                .add(new SpriteComponent(sprite))
+                .add(spritePos)
+        );
 
-        engine.addEntity((new Entity())
-                .add(randomPositionComp())
-                .add(randomVelocityComp())
-                .add(new SpriteComponent(new Sprite(greenBall)))
-                .add(new EdgeBounceComponent()));
-
-        engine.addEntity((new Entity())
-                .add(randomPositionComp())
-                .add(randomVelocityComp())
-                .add(new SpriteComponent(new Sprite(yellowBall)))
-                .add(new EdgeBounceComponent()));
-    }
-
-    private VelocityComponent randomVelocityComp() {
-        Random r = new Random();
-
-        float speed = 100;
-
-        float x = MathUtils.cos(r.nextFloat() * MathUtils.PI * 2) * speed;
-        float y = MathUtils.sin(r.nextFloat() * MathUtils.PI * 2) * speed;
-
-        return new VelocityComponent(x, y);
-    }
-
-    private PositionComponent randomPositionComp() {
-        Random r = new Random();
-
-        float x = (r.nextFloat() * 400);
-        float y = (r.nextFloat() * 400);
-
-        return new PositionComponent(x, y);
     }
 
     @Override
