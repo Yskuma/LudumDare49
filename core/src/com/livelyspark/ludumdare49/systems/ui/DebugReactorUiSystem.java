@@ -35,7 +35,9 @@ public class DebugReactorUiSystem extends EntitySystem {
     private Label isPausedLabel;
 
     private Table debugTable;
+    private Label coolantLevelLabel;
     private Label deltaFuelAtomsLabel;
+    private Label heatPerFissionLabel;
     private Label deltaArtificialNeutronsLabel;
     private Label deltaSlowNeutronsLabel;
     private Label powerLabel;
@@ -78,8 +80,16 @@ public class DebugReactorUiSystem extends EntitySystem {
         debugTable.add().colspan(2);
         debugTable.row();
 
+        debugTable.add("CoolantLevel:", "small", Color.BLACK);
+        coolantLevelLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
         debugTable.add("DeltaFuelAtoms:", "small", Color.BLACK);
         deltaFuelAtomsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add("HeatPerFission:", "small", Color.BLACK);
+        heatPerFissionLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
         debugTable.add("DeltaArtificialNeutrons:", "small", Color.BLACK);
@@ -148,7 +158,9 @@ public class DebugReactorUiSystem extends EntitySystem {
             controlRodPosLabel.setText(Float.toString(ps.controlRodPosition));
             coolantPumpSpeedLabel.setText(Float.toString(ps.coolantPumpSpeed));
 
+            coolantLevelLabel.setText(Float.toString(ps.coolantLevel));
             deltaFuelAtomsLabel.setText(Float.toString(ps.deltaFuelAtoms));
+            heatPerFissionLabel.setText(Float.toString(ps.heatPerFission));
             deltaArtificialNeutronsLabel.setText(Float.toString(ps.deltaArtificialNeutrons));
             deltaSlowNeutronsLabel.setText(Float.toString(ps.deltaSlowNeutrons));
 

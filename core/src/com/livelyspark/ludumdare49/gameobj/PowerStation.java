@@ -1,13 +1,13 @@
 package com.livelyspark.ludumdare49.gameobj;
 
 public class PowerStation {
-    public final float heatPerFission = 100;
-    public final float coolantLevelMax = 100;
-    public final float coolantThermalMass = 10;
+    public final float heatPerFission = 0.00000000083333f;
+    public final float coolantLevelMax = 1;
+    public final float coolantThermalMass = 40;
     public final float reactorThermalMass = 10;
-    public final float tempAmbient = 42;
-    public final float coolantFlowMax = 1;
-    public final float deltaArtificialNeutrons = 100000;
+    public final float tempAmbient = 283;
+    public final float coolantFlowMax = 0.008f;
+    public final float deltaArtificialNeutrons = 10000000;
 
     public boolean pumpOK = true;
     public boolean coolantLeakActive = false;
@@ -20,8 +20,8 @@ public class PowerStation {
 
     public float coolantLeakRate = 0.01f;
 
-    public float reactorHeat = 42;
-    public float reactorTemp = 42;
+    public float reactorHeat = 14650;
+    public float reactorTemp = 293;
 
     public float deltaFuelAtoms = 0;
 
