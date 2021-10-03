@@ -31,6 +31,7 @@ public class DebugReactorUiSystem extends EntitySystem {
     private Label reactorHeatLabel;
     private Label controlRodPosLabel;
     private Label coolantPumpSpeedLabel;
+    private Label leakActiveLabel;
     private Label isDebugLabel;
     private Label isPausedLabel;
 
@@ -75,6 +76,10 @@ public class DebugReactorUiSystem extends EntitySystem {
 
         debugTable.add("CoolantPumpSpeed:", "small", Color.BLACK);
         coolantPumpSpeedLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add("LeakActive:", "small", Color.BLACK);
+        leakActiveLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
         debugTable.add().colspan(2);
@@ -129,6 +134,18 @@ public class DebugReactorUiSystem extends EntitySystem {
                 .colspan(2).align(Align.center);
         debugTable.row();
 
+        debugTable.add("K L - Change Coolant Level", "small", Color.BLACK)
+                .colspan(2).align(Align.center);
+        debugTable.row();
+
+        debugTable.add("; - Enable/Disable Leak", "small", Color.BLACK)
+                .colspan(2).align(Align.center);
+        debugTable.row();
+
+        debugTable.add("O - Enable/Disable Debug", "small", Color.BLACK)
+                .colspan(2).align(Align.center);
+        debugTable.row();
+
         debugTable.add("P - Pause Reactor Sim", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
         debugTable.row();
@@ -157,6 +174,7 @@ public class DebugReactorUiSystem extends EntitySystem {
 
             controlRodPosLabel.setText(Float.toString(ps.controlRodPosition));
             coolantPumpSpeedLabel.setText(Float.toString(ps.coolantPumpSpeed));
+            leakActiveLabel.setText((ps.coolantLeakActive ? "true" : "false"));
 
             coolantLevelLabel.setText(Float.toString(ps.coolantLevel));
             deltaFuelAtomsLabel.setText(Float.toString(ps.deltaFuelAtoms));

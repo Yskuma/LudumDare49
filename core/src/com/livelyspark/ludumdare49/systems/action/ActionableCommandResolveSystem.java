@@ -56,6 +56,18 @@ public class ActionableCommandResolveSystem extends EntitySystem {
             ps.coolantPumpSpeed = MathUtils.clamp(ps.coolantPumpSpeed, 0f, 1f);
         }
 
+        if(state.completedCommands.contains(Commands.CoolantLevelIncrease))
+        {
+            ps.coolantLevel += 0.001f;
+            ps.coolantLevel = MathUtils.clamp(ps.coolantLevel, 0f, 1f);
+        }
+
+        if(state.completedCommands.contains(Commands.CoolantLevelDecrease))
+        {
+            ps.coolantLevel -= 0.001f;
+            ps.coolantLevel = MathUtils.clamp(ps.coolantLevel, 0f, 1f);
+        }
+
         state.completedCommands.clear();
     }
 

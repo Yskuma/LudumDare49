@@ -60,6 +60,18 @@ public class DebugInputProcessor implements InputProcessor {
                 state.completedCommands.add(Commands.CoolantPumpIncrease);
                 break;
 
+            case Input.Keys.L:
+                state.completedCommands.add(Commands.CoolantLevelIncrease);
+                break;
+
+            case Input.Keys.K:
+                state.completedCommands.add(Commands.CoolantLevelDecrease);
+                break;
+
+            case Input.Keys.SEMICOLON:
+                ps.coolantLeakActive = !ps.coolantLeakActive;
+                break;
+
             default:
                 break;
         }
