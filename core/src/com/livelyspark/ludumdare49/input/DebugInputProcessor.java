@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 
-public class DebugControlSystem implements InputProcessor {
+public class DebugInputProcessor implements InputProcessor {
 
     private final PowerStation ps;
 
-    public DebugControlSystem(PowerStation powerStation) {
+    public DebugInputProcessor(PowerStation powerStation) {
         this.ps = powerStation;
     }
 

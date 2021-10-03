@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -20,15 +19,18 @@ import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ActiveActions;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
+import com.livelyspark.ludumdare49.input.MessageInputProcessor;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableCompleteSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
-import com.livelyspark.ludumdare49.input.DebugControlSystem;
-import com.livelyspark.ludumdare49.systems.debug.DebugReactorSystem;
+import com.livelyspark.ludumdare49.input.DebugInputProcessor;
+import com.livelyspark.ludumdare49.systems.ui.DebugReactorUiSystem;
 import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
+import com.livelyspark.ludumdare49.systems.ui.MessageUiSystem;
 
 public class PowerStationScreen extends AbstractScreen {
 
@@ -36,12 +38,11 @@ public class PowerStationScreen extends AbstractScreen {
     private OrthographicCamera camera;
     private Stage stage;
     private OrthogonalTiledMapRenderer tiledRenderer;
-    private Label posLabel;
     private PositionComponent playerPos;
     private ActionableComponent actionableComponent;
-    private Label actionLabel;
     private PowerStation powerStation;
     private InputMultiplexer inputMultiplexer;
+    private ScreenState screenState;
 
     public PowerStationScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -54,9 +55,6 @@ public class PowerStationScreen extends AbstractScreen {
 
         engine.update(delta);
 
-        posLabel.setText(playerPos.x + ", " + playerPos.y);
-        //actionLabel.setText("Act: " + actionableComponent.timeActivated);
-
         stage.act();
         stage.draw();
     }
@@ -68,19 +66,13 @@ public class PowerStationScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        screenState = new ScreenState();
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         camera = new OrthographicCamera(320,240);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
-
-        posLabel = new Label("a,a", uiSkin, "font", Color.WHITE);
-        actionLabel = new Label("a", uiSkin, "font", Color.WHITE);
-        actionLabel.setPosition(0, 40);
-
-        stage.addActor(posLabel);
-        stage.addActor(actionLabel);
 
         //TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
         TiledMap tiledMap = assetManager.get("tilemaps/powerstation.tmx", TiledMap.class);
@@ -105,6 +97,10 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new ActionableDecaySystem());
         engine.addSystem(new ActionableCompleteSystem(activeActions));
 
+        //Message Systems
+        engine.addSystem(new MessageSystem(screenState));
+        inputMultiplexer.addProcessor(new MessageInputProcessor(screenState));
+
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
@@ -112,9 +108,12 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new ActionRenderSystem(camera,assetManager));
         engine.addSystem(new ActionHintRenderSystem(camera, playerPos, assetManager));
 
+        //UI
+        engine.addSystem(new MessageUiSystem(screenState, assetManager));
+
         //Debug
-        engine.addSystem(new DebugReactorSystem(powerStation, camera.viewportWidth, camera.viewportHeight));
-        inputMultiplexer.addProcessor(new DebugControlSystem(powerStation));
+        engine.addSystem(new DebugReactorUiSystem(powerStation));
+        inputMultiplexer.addProcessor(new DebugInputProcessor(powerStation));
 
         //StageSystem
         engine.addSystem(new Stage01System(activeActions));
@@ -172,23 +171,13 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PositionComponent(224,640))
                 .add(new SpriteComponent(new Sprite(computer)))
         );
-/*
-        actionableComponent = new ActionableComponent(10f, 2.0f,32, Color.RED, Actions.CoolantLeak);
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(150,150))
-                .add(actionableComponent)
-        );
 
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(200,150))
-                .add(new ActionableComponent(1f, 10.0f,32, Color.GREEN, Actions.CoolantPumpBreakdown))
-        );
+        engine.addEntity(new Entity()
+                .add(new MessageComponent("Our country is strong and stable, no earthquakes here!!",  atlas.findRegion("kimmy32"))));
 
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(300,150))
-                .add(new ActionableComponent(10f, 0.5f,64, Color.BLUE, Actions.HackedComputer))
-        );
-*/
+        engine.addEntity(new Entity()
+                .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("kimmy32"))));
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.livelyspark.ludumdare49.systems.debug;
+package com.livelyspark.ludumdare49.systems.ui;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.EntitySystem;
@@ -19,11 +19,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 
-public class DebugReactorSystem extends EntitySystem {
+public class DebugReactorUiSystem extends EntitySystem {
 
     private final PowerStation ps;
-    private final float vpWidth;
-    private final float vpHeight;
 
     private Stage stage;
 
@@ -40,10 +38,8 @@ public class DebugReactorSystem extends EntitySystem {
     private Label deltaSlowNeutronsLabel;
     private Label powerLabel;
 
-    public DebugReactorSystem(PowerStation powerStation, float viewportWidth, float viewportHeight) {
+    public DebugReactorUiSystem(PowerStation powerStation) {
         this.ps = powerStation;
-        this.vpWidth = viewportWidth;
-        this.vpHeight = viewportHeight;
     }
 
     @Override
