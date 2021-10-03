@@ -5,19 +5,24 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 
 public class ActionableActivateSystem extends EntitySystem {
+    private final ScreenState state;
     private ImmutableArray<Entity> entities;
 
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<EffectComponent> em = ComponentMapper.getFor(EffectComponent.class);
+    private ComponentMapper<CommandComponent> cm = ComponentMapper.getFor(CommandComponent.class);
 
     private PositionComponent playerPosition;
     private float actionableDist = 32;
 
-    public ActionableActivateSystem(PositionComponent playerPosition) {
+    public ActionableActivateSystem(ScreenState state, PositionComponent playerPosition) {
         this.playerPosition = playerPosition;
+        this.state = state;
     }
 
     @Override
@@ -34,7 +39,13 @@ public class ActionableActivateSystem extends EntitySystem {
     public void update (float deltaTime) {
         if(!Gdx.input.isKeyPressed(Input.Keys.SPACE)){return;}
 
+        state.actioningEffects.clear();
+        state.actioningCommands.clear();
+
         ActionableComponent closestAction = null;
+        EffectComponent closestEffect = null;
+        CommandComponent closestCommand = null;
+
         float closest = 9999999999f;
 
         for (int i = 0; i < entities.size(); ++i) {
@@ -48,6 +59,8 @@ public class ActionableActivateSystem extends EntitySystem {
             {
                 closest = dist;
                 closestAction = ac;
+                closestEffect = em.get(e);
+                closestCommand = cm.get(e);
             }
         }
 
@@ -56,6 +69,16 @@ public class ActionableActivateSystem extends EntitySystem {
             closestAction.isActive = true;
             closestAction.timeActivated += deltaTime;
             closestAction.timeActivated = Math.min(closestAction.timeActivated, closestAction.timeToActivate);
+
+            if(closestEffect != null)
+            {
+                state.actioningEffects.add(closestEffect.effect);
+            }
+
+            if(closestCommand != null)
+            {
+                state.actioningCommands.add(closestCommand.command);
+            }
 
             if(closestAction.timeActivated >= closestAction.timeToActivate)
             {

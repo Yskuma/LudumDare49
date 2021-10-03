@@ -92,7 +92,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new WallCollisionSystem(tiledMap));
 
         //Action Systems
-        engine.addSystem(new ActionableActivateSystem(playerPos));
+        engine.addSystem(new ActionableActivateSystem(screenState, playerPos));
         engine.addSystem(new ActionableDecaySystem());
 
         engine.addSystem(new ActionableEffectCompleteSystem(screenState));
