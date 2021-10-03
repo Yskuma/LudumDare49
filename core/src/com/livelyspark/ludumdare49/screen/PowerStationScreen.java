@@ -27,10 +27,7 @@ import com.livelyspark.ludumdare49.systems.action.ActionableCompleteSystem;
 import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
 import com.livelyspark.ludumdare49.input.DebugControlSystem;
 import com.livelyspark.ludumdare49.systems.debug.DebugReactorSystem;
-import com.livelyspark.ludumdare49.systems.render.ActionRenderSystem;
-import com.livelyspark.ludumdare49.systems.render.ShapeRenderSystem;
-import com.livelyspark.ludumdare49.systems.render.SpriteRenderSystem;
-import com.livelyspark.ludumdare49.systems.render.TiledRenderSystem;
+import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
 
 public class PowerStationScreen extends AbstractScreen {
@@ -112,7 +109,8 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
-        engine.addSystem(new ActionRenderSystem(camera));
+        engine.addSystem(new ActionRenderSystem(camera,assetManager));
+        engine.addSystem(new ActionHintRenderSystem(camera, playerPos, assetManager));
 
         //Debug
         engine.addSystem(new DebugReactorSystem(powerStation, camera.viewportWidth, camera.viewportHeight));
