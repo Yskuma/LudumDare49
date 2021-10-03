@@ -29,7 +29,7 @@ public class ReactorSystem extends EntitySystem {
             return;
         }
 
-        ps.deltaFuelAtoms = 0.44f * (1 - ps.controlRodPosition) * (ps.deltaSlowNeutrons * deltaTime);
+        ps.deltaFuelAtoms = 0.4f * (1.00150f - 0.0025f*ps.controlRodPosition) * (ps.deltaSlowNeutrons);
         ps.deltaSlowNeutrons = 2.5f * ps.coolantLevel * ps.deltaFuelAtoms
                 + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
 
@@ -42,7 +42,7 @@ public class ReactorSystem extends EntitySystem {
         if(ps.coolantLevel > 0 && ps.pumpOK) {
             deltaTurbineHeat = ps.coolantPumpSpeed * ps.coolantFlowMax * ps.coolantThermalMass * ps.reactorTemp * deltaTime;
         }
-        // TODO: Deal with coolant temp changes
+        // TODO: Deal with heat loss/gain associated with changes in coolant volume
 
         ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat;
 
