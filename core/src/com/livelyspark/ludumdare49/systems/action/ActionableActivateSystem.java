@@ -37,10 +37,10 @@ public class ActionableActivateSystem extends EntitySystem {
 
     @Override
     public void update (float deltaTime) {
-        if(!Gdx.input.isKeyPressed(Input.Keys.SPACE)){return;}
-
         state.actioningEffects.clear();
         state.actioningCommands.clear();
+
+        if(!Gdx.input.isKeyPressed(Input.Keys.SPACE)){return;}
 
         ActionableComponent closestAction = null;
         EffectComponent closestEffect = null;
