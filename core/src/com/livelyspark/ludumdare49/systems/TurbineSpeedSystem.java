@@ -13,7 +13,7 @@ import com.livelyspark.ludumdare49.gameobj.PowerStation;
 public class TurbineSpeedSystem extends IteratingSystem {
 
     private PowerStation powerStation;
-    private static final int maxPower = 200;
+    private static final int maxPower = 260;
 
     private ComponentMapper<AnimationComponent> am = ComponentMapper.getFor(AnimationComponent.class);
 
