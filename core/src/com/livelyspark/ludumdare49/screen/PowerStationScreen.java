@@ -159,7 +159,7 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(48,640))
+                .add(new PositionComponent(48,645))
                 .add(new SpriteComponent(new Sprite(pump)))
         );
 
@@ -176,6 +176,13 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(224,640))
                 .add(new SpriteComponent(new Sprite(computer)))
+        );
+
+        TextureAtlas.AtlasRegion heatExchanger = actionablesAtlas.findRegion("heatexchanger");
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(48,570))
+                .add(new SpriteComponent(new Sprite(heatExchanger)))
         );
 
         TextureAtlas.AtlasRegion [] turbine = new TextureAtlas.AtlasRegion[]{
