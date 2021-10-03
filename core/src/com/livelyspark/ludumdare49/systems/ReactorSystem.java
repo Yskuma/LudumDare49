@@ -24,14 +24,19 @@ public class ReactorSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
 
+        //deltaTime *= 10;
         if(ps.isPaused)
         {
             return;
         }
 
         ps.deltaFuelAtoms = 0.4f * (1.00150f - 0.0025f*ps.controlRodPosition) * (ps.deltaSlowNeutrons);
+        ps.deltaFuelAtoms = MathUtils.clamp(ps.deltaFuelAtoms, 4.5e10f, 4.5e11f);
+
         ps.deltaSlowNeutrons = 2.5f * ps.coolantLevel * ps.deltaFuelAtoms
                 + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
+
+
 
         ps.coolantLevel -= ps.coolantLeakActive ? ps.coolantLeakRate * deltaTime : 0;
         ps.coolantLevel += ps.pumpOK ? ps.coolantPumpSpeed * ps.coolantFlowMax * deltaTime : 0;
