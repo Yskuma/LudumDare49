@@ -18,10 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class DebugReactorUiSystem extends EntitySystem {
 
     private final PowerStation ps;
+    private final ScreenState state;
 
     private Stage stage;
 
@@ -38,7 +40,8 @@ public class DebugReactorUiSystem extends EntitySystem {
     private Label deltaSlowNeutronsLabel;
     private Label powerLabel;
 
-    public DebugReactorUiSystem(PowerStation powerStation) {
+    public DebugReactorUiSystem(ScreenState state, PowerStation powerStation) {
+        this.state = state;
         this.ps = powerStation;
     }
 
@@ -46,80 +49,81 @@ public class DebugReactorUiSystem extends EntitySystem {
     public void addedToEngine(Engine engine) {
         stage = new Stage();
         ps.isPaused = true;
-        ps.isDebug = true;
+        state.isDebug = true;
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
+        Drawable tableBackground = uiSkin.getDrawable("textfield");
 
         debugTable = new Table(uiSkin);
-        debugTable.setBackground(backgroundDrawable());
+        debugTable.setBackground(tableBackground);
         //debugTable.setDebug(true);
         debugTable.columnDefaults(0).pad(5).right();
-        debugTable.columnDefaults(1).pad(5).width(50);
+        debugTable.columnDefaults(1).pad(5).width(100);
 
-        debugTable.add("ReactorHeat:", "small", Color.WHITE);
-        reactorHeatLabel = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("ReactorHeat:", "small", Color.BLACK);
+        reactorHeatLabel = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
-        debugTable.add("ReactorTemp:", "small", Color.WHITE);
-        reactorTempLabel  = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("ReactorTemp:", "small", Color.BLACK);
+        reactorTempLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
-        debugTable.add("ControlRodPos:", "small", Color.WHITE);
-        controlRodPosLabel  = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("ControlRodPos:", "small", Color.BLACK);
+        controlRodPosLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
-        debugTable.add("CoolantPumpSpeed:", "small", Color.WHITE);
-        coolantPumpSpeedLabel  = debugTable.add("", "small", Color.WHITE).getActor();
-        debugTable.row();
-
-        debugTable.add().colspan(2);
-        debugTable.row();
-
-        debugTable.add("DeltaFuelAtoms:", "small", Color.WHITE);
-        deltaFuelAtomsLabel  = debugTable.add("", "small", Color.WHITE).getActor();
-        debugTable.row();
-
-        debugTable.add("DeltaArtificialNeutrons:", "small", Color.WHITE);
-        deltaArtificialNeutronsLabel  = debugTable.add("", "small", Color.WHITE).getActor();
-        debugTable.row();
-
-        debugTable.add("DeltaSlowNeutrons:", "small", Color.WHITE);
-        deltaSlowNeutronsLabel  = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("CoolantPumpSpeed:", "small", Color.BLACK);
+        coolantPumpSpeedLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
         debugTable.add().colspan(2);
         debugTable.row();
 
-        debugTable.add("Power:", "small", Color.WHITE);
-        powerLabel  = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("DeltaFuelAtoms:", "small", Color.BLACK);
+        deltaFuelAtomsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add("DeltaArtificialNeutrons:", "small", Color.BLACK);
+        deltaArtificialNeutronsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add("DeltaSlowNeutrons:", "small", Color.BLACK);
+        deltaSlowNeutronsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
         debugTable.add().colspan(2);
         debugTable.row();
 
-        debugTable.add("IsDebug:", "small", Color.WHITE);
-        isDebugLabel  = debugTable.add("", "small", Color.WHITE).getActor();
-        debugTable.row();
-
-        debugTable.add("IsPaused:", "small", Color.WHITE);
-        isPausedLabel  = debugTable.add("", "small", Color.WHITE).getActor();
+        debugTable.add("Power:", "small", Color.BLACK);
+        powerLabel  = debugTable.add("", "small", Color.BLACK).getActor();
         debugTable.row();
 
         debugTable.add().colspan(2);
         debugTable.row();
 
-        debugTable.add("[ ] - Move Control Rods", "small", Color.WHITE)
+        debugTable.add("IsDebug:", "small", Color.BLACK);
+        isDebugLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add("IsPaused:", "small", Color.BLACK);
+        isPausedLabel  = debugTable.add("", "small", Color.BLACK).getActor();
+        debugTable.row();
+
+        debugTable.add().colspan(2);
+        debugTable.row();
+
+        debugTable.add("[ ] - Move Control Rods", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
         debugTable.row();
 
-        debugTable.add(", . - Change Pump Speed", "small", Color.WHITE)
+        debugTable.add(", . - Change Pump Speed", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
         debugTable.row();
 
-        debugTable.add("P - Pause Reactor Sim", "small", Color.WHITE)
+        debugTable.add("P - Pause Reactor Sim", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
         debugTable.row();
 
-        debugTable.add("O - Enable/Disable Debug", "small", Color.WHITE)
+        debugTable.add("O - Enable/Disable Debug", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
         debugTable.row();
 
@@ -137,7 +141,7 @@ public class DebugReactorUiSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        if(ps.isDebug) {
+        if(state.isDebug) {
             reactorHeatLabel.setText(Float.toString(ps.reactorHeat));
             reactorTempLabel.setText(Float.toString(ps.reactorTemp));
 
@@ -151,7 +155,7 @@ public class DebugReactorUiSystem extends EntitySystem {
             powerLabel.setText(Float.toString(ps.power));
 
             isPausedLabel.setText((ps.isPaused ? "true" : "false"));
-            isDebugLabel.setText((ps.isDebug ? "true" : "false"));
+            isDebugLabel.setText((state.isDebug ? "true" : "false"));
 
             stage.act();
             stage.draw();

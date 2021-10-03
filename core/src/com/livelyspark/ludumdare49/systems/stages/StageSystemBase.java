@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
+import com.livelyspark.ludumdare49.components.EffectComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.enums.Effects;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -76,44 +77,50 @@ public abstract class StageSystemBase extends IntervalSystem {
     }
 
     private void DoStartNote(){
-        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Effects.ReadNote);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(338,332))
-                .add(actionableComponent));
+                .add(new ActionableComponent(1f, 2.0f,30, Color.BLUE))
+                .add(new EffectComponent(Effects.ReadNote))
+        );
     }
 
     private void DoRubble() {
-        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.YELLOW, Effects.Rubble);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(446,512))
-                .add(actionableComponent));
+                .add(new ActionableComponent(1f, 2.0f,30, Color.YELLOW))
+                .add(new EffectComponent(Effects.Rubble))
+        );
     }
 
     private void DoCoolantLeak() {
-        actionableComponent = new ActionableComponent(1f, 2.0f,25, Color.RED, Effects.CoolantLeak);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(27,855))
-                .add(actionableComponent));
+                .add(new ActionableComponent(1f, 2.0f,25, Color.RED))
+                .add(new EffectComponent(Effects.CoolantLeak))
+        );
     }
 
     private void DoOppositionHacker() {
-        actionableComponent = new ActionableComponent(1f, 2.0f,32, Color.RED, Effects.HackedComputer);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(224,638))
-                .add(actionableComponent));
+                .add(new ActionableComponent(1f, 2.0f,32, Color.RED))
+                .add(new EffectComponent(Effects.HackedComputer))
+        );
     }
 
     private void DoPartBreakdownOne(){
-               actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Effects.CoolantPumpBreakdown);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(70,860))
-                .add(actionableComponent));
+                .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
+                .add(new EffectComponent(Effects.CoolantPumpBreakdown))
+        );
     }
 
     private void DoPartBreakdownTwo() {
-        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Effects.WaterPumpBreakdown);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48,640))
-                .add(actionableComponent));
+                .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
+                .add(new EffectComponent(Effects.WaterPumpBreakdown))
+        );
     }
 }

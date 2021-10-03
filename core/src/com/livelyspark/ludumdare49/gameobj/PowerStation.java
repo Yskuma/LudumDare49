@@ -30,5 +30,4 @@ public class PowerStation {
     public float power = 0;
 
     public boolean isPaused = false;
-    public boolean isDebug = false;
 }

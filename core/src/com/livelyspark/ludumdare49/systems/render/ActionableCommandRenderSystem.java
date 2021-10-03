@@ -9,9 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
+import com.livelyspark.ludumdare49.components.CommandComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 
-public class ActionRenderSystem extends EntitySystem {
+public class ActionableCommandRenderSystem extends EntitySystem {
     private final SpriteBatch batch;
     private final NinePatch borderNp;
     private final ShapeRenderer renderer;
@@ -24,14 +25,14 @@ public class ActionRenderSystem extends EntitySystem {
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
 
-    public ActionRenderSystem(OrthographicCamera camera, AssetManager assetManager) {
+    public ActionableCommandRenderSystem(OrthographicCamera camera, AssetManager assetManager) {
         this.batch = new SpriteBatch();
         this.camera = camera;
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
 
         TextureAtlas atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
-        borderNp = new NinePatch(atlas.findRegion("border2"), 8, 8, 8, 8);
+        borderNp = new NinePatch(atlas.findRegion("border"), 8, 8, 8, 8);
         progressNp = new NinePatch(atlas.findRegion("progress2"), 2, 2, 2, 2);
 
         //renderer = new ShapeRenderer();
@@ -43,7 +44,7 @@ public class ActionRenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine (Engine engine) {
-        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class, PositionComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class, PositionComponent.class, CommandComponent.class).get());
     }
 
     @Override

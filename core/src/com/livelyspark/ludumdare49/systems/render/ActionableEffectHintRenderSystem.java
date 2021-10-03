@@ -14,7 +14,7 @@ import com.livelyspark.ludumdare49.components.ActionableComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.components.SpriteComponent;
 
-public class ActionHintRenderSystem extends EntitySystem {
+public class ActionableEffectHintRenderSystem extends EntitySystem {
     private final SpriteBatch batch;
     private final Vector2 playerPos;
     private final Sprite sprite;
@@ -25,7 +25,7 @@ public class ActionHintRenderSystem extends EntitySystem {
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
 
-    public ActionHintRenderSystem(OrthographicCamera camera, Vector2 playerPos, AssetManager assetManager) {
+    public ActionableEffectHintRenderSystem(OrthographicCamera camera, Vector2 playerPos, AssetManager assetManager) {
         batch = new SpriteBatch();
         this.camera = camera;
         this.playerPos = playerPos;
