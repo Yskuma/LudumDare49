@@ -42,12 +42,12 @@ public class WallCollisionSystem extends IteratingSystem {
         int ytop = (int)((br.y + br.height) / 16);
         int ybottom= (int)((br.y) / 16);
 
-        boolean walltl = isBlocked(xleft, ytop);
-        boolean walltr = isBlocked(xright, ytop);
+        //boolean walltl = isBlocked(xleft, ytop);
+        //boolean walltr = isBlocked(xright, ytop);
         boolean wallbl = isBlocked(xleft, ybottom);
         boolean wallbr = isBlocked(xright, ybottom);
 
-        if((walltl || walltr) && vel.y > 0)
+        if((wallbl || wallbr) && vel.y > 0)
         {
             pos.y = (ytop * 16) - (br.height / 2) - 0.1f;
         }
@@ -57,12 +57,12 @@ public class WallCollisionSystem extends IteratingSystem {
             pos.y = (ytop * 16) + (br.height / 2) + 0.1f;
         }
 
-        if((walltr || wallbr) && vel.x > 0)
+        if((wallbr) && vel.x > 0)
         {
             pos.x = (xright * 16) - (br.width / 2) - 0.1f;
         }
 
-        if((walltl || wallbl) && vel.x < 0)
+        if((wallbl) && vel.x < 0)
         {
             pos.x = (xright * 16) + (br.width / 2) + 0.1f;
         }
