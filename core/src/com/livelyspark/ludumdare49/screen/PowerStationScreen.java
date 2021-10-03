@@ -8,8 +8,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -108,6 +110,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
+        engine.addSystem(new AnimationRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera,assetManager));
         engine.addSystem(new ActionHintRenderSystem(camera, playerPos, assetManager));
 
@@ -173,6 +176,19 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(224,640))
                 .add(new SpriteComponent(new Sprite(computer)))
+        );
+
+        TextureAtlas.AtlasRegion [] turbine = new TextureAtlas.AtlasRegion[]{
+                actionablesAtlas.findRegion("turbine1"),
+                actionablesAtlas.findRegion("turbine2"),
+                actionablesAtlas.findRegion("turbine3"),
+                actionablesAtlas.findRegion("turbine4"),
+                actionablesAtlas.findRegion("turbine5")
+        };
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(64,208))
+                .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine)))
         );
 
         engine.addEntity(new Entity()

@@ -39,3 +39,45 @@ rubble
   orig: 32, 32
   offset: 0, 0
   index: -1
+heatexchanger
+  rotate: false
+  xy: 0, 32
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+turbine1
+  rotate: false
+  xy: 0, 96
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+turbine2
+  rotate: false
+  xy: 80, 96
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+turbine3
+  rotate: false
+  xy: 160, 96
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+turbine4
+  rotate: false
+  xy: 240, 96
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+turbine5
+  rotate: false
+  xy: 320, 96
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
