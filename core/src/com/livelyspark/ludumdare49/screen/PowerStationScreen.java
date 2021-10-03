@@ -117,7 +117,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
-        engine.addSystem(new AnimationRenderSystem(camera, powerStation));
+        engine.addSystem(new AnimationRenderSystem(camera, powerStation, screenState));
         engine.addSystem(new TurbineRenderSystem(camera, powerStation));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
@@ -249,6 +249,12 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PositionComponent(296,632))
                 .add(new ActionableComponent(1.0f, 5.0f, 16f, Color.PURPLE))
                 .add(new CommandComponent(Commands.ControlRodIncrease))
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(288,858))
+                .add(new ActionableComponent(1.0f, 5.0f, 32f, Color.PURPLE))
+                .add(new CommandComponent(Commands.CoolantLevelIncrease))
         );
 
         /*
