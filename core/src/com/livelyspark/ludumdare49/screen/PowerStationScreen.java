@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.AnimationLabels;
-import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.input.MessageInputProcessor;
@@ -110,12 +108,15 @@ public class PowerStationScreen extends AbstractScreen {
         //Reactor Systems
         engine.addSystem(new ReactorSystem(powerStation));
         engine.addSystem(new TurbineSpeedSystem(powerStation));
+        ControlRodAnimationSystem controlRodAnimationSystem = new ControlRodAnimationSystem(assetManager, powerStation);
+        engine.addSystem(controlRodAnimationSystem);
+        controlRodAnimationSystem.GenerateEntities();
 
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
+        engine.addSystem(new AnimationRenderSystem(camera, powerStation));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
-        engine.addSystem(new AnimationRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
         engine.addSystem(new ActionableEffectHintRenderSystem(camera, playerPos, assetManager));
 
@@ -201,6 +202,17 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(64,208))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
+        );
+
+        TextureAtlas.AtlasRegion [] reactor = new TextureAtlas.AtlasRegion[]{
+                actionablesAtlas.findRegion("reactorcool"),
+                actionablesAtlas.findRegion("reactorwarm"),
+                actionablesAtlas.findRegion("reactorhot")
+        };
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(192,808))
+                .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, reactor), 1.0f, AnimationLabels.Reactor))
         );
 
         engine.addEntity(new Entity()
