@@ -30,6 +30,7 @@ import com.livelyspark.ludumdare49.systems.ui.DebugPlayerPosUiSystem;
 import com.livelyspark.ludumdare49.systems.ui.DebugReactorUiSystem;
 import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
+import com.livelyspark.ludumdare49.systems.ui.DebugScreenStateUiSystem;
 import com.livelyspark.ludumdare49.systems.ui.MessageUiSystem;
 
 public class PowerStationScreen extends AbstractScreen {
@@ -83,7 +84,7 @@ public class PowerStationScreen extends AbstractScreen {
         powerStation = new PowerStation();
 
         //Camera Systems
-        engine.addSystem(new CameraSystem(camera));
+        engine.addSystem(new CameraSystem(camera, screenState));
 
         //Movement/Position Systems
         engine.addSystem(new PlayerMovementSystem());
@@ -130,6 +131,7 @@ public class PowerStationScreen extends AbstractScreen {
         //Debug
         engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));
         engine.addSystem(new DebugPlayerPosUiSystem(screenState, playerPos));
+        engine.addSystem(new DebugScreenStateUiSystem(screenState));
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
@@ -143,6 +145,9 @@ public class PowerStationScreen extends AbstractScreen {
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
         playerPos = new PositionComponent(340, 300);
+        camera.position.x = playerPos.x;
+        camera.position.y = playerPos.y;
+
         engine.addEntity((new Entity())
                 .add(playerPos)
                 .add(new VelocityComponent(0, 0))

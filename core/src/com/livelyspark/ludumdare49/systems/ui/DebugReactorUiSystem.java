@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
@@ -35,7 +32,7 @@ public class DebugReactorUiSystem extends EntitySystem {
     private Label isDebugLabel;
     private Label isPausedLabel;
 
-    private Table debugTable;
+    private Table table;
     private Label coolantLevelLabel;
     private Label deltaFuelAtomsLabel;
     private Label heatPerFissionLabel;
@@ -56,110 +53,110 @@ public class DebugReactorUiSystem extends EntitySystem {
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         Drawable tableBackground = uiSkin.getDrawable("textfield");
 
-        debugTable = new Table(uiSkin);
-        debugTable.setBackground(tableBackground);
+        table = new Table(uiSkin);
+        table.setBackground(tableBackground);
         //debugTable.setDebug(true);
-        debugTable.columnDefaults(0).pad(5).right();
-        debugTable.columnDefaults(1).pad(5).width(100);
+        table.columnDefaults(0).pad(5).right();
+        table.columnDefaults(1).pad(5).width(100);
 
-        debugTable.add("ReactorHeat:", "small", Color.BLACK);
-        reactorHeatLabel = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("ReactorHeat:", "small", Color.BLACK);
+        reactorHeatLabel = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("ReactorTemp:", "small", Color.BLACK);
-        reactorTempLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("ReactorTemp:", "small", Color.BLACK);
+        reactorTempLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("ControlRodPos:", "small", Color.BLACK);
-        controlRodPosLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("ControlRodPos:", "small", Color.BLACK);
+        controlRodPosLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("CoolantPumpSpeed:", "small", Color.BLACK);
-        coolantPumpSpeedLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("CoolantPumpSpeed:", "small", Color.BLACK);
+        coolantPumpSpeedLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("LeakActive:", "small", Color.BLACK);
-        leakActiveLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("LeakActive:", "small", Color.BLACK);
+        leakActiveLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add().colspan(2);
-        debugTable.row();
+        table.add().colspan(2);
+        table.row();
 
-        debugTable.add("CoolantLevel:", "small", Color.BLACK);
-        coolantLevelLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("CoolantLevel:", "small", Color.BLACK);
+        coolantLevelLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("DeltaFuelAtoms:", "small", Color.BLACK);
-        deltaFuelAtomsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("DeltaFuelAtoms:", "small", Color.BLACK);
+        deltaFuelAtomsLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("HeatPerFission:", "small", Color.BLACK);
-        heatPerFissionLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("HeatPerFission:", "small", Color.BLACK);
+        heatPerFissionLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("DeltaArtificialNeutrons:", "small", Color.BLACK);
-        deltaArtificialNeutronsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("DeltaArtificialNeutrons:", "small", Color.BLACK);
+        deltaArtificialNeutronsLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("DeltaSlowNeutrons:", "small", Color.BLACK);
-        deltaSlowNeutronsLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("DeltaSlowNeutrons:", "small", Color.BLACK);
+        deltaSlowNeutronsLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add().colspan(2);
-        debugTable.row();
+        table.add().colspan(2);
+        table.row();
 
-        debugTable.add("Power:", "small", Color.BLACK);
-        powerLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("Power:", "small", Color.BLACK);
+        powerLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add().colspan(2);
-        debugTable.row();
+        table.add().colspan(2);
+        table.row();
 
-        debugTable.add("IsDebug:", "small", Color.BLACK);
-        isDebugLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("IsDebug:", "small", Color.BLACK);
+        isDebugLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add("IsPaused:", "small", Color.BLACK);
-        isPausedLabel  = debugTable.add("", "small", Color.BLACK).getActor();
-        debugTable.row();
+        table.add("IsPaused:", "small", Color.BLACK);
+        isPausedLabel  = table.add("", "small", Color.BLACK).getActor();
+        table.row();
 
-        debugTable.add().colspan(2);
-        debugTable.row();
+        table.add().colspan(2);
+        table.row();
 
-        debugTable.add("[ ] - Move Control Rods", "small", Color.BLACK)
+        table.add("[ ] - Move Control Rods", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add(", . - Change Pump Speed", "small", Color.BLACK)
+        table.add(", . - Change Pump Speed", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add("K L - Change Coolant Level", "small", Color.BLACK)
+        table.add("K L - Change Coolant Level", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add("; - Enable/Disable Leak", "small", Color.BLACK)
+        table.add("; - Enable/Disable Leak", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add("O - Enable/Disable Debug", "small", Color.BLACK)
+        table.add("O - Enable/Disable Debug", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add("P - Pause Reactor Sim", "small", Color.BLACK)
+        table.add("P - Pause Reactor Sim", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.add("O - Enable/Disable Debug", "small", Color.BLACK)
+        table.add("O - Enable/Disable Debug", "small", Color.BLACK)
                 .colspan(2).align(Align.center);
-        debugTable.row();
+        table.row();
 
-        debugTable.pack();
+        table.pack();
 
-        debugTable.setPosition(stage.getWidth() - debugTable.getWidth(),
-                stage.getHeight() - debugTable.getHeight());
+        table.setPosition(stage.getWidth() - table.getWidth(),
+                stage.getHeight() - table.getHeight());
 
-        stage.addActor(debugTable);
+        stage.addActor(table);
    }
 
     @Override

@@ -2,6 +2,7 @@ package com.livelyspark.ludumdare49.gameobj;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.livelyspark.ludumdare49.components.MessageComponent;
+import com.livelyspark.ludumdare49.enums.CameraModes;
 import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.Effects;
 
@@ -9,6 +10,8 @@ import java.util.EnumSet;
 
 public class ScreenState {
     public boolean isDebug = false;
+
+    public CameraModes cameraMode = CameraModes.Lock;
 
     public MessageComponent activeMessage = null;
 

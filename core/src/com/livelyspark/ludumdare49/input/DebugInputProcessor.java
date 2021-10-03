@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.livelyspark.ludumdare49.components.CommandComponent;
+import com.livelyspark.ludumdare49.enums.CameraModes;
 import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -70,6 +71,23 @@ public class DebugInputProcessor implements InputProcessor {
 
             case Input.Keys.SEMICOLON:
                 ps.coolantLeakActive = !ps.coolantLeakActive;
+                break;
+
+            case Input.Keys.R:
+                switch (state.cameraMode) {
+                    case Lock:
+                        state.cameraMode = CameraModes.ShakeSmall;
+                        break;
+                    case ShakeSmall:
+                        state.cameraMode = CameraModes.ShakeMedium;
+                        break;
+                    case ShakeMedium:
+                        state.cameraMode = CameraModes.ShakeLarge;
+                        break;
+                    case ShakeLarge:
+                        state.cameraMode = CameraModes.Lock;
+                        break;
+                }
                 break;
 
             default:
