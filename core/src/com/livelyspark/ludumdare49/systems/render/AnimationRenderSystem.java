@@ -55,8 +55,15 @@ public class AnimationRenderSystem extends EntitySystem {
             animation = am.get(e);
             position = pm.get(e);
 
+            animation.animation.setFrameDuration(animation.frameDuration);
+
             // Get current frame of animation for the current stateTime
             TextureRegion currentFrame = animation.animation.getKeyFrame(statetime, true);
+
+            if(currentFrame == animation.animation.getKeyFrames()[0] && statetime > 2.0f){
+                animation.animation.setFrameDuration(animation.frameDuration);
+                statetime = 0.0f;
+            }
 
             batch.draw(currentFrame, position.x, position.y);
         }

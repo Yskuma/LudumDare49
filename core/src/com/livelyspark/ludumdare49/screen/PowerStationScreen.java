@@ -15,9 +15,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.AnimationLabels;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -103,6 +103,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Reactor Systems
         engine.addSystem(new ReactorSystem(powerStation));
+        engine.addSystem(new TurbineSpeedSystem(powerStation));
 
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
@@ -193,7 +194,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(64,208))
-                .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine)))
+                .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
         );
 
         engine.addEntity(new Entity()
