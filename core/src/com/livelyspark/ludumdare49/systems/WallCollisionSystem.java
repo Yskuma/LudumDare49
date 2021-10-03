@@ -25,7 +25,7 @@ public class WallCollisionSystem extends IteratingSystem {
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
 
-    public WallCollisionSystem(TiledMap tiledMap ) {
+    public WallCollisionSystem(TiledMap tiledMap) {
         super(Family.all(SpriteComponent.class, PositionComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
         this.tiledMap = tiledMap;
     }

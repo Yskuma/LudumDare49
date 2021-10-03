@@ -5,8 +5,8 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
-import com.livelyspark.ludumdare49.enums.Actions;
-import com.livelyspark.ludumdare49.gameobj.ActiveActions;
+import com.livelyspark.ludumdare49.enums.Effects;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.stages.Stage;
 
@@ -16,11 +16,9 @@ public abstract class StageSystemBase extends IntervalSystem {
 
     protected Stage thisStage;
     private ActionableComponent actionableComponent;
-    private ActiveActions activeActions;
 
-    public StageSystemBase(ActiveActions activeActions) {
+    public StageSystemBase(ScreenState screenState) {
         super( 1.0f);
-        this.activeActions = activeActions;
         GenerateStage();
     }
 
@@ -78,68 +76,44 @@ public abstract class StageSystemBase extends IntervalSystem {
     }
 
     private void DoStartNote(){
-        Actions action = Actions.ReadNote;
-
-        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, action);
+        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.BLUE, Effects.ReadNote);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(338,332))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 
     private void DoRubble() {
-        Actions action = Actions.Rubble;
-
-        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.YELLOW, action);
+        actionableComponent = new ActionableComponent(1f, 2.0f,30, Color.YELLOW, Effects.Rubble);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(446,512))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 
     private void DoCoolantLeak() {
-        Actions action = Actions.CoolantLeak;
-
-        actionableComponent = new ActionableComponent(1f, 2.0f,25, Color.RED, action);
+        actionableComponent = new ActionableComponent(1f, 2.0f,25, Color.RED, Effects.CoolantLeak);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(27,855))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 
     private void DoOppositionHacker() {
-        Actions action = Actions.HackedComputer;
-
-        actionableComponent = new ActionableComponent(1f, 2.0f,32, Color.RED, action);
+        actionableComponent = new ActionableComponent(1f, 2.0f,32, Color.RED, Effects.HackedComputer);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(224,638))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 
     private void DoPartBreakdownOne(){
-        Actions action = Actions.CoolantPumpBreakdown;
-
-        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, action);
+               actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Effects.CoolantPumpBreakdown);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(70,860))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 
     private void DoPartBreakdownTwo() {
-        Actions action = Actions.WaterPumpBreakdown;
-
-        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, action);
+        actionableComponent = new ActionableComponent(10f, 2.0f,64, Color.RED, Effects.WaterPumpBreakdown);
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48,640))
                 .add(actionableComponent));
-
-        activeActions.activeActions.add(action);
     }
 }

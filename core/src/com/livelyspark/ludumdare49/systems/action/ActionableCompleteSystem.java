@@ -1,79 +1,61 @@
 package com.livelyspark.ludumdare49.systems.action;
 
-import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.ashley.core.*;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
-import com.livelyspark.ludumdare49.enums.Actions;
-import com.livelyspark.ludumdare49.gameobj.ActiveActions;
-import com.sun.tools.javac.comp.Resolve;
+import com.livelyspark.ludumdare49.enums.Effects;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
-public class ActionableCompleteSystem  extends IteratingSystem {
+import java.util.EnumSet;
 
+public class ActionableCompleteSystem extends EntitySystem {
+
+    private final ScreenState state;
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
+    private ImmutableArray<Entity> entities;
 
-    private ActiveActions activeActions;
-
-    public ActionableCompleteSystem(ActiveActions activeActions)  {
-        super(Family.all(ActionableComponent.class).get());
-        this.activeActions = activeActions;
+    public ActionableCompleteSystem(ScreenState state)  {
+        this.state = state;
     }
 
     @Override
-    protected void processEntity(Entity entity, float deltaTime) {
-        ActionableComponent ac = am.get(entity);
+    public void addedToEngine (Engine engine) {
+        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class).get());
+    }
 
-        if(ac.isDone){
-            switch (ac.action){
-                case ReadNote:
-                    ResolveReadNote();
-                    break;
-                case CoolantLeak:
-                    ResolveCoolantLeak();
-                    break;
-                case WaterPumpBreakdown:
-                    ResolveWaterPumpBreakdown();
-                    break;
-                case CoolantPumpBreakdown:
-                    ResolveCoolantPumpBreakdown();
-                    break;
-                case HackedComputer:
-                   ResolveHackedComputer();
-                    break;
-                case OSReinstall:
-                    ResolveOSReinstall();
-                    break;
-                case Rubble:
-                    ResolveRubble();
-                    break;
+    @Override
+    public void removedFromEngine (Engine engine) {
+
+    }
+
+    @Override
+    public void update (float deltaTime) {
+
+        EnumSet<Effects> currentEffects = EnumSet.noneOf(Effects.class);
+        EnumSet<Effects> completedEffects = EnumSet.noneOf(Effects.class);
+
+        for(Entity e : entities)
+        {
+            ActionableComponent ac = am.get(e);
+
+            if(ac.isDone){
+                this.getEngine().removeEntity(e);
             }
-
-            activeActions.activeActions.remove(ac.action);
-            this.getEngine().removeEntity(entity);
+            else
+            {
+                currentEffects.add(ac.effect);
+            }
         }
+
+        for(Effects eff : state.activeEffects) {
+            if(!currentEffects.contains(eff))
+            {
+                completedEffects.add(eff);
+            }
+        }
+
+        state.activeEffects = currentEffects;
+        state.completedEffects = completedEffects;
     }
 
-
-
-    private void ResolveReadNote() {
-    }
-
-    private void ResolveCoolantLeak() {
-    }
-
-    private void ResolveWaterPumpBreakdown() {
-    }
-
-    private void ResolveCoolantPumpBreakdown() {
-    }
-
-    private void ResolveHackedComputer() {
-    }
-
-    private void ResolveOSReinstall() {
-    }
-
-    private void ResolveRubble() {
-    }
 }

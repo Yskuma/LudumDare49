@@ -1,6 +1,6 @@
 package com.livelyspark.ludumdare49.enums;
 
-public enum Actions {
+public enum Effects {
     ReadNote,
     CoolantLeak,
     WaterPumpBreakdown,

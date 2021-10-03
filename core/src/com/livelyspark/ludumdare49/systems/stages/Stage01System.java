@@ -1,13 +1,13 @@
 package com.livelyspark.ludumdare49.systems.stages;
 
-import com.livelyspark.ludumdare49.gameobj.ActiveActions;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.enums.Events;
 import com.livelyspark.ludumdare49.stages.Stage;
 
 public class Stage01System extends StageSystemBase {
-    public Stage01System(ActiveActions activeActions) {
-        super(activeActions);
+    public Stage01System(ScreenState state) {
+        super(state);
     }
 
     @Override
