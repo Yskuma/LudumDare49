@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -69,7 +70,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        camera = new OrthographicCamera(520,296);
+        camera = new OrthographicCamera(520, 296);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
 
@@ -114,15 +115,16 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new AnimationRenderSystem(camera));
-        engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
+        engine.addSystem(new ActionableEffectRenderSystem(camera, assetManager));
         engine.addSystem(new ActionableEffectHintRenderSystem(camera, playerPos, assetManager));
+        engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager));
 
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
 
         //Debug
-        engine.addSystem(new DebugReactorUiSystem(screenState,powerStation));
-        engine.addSystem(new DebugPlayerPosUiSystem(screenState,playerPos));
+        engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));
+        engine.addSystem(new DebugPlayerPosUiSystem(screenState, playerPos));
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
@@ -135,10 +137,10 @@ public class PowerStationScreen extends AbstractScreen {
 
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
-        playerPos = new PositionComponent(340,300);
+        playerPos = new PositionComponent(340, 300);
         engine.addEntity((new Entity())
                 .add(playerPos)
-                .add(new VelocityComponent(0,0))
+                .add(new VelocityComponent(0, 0))
                 .add(new SpriteComponent(new Sprite(dude)))
                 .add(new PlayerComponent())
                 .add(new CameraTargetComponent())
@@ -150,19 +152,19 @@ public class PowerStationScreen extends AbstractScreen {
         TextureAtlas.AtlasRegion desk = actionablesAtlas.findRegion("desk");
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(340,330))
+                .add(new PositionComponent(340, 330))
                 .add(new SpriteComponent(new Sprite(desk)))
         );
 
         TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("pump");
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(70,860))
+                .add(new PositionComponent(70, 860))
                 .add(new SpriteComponent(new Sprite(pump)))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(48,645))
+                .add(new PositionComponent(48, 645))
                 .add(new SpriteComponent(new Sprite(pump)))
         );
 
@@ -170,25 +172,25 @@ public class PowerStationScreen extends AbstractScreen {
         TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("pipe");
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(22,860))
+                .add(new PositionComponent(22, 860))
                 .add(new SpriteComponent(new Sprite(pipe)))
         );
 
         TextureAtlas.AtlasRegion computer = actionablesAtlas.findRegion("computer");
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(224,640))
+                .add(new PositionComponent(224, 640))
                 .add(new SpriteComponent(new Sprite(computer)))
         );
 
         TextureAtlas.AtlasRegion heatExchanger = actionablesAtlas.findRegion("heatexchanger");
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(48,570))
+                .add(new PositionComponent(48, 570))
                 .add(new SpriteComponent(new Sprite(heatExchanger)))
         );
 
-        TextureAtlas.AtlasRegion [] turbine = new TextureAtlas.AtlasRegion[]{
+        TextureAtlas.AtlasRegion[] turbine = new TextureAtlas.AtlasRegion[]{
                 actionablesAtlas.findRegion("turbine1"),
                 actionablesAtlas.findRegion("turbine2"),
                 actionablesAtlas.findRegion("turbine3"),
@@ -197,15 +199,31 @@ public class PowerStationScreen extends AbstractScreen {
         };
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(64,208))
+                .add(new PositionComponent(64, 208))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine)))
         );
 
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(152,632))
+                .add(new ActionableComponent(1.0f, 5.0f, 16f, Color.PURPLE))
+                .add(new CommandComponent(Commands.ControlRodDecrease))
+        );
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(296,632))
+                .add(new ActionableComponent(1.0f, 5.0f, 16f, Color.PURPLE))
+                .add(new CommandComponent(Commands.ControlRodIncrease))
+        );
+
+        /*
         engine.addEntity(new Entity()
                 .add(new MessageComponent("Our country is strong and stable, no earthquakes here!!",  atlas.findRegion("kimmy32"))));
 
         engine.addEntity(new Entity()
                 .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("kimmy32"))));
+
+         */
+
 
     }
 

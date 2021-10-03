@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
+import com.livelyspark.ludumdare49.components.EffectComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.components.SpriteComponent;
 
@@ -36,7 +37,7 @@ public class ActionableEffectHintRenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class, PositionComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(ActionableComponent.class, PositionComponent.class, EffectComponent.class).get());
     }
 
     @Override

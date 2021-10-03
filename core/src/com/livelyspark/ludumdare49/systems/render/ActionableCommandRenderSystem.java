@@ -15,7 +15,6 @@ import com.livelyspark.ludumdare49.components.PositionComponent;
 public class ActionableCommandRenderSystem extends EntitySystem {
     private final SpriteBatch batch;
     private final NinePatch borderNp;
-    private final ShapeRenderer renderer;
     private final NinePatch progressNp;
     private ImmutableArray<Entity> entities;
 
@@ -28,18 +27,10 @@ public class ActionableCommandRenderSystem extends EntitySystem {
     public ActionableCommandRenderSystem(OrthographicCamera camera, AssetManager assetManager) {
         this.batch = new SpriteBatch();
         this.camera = camera;
-        renderer = new ShapeRenderer();
-        renderer.setAutoShapeType(true);
 
         TextureAtlas atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
-        borderNp = new NinePatch(atlas.findRegion("border"), 8, 8, 8, 8);
+        borderNp = new NinePatch(atlas.findRegion("border2"), 8, 8, 8, 8);
         progressNp = new NinePatch(atlas.findRegion("progress2"), 2, 2, 2, 2);
-
-        //renderer = new ShapeRenderer();
-
-        //TODO: Fix so shapes are sorted by Type and we manually flush between types
-        //renderer.setAutoShapeType(true);
-
     }
 
     @Override
@@ -62,7 +53,6 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        //renderer.begin();
 
         for (int i = 0; i < entities.size(); ++i) {
             Entity e = entities.get(i);
@@ -79,7 +69,7 @@ public class ActionableCommandRenderSystem extends EntitySystem {
             }
 
         }
-        //renderer.end();
+
         batch.end();
     }
 }
