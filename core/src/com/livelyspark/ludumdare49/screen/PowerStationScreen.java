@@ -18,14 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.Shapes;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
-import com.livelyspark.ludumdare49.gameobj.ActiveActions;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.input.MessageInputProcessor;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
-import com.livelyspark.ludumdare49.systems.action.ActionableActivateSystem;
-import com.livelyspark.ludumdare49.systems.action.ActionableCompleteSystem;
-import com.livelyspark.ludumdare49.systems.action.ActionableDecaySystem;
+import com.livelyspark.ludumdare49.systems.action.*;
 import com.livelyspark.ludumdare49.input.DebugInputProcessor;
 import com.livelyspark.ludumdare49.systems.ui.DebugReactorUiSystem;
 import com.livelyspark.ludumdare49.systems.render.*;
@@ -66,11 +63,11 @@ public class PowerStationScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        screenState = new ScreenState();
+
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        camera = new OrthographicCamera(320,240);
+        camera = new OrthographicCamera(520,296);
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         stage = new Stage();
 
@@ -79,9 +76,8 @@ public class PowerStationScreen extends AbstractScreen {
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addEntities();
 
+        screenState = new ScreenState();
         powerStation = new PowerStation();
-
-        ActiveActions activeActions = new ActiveActions();
 
         //Camera Systems
         engine.addSystem(new CameraSystem(camera));
@@ -95,7 +91,9 @@ public class PowerStationScreen extends AbstractScreen {
         //Action Systems
         engine.addSystem(new ActionableActivateSystem(playerPos));
         engine.addSystem(new ActionableDecaySystem());
-        engine.addSystem(new ActionableCompleteSystem(activeActions));
+        engine.addSystem(new ActionableCompleteSystem(screenState));
+        engine.addSystem(new ActionableResolveSystem(screenState));
+        engine.addSystem(new ActionableTiledLayerSystem(tiledMap, screenState));
 
         //Message Systems
         engine.addSystem(new MessageSystem(screenState));
@@ -105,7 +103,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new ReactorSystem(powerStation));
 
         //Renderers
-        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera, activeActions));
+        engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionRenderSystem(camera,assetManager));
@@ -119,7 +117,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new DebugInputProcessor(powerStation));
 
         //StageSystem
-        engine.addSystem(new Stage01System(activeActions));
+        engine.addSystem(new Stage01System(screenState));
     }
 
     private void addEntities() {
