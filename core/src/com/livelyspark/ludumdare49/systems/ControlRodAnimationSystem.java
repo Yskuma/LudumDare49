@@ -24,7 +24,7 @@ public class ControlRodAnimationSystem extends EntitySystem {
     }
 
     public void GenerateEntities(){
-        TextureAtlas.AtlasRegion controlRod = atlas.findRegion("controlrods");
+        TextureAtlas.AtlasRegion controlRod = atlas.findRegion("ControlRods");
 
         controlRods = new Entity()
                 .add(new PositionComponent(224,848))
