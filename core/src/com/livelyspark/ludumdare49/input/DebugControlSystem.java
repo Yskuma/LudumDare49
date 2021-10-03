@@ -35,10 +35,6 @@ public class DebugControlSystem implements InputProcessor {
         }
 
         switch (keycode) {
-            case Input.Keys.O:
-                ps.isDebug = !ps.isDebug;
-                break;
-
             case Input.Keys.P:
                 ps.isPaused = !ps.isPaused;
                 break;
