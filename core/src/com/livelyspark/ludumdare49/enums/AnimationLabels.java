@@ -4,4 +4,5 @@ public enum AnimationLabels {
     NoLabel,
     Turbine,
     Reactor,
+    HandPump
 }

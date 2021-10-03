@@ -117,6 +117,7 @@ public class PowerStationScreen extends AbstractScreen {
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new AnimationRenderSystem(camera, powerStation));
+        engine.addSystem(new TurbineRenderSystem(camera, powerStation));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
@@ -205,6 +206,21 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(64,208))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
+        );
+
+        TextureAtlas.AtlasRegion [] handPump = new TextureAtlas.AtlasRegion[]{
+                actionablesAtlas.findRegion("HandPump1"),
+                actionablesAtlas.findRegion("HandPump2"),
+                actionablesAtlas.findRegion("HandPump3"),
+                actionablesAtlas.findRegion("HandPump4"),
+                actionablesAtlas.findRegion("HandPump5"),
+                actionablesAtlas.findRegion("HandPump6"),
+                actionablesAtlas.findRegion("HandPump7")
+        };
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(272,850))
+                .add(new AnimationComponent(new Animation<TextureRegion>(0.2f, handPump), 0.2f, AnimationLabels.HandPump))
         );
 
         TextureAtlas.AtlasRegion [] reactor = new TextureAtlas.AtlasRegion[]{
