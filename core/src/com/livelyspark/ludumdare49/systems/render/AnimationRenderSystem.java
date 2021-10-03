@@ -10,7 +10,9 @@ import com.livelyspark.ludumdare49.components.PositionComponent;
 import com.livelyspark.ludumdare49.components.SpriteComponent;
 import com.livelyspark.ludumdare49.components.TurbineComponent;
 import com.livelyspark.ludumdare49.enums.AnimationLabels;
+import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class AnimationRenderSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -18,15 +20,17 @@ public class AnimationRenderSystem extends EntitySystem {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private PowerStation powerStation;
+    private ScreenState screenState;
 
     private ComponentMapper<AnimationComponent> am = ComponentMapper.getFor(AnimationComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
     private float statetime = 0.0f;
 
-    public AnimationRenderSystem(OrthographicCamera camera, PowerStation powerStation) {
+    public AnimationRenderSystem(OrthographicCamera camera, PowerStation powerStation, ScreenState screenState) {
         batch = new SpriteBatch();
         this.camera = camera;
         this.powerStation = powerStation;
+        this.screenState = screenState;
     }
 
     @Override
@@ -65,7 +69,9 @@ public class AnimationRenderSystem extends EntitySystem {
                 currentFrame = GenerateReactorFrame(animation.animation);
             }
             else {
-                animation.animation.setFrameDuration(animation.frameDuration);
+                if(!screenState.actioningCommands.contains(Commands.CoolantLevelIncrease)){
+                    statetime = 0.0f;
+                }
 
                 // Get current frame of animation for the current stateTime
                 currentFrame = animation.animation.getKeyFrame(statetime, true);
