@@ -117,6 +117,7 @@ public class PowerStationScreen extends AbstractScreen {
         //Renderers
         engine.addSystem(new TiledRenderSystem(tiledRenderer, camera));
         engine.addSystem(new AnimationRenderSystem(camera, powerStation));
+        engine.addSystem(new TurbineRenderSystem(camera, powerStation));
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
@@ -153,14 +154,14 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Add Actionables
 
-        TextureAtlas.AtlasRegion desk = actionablesAtlas.findRegion("desk");
+        TextureAtlas.AtlasRegion desk = actionablesAtlas.findRegion("DeskWithPaper");
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(340, 330))
                 .add(new SpriteComponent(new Sprite(desk)))
         );
 
-        TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("pump");
+        TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("Pump");
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(70, 860))
@@ -173,21 +174,21 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
 
-        TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("pipe");
+        TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("CoolantPipe");
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(22, 860))
                 .add(new SpriteComponent(new Sprite(pipe)))
         );
 
-        TextureAtlas.AtlasRegion computer = actionablesAtlas.findRegion("computer");
+        TextureAtlas.AtlasRegion computer = actionablesAtlas.findRegion("Computer");
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(224, 640))
                 .add(new SpriteComponent(new Sprite(computer)))
         );
 
-        TextureAtlas.AtlasRegion heatExchanger = actionablesAtlas.findRegion("heatexchanger");
+        TextureAtlas.AtlasRegion heatExchanger = actionablesAtlas.findRegion("HeatExchanger");
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(48, 570))
@@ -195,11 +196,11 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
         TextureAtlas.AtlasRegion[] turbine = new TextureAtlas.AtlasRegion[]{
-                actionablesAtlas.findRegion("turbine1"),
-                actionablesAtlas.findRegion("turbine2"),
-                actionablesAtlas.findRegion("turbine3"),
-                actionablesAtlas.findRegion("turbine4"),
-                actionablesAtlas.findRegion("turbine5")
+                actionablesAtlas.findRegion("Turbine1"),
+                actionablesAtlas.findRegion("Turbine2"),
+                actionablesAtlas.findRegion("Turbine3"),
+                actionablesAtlas.findRegion("Turbine4"),
+                actionablesAtlas.findRegion("Turbine5")
         };
 
         engine.addEntity((new Entity())
@@ -207,10 +208,25 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
         );
 
+        TextureAtlas.AtlasRegion [] handPump = new TextureAtlas.AtlasRegion[]{
+                actionablesAtlas.findRegion("HandPump1"),
+                actionablesAtlas.findRegion("HandPump2"),
+                actionablesAtlas.findRegion("HandPump3"),
+                actionablesAtlas.findRegion("HandPump4"),
+                actionablesAtlas.findRegion("HandPump5"),
+                actionablesAtlas.findRegion("HandPump6"),
+                actionablesAtlas.findRegion("HandPump7")
+        };
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(272,850))
+                .add(new AnimationComponent(new Animation<TextureRegion>(0.2f, handPump), 0.2f, AnimationLabels.HandPump))
+        );
+
         TextureAtlas.AtlasRegion [] reactor = new TextureAtlas.AtlasRegion[]{
-                actionablesAtlas.findRegion("reactorcool"),
-                actionablesAtlas.findRegion("reactorwarm"),
-                actionablesAtlas.findRegion("reactorhot")
+                actionablesAtlas.findRegion("Reactor1"),
+                actionablesAtlas.findRegion("Reactor2"),
+                actionablesAtlas.findRegion("Reactor3")
         };
 
         engine.addEntity((new Entity())

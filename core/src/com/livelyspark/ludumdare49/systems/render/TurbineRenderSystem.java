@@ -2,17 +2,17 @@ package com.livelyspark.ludumdare49.systems.render;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.livelyspark.ludumdare49.components.AnimationComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
-import com.livelyspark.ludumdare49.components.SpriteComponent;
 import com.livelyspark.ludumdare49.components.TurbineComponent;
 import com.livelyspark.ludumdare49.enums.AnimationLabels;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 
-public class AnimationRenderSystem extends EntitySystem {
+public class TurbineRenderSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
 
     private SpriteBatch batch;
@@ -23,7 +23,7 @@ public class AnimationRenderSystem extends EntitySystem {
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
     private float statetime = 0.0f;
 
-    public AnimationRenderSystem(OrthographicCamera camera, PowerStation powerStation) {
+    public TurbineRenderSystem(OrthographicCamera camera, PowerStation powerStation) {
         batch = new SpriteBatch();
         this.camera = camera;
         this.powerStation = powerStation;
@@ -31,7 +31,7 @@ public class AnimationRenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine (Engine engine) {
-        entities = engine.getEntitiesFor(Family.all(AnimationComponent.class, PositionComponent.class).exclude(TurbineComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(AnimationComponent.class, PositionComponent.class, TurbineComponent.class).get());
     }
 
     @Override
@@ -61,14 +61,15 @@ public class AnimationRenderSystem extends EntitySystem {
             position = pm.get(e);
 
             TextureRegion currentFrame;
-            if(animation.animationLabel == AnimationLabels.Reactor){
-                currentFrame = GenerateReactorFrame(animation.animation);
-            }
-            else {
-                animation.animation.setFrameDuration(animation.frameDuration);
 
-                // Get current frame of animation for the current stateTime
-                currentFrame = animation.animation.getKeyFrame(statetime, true);
+            animation.animation.setFrameDuration(animation.frameDuration);
+
+            // Get current frame of animation for the current stateTime
+            currentFrame = animation.animation.getKeyFrame(statetime, true);
+
+            if (currentFrame == animation.animation.getKeyFrames()[0] && statetime > 2.0f) {
+                animation.animation.setFrameDuration(animation.frameDuration);
+                statetime = 0.0f;
             }
 
             batch.draw(currentFrame, position.x, position.y);
