@@ -47,19 +47,26 @@ public class ReactorSystem extends EntitySystem {
         if(ps.coolantLevel > 0 && ps.pumpOK) {
             deltaTurbineHeat = ps.coolantPumpSpeed * ps.coolantFlowMax * ps.coolantThermalMass * ps.reactorTemp * deltaTime;
         }
-        // TODO: Deal with heat loss/gain associated with changes in coolant volume
 
-        ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat;
+        float deltaCoolantHeat = 0;
+        if(ps.coolantLevel < 1 && ps.pumpOK) {
+            deltaCoolantHeat = ps.coolantPumpSpeed*ps.coolantFlowMax*ps.coolantThermalMass*ps.tempAmbient;
+        }
+        if(ps.coolantLevel > 0 && ps.coolantLeakActive) {
+            deltaCoolantHeat = deltaCoolantHeat - ps.coolantLeakRate*ps.coolantThermalMass*ps.reactorTemp;
+        }
+
+        ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat + deltaCoolantHeat;
 
         ps.reactorTemp = ps.reactorHeat / ((ps.coolantLevel * ps.coolantThermalMass) + ps.reactorThermalMass);
 
-        if(ps.reactorTemp < 373)
+        if(ps.reactorTemp < 473)
         {
             ps.power = 0;
         }
-        else if(ps.reactorTemp >= 373 && ps.reactorTemp < 673)
+        else if(ps.reactorTemp >= 473 && ps.reactorTemp < 673)
         {
-            float e = (ps.reactorTemp - 373)/(673 - 373);
+            float e = (ps.reactorTemp - 473)/(673 - 473);
             ps.power = (deltaTurbineHeat * e) / deltaTime;
         }
         else

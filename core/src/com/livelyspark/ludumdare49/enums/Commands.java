@@ -5,5 +5,7 @@ public enum Commands {
     ControlRodDecrease,
     CoolantPumpIncrease,
     CoolantPumpDecrease,
+    CoolantLevelIncrease,
+    CoolantLevelDecrease,
     ToggleArtificialNeutron
 }
