@@ -6,11 +6,14 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: {
 		file: font-export.fnt
 	}
+	medium: {
+		file: medium.fnt
+	}
 	small: {
 		file: small.fnt
 	}
 	title: {
-		file: font-title-export.fnt
+		file: title.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {
@@ -24,6 +27,18 @@ com.badlogic.gdx.graphics.Color: {
 		r: 0.68333334
 		g: 0.68333334
 		b: 0.68333334
+		a: 1
+	}
+	purpleDark: {
+		r: 0.3906864
+		g: 0
+		b: 0.39072266
+		a: 1
+	}
+	purpleLight: {
+		r: 0.78431374
+		g: 0
+		b: 0.78431374
 		a: 1
 	}
 	white: {
@@ -251,7 +266,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
 		background: window
-		titleFont: font
+		titleFont: small
 		titleFontColor: black
 	}
 	dialog: {

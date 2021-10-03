@@ -32,7 +32,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:dude.png,type:Input,regionName:null}]
+inputFiles=[{path:dude.png,type:Input,regionName:null},{path:arrow.png,type:Input,regionName:null},{path:border.png,type:Input,regionName:null},{path:border2.png,type:Input,regionName:null},{path:progress.png,type:Input,regionName:null},{path:progress2.png,type:Input,regionName:null},{path:kimmy32.png,type:Input,regionName:null}]
 
 
 -PROJ-
