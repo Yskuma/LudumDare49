@@ -51,7 +51,7 @@ public class DebugPlayerPosUiSystem extends EntitySystem {
         table.background(tableBackground);
 
         table.columnDefaults(0).center();
-        textLabel = table.add("This is a test!", "small", Color.BLACK).getActor();
+        textLabel = table.add("This is player test!", "small", Color.BLACK).getActor();
 
         stage.addActor(table);
    }

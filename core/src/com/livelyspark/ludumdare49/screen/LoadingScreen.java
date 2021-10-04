@@ -50,6 +50,7 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load("textures/dummy.atlas", TextureAtlas.class);
         assetManager.load("textures/sprites.atlas", TextureAtlas.class);
         assetManager.load("textures/actionables.atlas", TextureAtlas.class);
+        assetManager.load("textures/dude.atlas", TextureAtlas.class);
 
         assetManager.load("textures/nuclear.png", Texture.class);
 

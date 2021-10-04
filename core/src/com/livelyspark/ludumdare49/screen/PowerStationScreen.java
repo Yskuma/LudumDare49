@@ -19,9 +19,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
-import com.livelyspark.ludumdare49.enums.CameraModes;
 import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.AnimationLabels;
+import com.livelyspark.ludumdare49.gameobj.Player;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.input.MessageInputProcessor;
@@ -29,6 +29,9 @@ import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.*;
 import com.livelyspark.ludumdare49.input.DebugInputProcessor;
+import com.livelyspark.ludumdare49.systems.player.PlayerMovementSystem;
+import com.livelyspark.ludumdare49.systems.player.PlayerRenderSystem;
+import com.livelyspark.ludumdare49.systems.player.PlayerUpdateSystem;
 import com.livelyspark.ludumdare49.systems.sound.SoundListener;
 import com.livelyspark.ludumdare49.systems.sound.SoundLocalSystem;
 import com.livelyspark.ludumdare49.systems.ui.*;
@@ -41,11 +44,11 @@ public class PowerStationScreen extends AbstractScreen {
     private OrthographicCamera camera;
     private Stage stage;
     private OrthogonalTiledMapRenderer tiledRenderer;
-    private PositionComponent playerPos;
     private ActionableComponent actionableComponent;
     private PowerStation powerStation;
     private InputMultiplexer inputMultiplexer;
     private ScreenState screenState;
+    private Player player;
 
     public PowerStationScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -94,13 +97,14 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new CameraSystem(camera, screenState));
 
         //Movement/Position Systems
-        engine.addSystem(new PlayerMovementSystem());
+        engine.addSystem(new PlayerMovementSystem(player));
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SpritePositionSystem());
         engine.addSystem(new WallCollisionSystem(tiledMap));
+        engine.addSystem(new PlayerUpdateSystem(player));
 
         //Action Systems
-        engine.addSystem(new ActionableActivateSystem(screenState, playerPos));
+        engine.addSystem(new ActionableActivateSystem(screenState, player.position));
         engine.addSystem(new ActionableDecaySystem());
 
         engine.addSystem(new ActionableEffectCompleteSystem(screenState));
@@ -129,19 +133,20 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new SpriteRenderSystem(camera));
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
-        engine.addSystem(new ActionableEffectHintRenderSystem(camera, playerPos, assetManager));
+        engine.addSystem(new ActionableEffectHintRenderSystem(camera, player.position, assetManager));
         engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager));
+        engine.addSystem(new PlayerRenderSystem(camera,player,assetManager));
 
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
         engine.addSystem(new ReactorUiSystem(screenState, powerStation, assetManager));
 
         //Sound
-        engine.addSystem(new SoundLocalSystem(playerPos));
+        engine.addSystem(new SoundLocalSystem(player.position));
 
         //Debug
         engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));
-        engine.addSystem(new DebugPlayerPosUiSystem(screenState, playerPos));
+        engine.addSystem(new DebugPlayerPosUiSystem(screenState, player.position));
         engine.addSystem(new DebugScreenStateUiSystem(screenState));
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
@@ -155,15 +160,17 @@ public class PowerStationScreen extends AbstractScreen {
 
         TextureAtlas.AtlasRegion dude = atlas.findRegion("dude");
 
-        playerPos = new PositionComponent(340, 300);
-        camera.position.x = playerPos.x;
-        camera.position.y = playerPos.y;
+        PositionComponent playerPos = new PositionComponent(340, 300);
+        VelocityComponent playerVel = new VelocityComponent(0,0);
+
+        player = new Player(playerPos, playerVel);
+
+        camera.position.x = player.position.x;
+        camera.position.y = player.position.y;
 
         engine.addEntity((new Entity())
                 .add(playerPos)
-                .add(new VelocityComponent(0, 0))
-                .add(new SpriteComponent(new Sprite(dude)))
-                .add(new PlayerComponent())
+                .add(playerVel)
                 .add(new CameraTargetComponent())
                 .add(new WallCollisionComponent())
         );

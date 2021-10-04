@@ -61,7 +61,7 @@ public class MessageUiSystem extends EntitySystem {
         icon.setWidth(32);
         icon.setHeight(32);
         table.add(icon);
-        textLabel = table.add("This is a test!", "small", Color.BLACK).getActor();
+        textLabel = table.add("This is player test!", "small", Color.BLACK).getActor();
 
         stage.addActor(table);
     }

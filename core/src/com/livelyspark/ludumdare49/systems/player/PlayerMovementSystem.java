@@ -1,7 +1,8 @@
-package com.livelyspark.ludumdare49.systems;
+package com.livelyspark.ludumdare49.systems.player;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
@@ -9,23 +10,21 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.Direction;
+import com.livelyspark.ludumdare49.gameobj.Player;
 
 
-public class PlayerMovementSystem extends IteratingSystem {
+public class PlayerMovementSystem extends EntitySystem {
 
-    private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
-    private ComponentMapper<PlayerComponent>pm = ComponentMapper.getFor(PlayerComponent.class);
+    private final Player player;
 
-    public PlayerMovementSystem() {
-        super(Family.all(VelocityComponent.class, PlayerComponent.class).get());
-    }
+    public PlayerMovementSystem(Player player) {
+        this.player = player;
+            }
 
     @Override
-    public void processEntity (Entity entity, float deltaTime) {
+    public void update (float deltaTime) {
 
-        VelocityComponent velocity = vm.get(entity);
-
-        float speed = 100f;
         Vector2 velVec = new Vector2();
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
@@ -48,8 +47,10 @@ public class PlayerMovementSystem extends IteratingSystem {
             velVec.y += 1;
         }
 
-        velVec = velVec.nor().scl(speed);
-        velocity.x = velVec.x;
-        velocity.y = velVec.y;
+        velVec = velVec.nor().scl(player.speedMax);
+        player.velocity.x = velVec.x;
+        player.velocity.y = velVec.y;
+
     }
+
 }

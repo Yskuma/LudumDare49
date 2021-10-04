@@ -1,118 +1,118 @@
 
-Dude.png
+dude.png
 size: 256, 32
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-DudeWalkDown1
+dudeDown
   rotate: false
   xy: 2, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkDown2
+  index: 0
+dudeDown
   rotate: false
   xy: 182, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkDown4
+  index: 1
+dudeDown
   rotate: false
   xy: 182, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkDown3
+  index: 2
+dudeDown
   rotate: false
   xy: 56, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkLeft1
+  index: 4
+dudeLeft
   rotate: false
   xy: 164, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkLeft3
+  index: 0
+dudeLeft
   rotate: false
   xy: 164, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkLeft2
+  index: 2
+dudeLeft
   rotate: false
   xy: 38, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkLeft4
+  index: 1
+dudeLeft
   rotate: false
   xy: 128, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkRight1
+  index: 3
+dudeRight
   rotate: false
   xy: 200, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkRight3
+  index: 0
+dudeRight
   rotate: false
   xy: 200, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkRight2
+  index: 2
+dudeRight
   rotate: false
   xy: 74, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkRight4
+  index: 1
+dudeRight
   rotate: false
   xy: 146, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkUp1
+  index: 3
+dudeUp
   rotate: false
   xy: 110, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkUp3
+  index: 0
+dudeUp
   rotate: false
   xy: 110, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkUp2
+  index: 2
+dudeUp
   rotate: false
   xy: 20, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
-DudeWalkUp4
+  index: 1
+dudeUp
   rotate: false
   xy: 92, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
+  index: 3
