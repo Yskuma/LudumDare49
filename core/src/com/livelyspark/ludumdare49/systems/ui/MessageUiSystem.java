@@ -84,14 +84,14 @@ public class MessageUiSystem extends EntitySystem {
     private TextureRegion GetTextureRegion(MessageTextures icon) {
         switch (icon){
             case Leader:
-                return atlas.findRegion("kimmy32");
+                return atlas.findRegion("leader");
             case Note:
                 return actionablesAtlas.findRegion("DeskWithPaper");
             case Player:
                 return atlas.findRegion("dude");
         }
 
-        return atlas.findRegion("kimmy32");
+        return atlas.findRegion("leader");
     }
 
 

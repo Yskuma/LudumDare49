@@ -254,10 +254,10 @@ public class PowerStationScreen extends AbstractScreen {
 
         /*
         engine.addEntity(new Entity()
-                .add(new MessageComponent("Our country is strong and stable, no earthquakes here!!",  atlas.findRegion("kimmy32"))));
+                .add(new MessageComponent("Our country is strong and stable, no earthquakes here!!",  atlas.findRegion("leader"))));
 
         engine.addEntity(new Entity()
-                .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("kimmy32"))));
+                .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("leader"))));
          */
     }
 
