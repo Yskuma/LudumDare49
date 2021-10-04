@@ -2,9 +2,11 @@ package com.livelyspark.ludumdare49.screen;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,6 +29,8 @@ import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.*;
 import com.livelyspark.ludumdare49.input.DebugInputProcessor;
+import com.livelyspark.ludumdare49.systems.sound.SoundListener;
+import com.livelyspark.ludumdare49.systems.sound.SoundLocalSystem;
 import com.livelyspark.ludumdare49.systems.ui.*;
 import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
@@ -76,6 +80,10 @@ public class PowerStationScreen extends AbstractScreen {
         //TiledMap tiledMap = assetManager.get("tilemaps/testmapsmall.tmx", TiledMap.class);
         TiledMap tiledMap = assetManager.get("tilemaps/powerstation.tmx", TiledMap.class);
         tiledRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+        //Listeners
+        engine.addEntityListener(Family.all(SoundComponent.class).get(),new SoundListener());
+
         addEntities();
 
         screenState = new ScreenState();
@@ -128,6 +136,9 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
         engine.addSystem(new ReactorUiSystem(screenState, powerStation, assetManager));
 
+        //Sound
+        engine.addSystem(new SoundLocalSystem(playerPos));
+
         //Debug
         engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));
         engine.addSystem(new DebugPlayerPosUiSystem(screenState, playerPos));
@@ -170,6 +181,7 @@ public class PowerStationScreen extends AbstractScreen {
                 .add(new PositionComponent(64,208))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
                 .add(new TurbineComponent())
+                .add(new SoundComponent(assetManager.get("sound/turbine.mp3", Sound.class),true))
         );
 
         TextureAtlas.AtlasRegion [] handPump = new TextureAtlas.AtlasRegion[]{

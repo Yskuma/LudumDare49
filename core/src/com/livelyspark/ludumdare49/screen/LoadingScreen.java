@@ -2,6 +2,7 @@ package com.livelyspark.ludumdare49.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,12 +46,19 @@ public class LoadingScreen extends AbstractScreen {
     public void loadAssets() {
         // Add everything to be loaded, for instance:
         assetManager.setLoader(TiledMap.class, new TmxMapLoader());
+
         assetManager.load("textures/dummy.atlas", TextureAtlas.class);
         assetManager.load("textures/sprites.atlas", TextureAtlas.class);
         assetManager.load("textures/actionables.atlas", TextureAtlas.class);
+
         assetManager.load("textures/nuclear.png", Texture.class);
+
         assetManager.load("tilemaps/testmapsmall.tmx", TiledMap.class);
         assetManager.load("tilemaps/powerstation.tmx", TiledMap.class);
+
+        assetManager.load("sound/earthquake.mp3", Sound.class);
+        assetManager.load("sound/footsteps.mp3", Sound.class);
+        assetManager.load("sound/turbine.mp3", Sound.class);
     }
 
     @Override
