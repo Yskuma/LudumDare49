@@ -106,7 +106,7 @@ public abstract class StageSystemBase extends IntervalSystem {
                         powerStation.targetPower = 110.0f;
                         break;
                     case EvenMoarPowah:
-                        powerStation.targetPower = 120.0f;
+                        powerStation.targetPower = 130.0f;
                         break;
                     case SheCantTakeMuchMoreCaptain:
                         DoCoolantPumpBreakdown();
