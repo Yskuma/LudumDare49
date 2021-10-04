@@ -27,6 +27,7 @@ public abstract class StageSystemBase extends IntervalSystem {
         super(1.0f);
         GenerateStage();
         this.powerStation = powerStation;
+        powerStation.targetPower = 150;
     }
 
     protected abstract void GenerateStage();

@@ -43,7 +43,5 @@ public class Stage01System extends StageSystemBase {
                 },
                 75000.0
         );
-
-        powerStation.targetPower = 150;
     }
 }
