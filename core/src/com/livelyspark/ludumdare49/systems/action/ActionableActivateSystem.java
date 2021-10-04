@@ -66,24 +66,36 @@ public class ActionableActivateSystem extends EntitySystem {
 
         if(closestAction != null)
         {
-            closestAction.isActive = true;
-            closestAction.timeActivated += deltaTime;
-            closestAction.timeActivated = Math.min(closestAction.timeActivated, closestAction.timeToActivate);
-
             if(closestEffect != null)
             {
+                closestAction.isActive = true;
+                closestAction.timeActivated += deltaTime;
+                closestAction.timeActivated = Math.min(closestAction.timeActivated, closestAction.timeToActivate);
+
                 state.actioningEffects.add(closestEffect.effect);
+
+                if(closestAction.timeActivated >= closestAction.timeToActivate)
+                {
+                    closestAction.isDone = true;
+                }
             }
 
             if(closestCommand != null)
             {
-                state.actioningCommands.add(closestCommand.command);
+                if(!state.disabledCommands.contains(closestCommand.command)) {
+                    closestAction.isActive = true;
+                    closestAction.timeActivated += deltaTime;
+                    closestAction.timeActivated = Math.min(closestAction.timeActivated, closestAction.timeToActivate);
+
+                    state.actioningCommands.add(closestCommand.command);
+
+                    if (closestAction.timeActivated >= closestAction.timeToActivate) {
+                        closestAction.isDone = true;
+                    }
+                }
             }
 
-            if(closestAction.timeActivated >= closestAction.timeToActivate)
-            {
-                closestAction.isDone = true;
-            }
+
         }
 
     }

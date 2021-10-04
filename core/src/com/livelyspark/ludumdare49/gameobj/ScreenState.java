@@ -23,4 +23,6 @@ public class ScreenState {
     public EnumSet<Commands> actioningCommands = EnumSet.noneOf(Commands.class);
     public EnumSet<Effects> actioningEffects = EnumSet.noneOf(Effects.class);
 
+    public EnumSet<Commands> disabledCommands = EnumSet.noneOf(Commands.class);
+
 }

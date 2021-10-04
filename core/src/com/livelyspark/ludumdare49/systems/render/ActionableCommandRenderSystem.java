@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
 import com.livelyspark.ludumdare49.components.CommandComponent;
 import com.livelyspark.ludumdare49.components.PositionComponent;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 import java.util.Objects;
 
@@ -22,6 +23,7 @@ public class ActionableCommandRenderSystem extends EntitySystem {
     private final NinePatch progressNp;
     private final Skin uiSkin;
     private final BitmapFont font;
+    private final ScreenState state;
     private ImmutableArray<Entity> entities;
 
     private OrthographicCamera camera;
@@ -29,10 +31,12 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
     private ComponentMapper<ActionableComponent> am = ComponentMapper.getFor(ActionableComponent.class);
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<CommandComponent> cm = ComponentMapper.getFor(CommandComponent.class);
 
-    public ActionableCommandRenderSystem(OrthographicCamera camera, AssetManager assetManager) {
+    public ActionableCommandRenderSystem(OrthographicCamera camera, AssetManager assetManager, ScreenState state) {
         this.batch = new SpriteBatch();
         this.camera = camera;
+        this.state = state;
 
         TextureAtlas atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
         borderNp = new NinePatch(atlas.findRegion("border2"), 8, 8, 8, 8);
@@ -68,8 +72,18 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
             ActionableComponent a = am.get(e);
             PositionComponent p = pm.get(e);
+            CommandComponent c = cm.get(e);
 
-            borderNp.setColor(a.color);
+            if(state.disabledCommands.contains(c.command))
+            {
+                borderNp.setColor(Color.DARK_GRAY);
+            }
+            else
+            {
+                borderNp.setColor(a.color);
+            }
+
+
             borderNp.draw(batch, p.x - (a.size/2), p.y - (a.size/2), a.size, a.size);
 
             if(a.size * (a.timeActivated/a.timeToActivate) > 2) {

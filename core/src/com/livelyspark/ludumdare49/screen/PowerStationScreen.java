@@ -31,6 +31,7 @@ import com.livelyspark.ludumdare49.input.DebugInputProcessor;
 import com.livelyspark.ludumdare49.systems.player.PlayerMovementSystem;
 import com.livelyspark.ludumdare49.systems.player.PlayerRenderSystem;
 import com.livelyspark.ludumdare49.systems.player.PlayerUpdateSystem;
+import com.livelyspark.ludumdare49.systems.sound.PlayerSoundSystem;
 import com.livelyspark.ludumdare49.systems.sound.SoundListener;
 import com.livelyspark.ludumdare49.systems.sound.SoundLocalSystem;
 import com.livelyspark.ludumdare49.systems.ui.*;
@@ -133,7 +134,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
         engine.addSystem(new ActionableEffectHintRenderSystem(camera, player.position, assetManager));
-        engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager));
+        engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager, screenState));
         engine.addSystem(new PlayerRenderSystem(camera,player,assetManager));
 
         //UI
@@ -142,6 +143,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         //Sound
         engine.addSystem(new SoundLocalSystem(player.position));
+        engine.addSystem(new PlayerSoundSystem(player, assetManager));
 
         //Debug
         engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));
