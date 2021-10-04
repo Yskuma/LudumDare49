@@ -137,7 +137,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
-        engine.addSystem(new Stage01System(screenState));
+        engine.addSystem(new Stage01System(powerStation));
     }
 
     private void addEntities() {
@@ -160,48 +160,6 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
         //Add Actionables
-
-        TextureAtlas.AtlasRegion desk = actionablesAtlas.findRegion("DeskWithPaper");
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(340, 330))
-                .add(new SpriteComponent(new Sprite(desk)))
-        );
-
-        TextureAtlas.AtlasRegion pump = actionablesAtlas.findRegion("Pump");
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(70, 860))
-                .add(new SpriteComponent(new Sprite(pump)))
-        );
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(48, 645))
-                .add(new SpriteComponent(new Sprite(pump)))
-        );
-
-
-        TextureAtlas.AtlasRegion pipe = actionablesAtlas.findRegion("CoolantPipe");
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(22, 860))
-                .add(new SpriteComponent(new Sprite(pipe)))
-        );
-
-        TextureAtlas.AtlasRegion computer = actionablesAtlas.findRegion("Computer");
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(224, 640))
-                .add(new SpriteComponent(new Sprite(computer)))
-        );
-
-        TextureAtlas.AtlasRegion heatExchanger = actionablesAtlas.findRegion("HeatExchanger");
-
-        engine.addEntity((new Entity())
-                .add(new PositionComponent(48, 570))
-                .add(new SpriteComponent(new Sprite(heatExchanger)))
-        );
-
         TextureAtlas.AtlasRegion[] turbine = new TextureAtlas.AtlasRegion[]{
                 actionablesAtlas.findRegion("Turbine1"),
                 actionablesAtlas.findRegion("Turbine2"),
@@ -213,6 +171,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(64,208))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, turbine), 1.0f, AnimationLabels.Turbine))
+                .add(new TurbineComponent())
         );
 
         TextureAtlas.AtlasRegion [] handPump = new TextureAtlas.AtlasRegion[]{

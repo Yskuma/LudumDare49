@@ -20,7 +20,7 @@ ControlRods
   index: -1
 CoolantPipe
   rotate: false
-  xy: 640, 32
+  xy: 640, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -48,7 +48,7 @@ HandPump2
   index: -1
 HandPump3
   rotate: false
-  xy: 640, 0
+  xy: 752, 112
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
@@ -62,14 +62,14 @@ HandPump4
   index: -1
 HandPump5
   rotate: false
-  xy: 752, 112
+  xy: 32, 0
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 HandPump6
   rotate: false
-  xy: 640, 16
+  xy: 720, 96
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
@@ -83,7 +83,7 @@ HandPump7
   index: -1
 HandPump8
   rotate: false
-  xy: 720, 96
+  xy: 32, 16
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
@@ -123,30 +123,37 @@ Reactor3
   orig: 64, 80
   offset: 0, 0
   index: -1
+Rubble
+  rotate: false
+  xy: 640, 32
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 Shelves1
-  rotate: false
-  xy: 64, 32
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-Shelves2
-  rotate: false
-  xy: 32, 16
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-Shelves3
   rotate: false
   xy: 720, 80
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
+Shelves2
+  rotate: false
+  xy: 64, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+Shelves3
+  rotate: false
+  xy: 784, 112
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 Shelves4
   rotate: false
-  xy: 32, 0
+  xy: 688, 64
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -160,7 +167,7 @@ Shelves5
   index: -1
 Shelves6
   rotate: false
-  xy: 688, 64
+  xy: 752, 96
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

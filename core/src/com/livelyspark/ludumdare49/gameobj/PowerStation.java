@@ -28,6 +28,7 @@ public class PowerStation {
     public float deltaSlowNeutrons = 3E11f;
 
     public float power = 0;
+    public float targetPower = 150f;
 
     public boolean isPaused = false;
 }
