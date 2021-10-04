@@ -59,17 +59,17 @@ public class EffectUiSystem extends EntitySystem {
         Drawable tableBackground = uiSkin.getDrawable("textfield");
         atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
 
-        coolantLeakAlert = getTable(atlas.findRegion("dude"), "Coolant Leak", uiSkin);
-        waterPumpAlert = getTable(atlas.findRegion("dude"), "Water Pump", uiSkin);
-        coolantPumpAlert = getTable(atlas.findRegion("dude"), "Coolant Pump", uiSkin);
-        heatExchangerAlert = getTable(atlas.findRegion("dude"), "Heat Exchanger", uiSkin);
-        hackedComputerAlert = getTable(atlas.findRegion("dude"), "HackedComputer", uiSkin);
-        osReinstallAlert = getTable(atlas.findRegion("dude"), "OS Reinstall", uiSkin);
-        rubbleAlert = getTable(atlas.findRegion("dude"), "Rubble", uiSkin);
+        coolantLeakAlert = getTable(atlas.findRegion("exclaim"), "Coolant Leak", uiSkin);
+        waterPumpAlert = getTable(atlas.findRegion("exclaim"), "Water Pump", uiSkin);
+        coolantPumpAlert = getTable(atlas.findRegion("exclaim"), "Coolant Pump", uiSkin);
+        heatExchangerAlert = getTable(atlas.findRegion("exclaim"), "Heat Exchanger", uiSkin);
+        hackedComputerAlert = getTable(atlas.findRegion("exclaim"), "HackedComputer", uiSkin);
+        osReinstallAlert = getTable(atlas.findRegion("exclaim"), "OS Reinstall", uiSkin);
+        rubbleAlert = getTable(atlas.findRegion("exclaim"), "Rubble", uiSkin);
 
-        coolantLevelAlert = getTable(atlas.findRegion("dude"), "Coolant Level", uiSkin);
-        reactorTempAlert = getTable(atlas.findRegion("dude"), "Reactor Temp", uiSkin);
-        powerProductionAlert = getTable(atlas.findRegion("dude"), "Power Production", uiSkin);
+        coolantLevelAlert = getTable(atlas.findRegion("exclaim"), "Coolant Level", uiSkin);
+        reactorTempAlert = getTable(atlas.findRegion("exclaim"), "Reactor Temp", uiSkin);
+        powerProductionAlert = getTable(atlas.findRegion("exclaim"), "Power Production", uiSkin);
 
         tables = new Table[]{coolantLeakAlert, waterPumpAlert, coolantPumpAlert, heatExchangerAlert,
         hackedComputerAlert, osReinstallAlert, rubbleAlert, coolantLevelAlert, reactorTempAlert, powerProductionAlert};
@@ -119,6 +119,8 @@ public class EffectUiSystem extends EntitySystem {
         Table t = new Table();
         //t.setDebug(true);
         t.setBackground(tableBackground);
+        Image im = new Image(tr);
+        im.setColor(Color.RED);
         t.add(new Image(tr)).left().width(32);
         t.add(new Label(label, uiSkin, "small", Color.BLACK)).left().expandX();
         t.pack();
