@@ -38,7 +38,7 @@ public class Stage01System extends StageSystemBase {
                                 "\n\nThey are able to withstand any natural disaster!", MessageTextures.Leader),
                         new Event(Events.CoolantLeak, 65.0, "I hear water running.", MessageTextures.Player),
                         new Event(Events.EvenMoarPowah, 75.0, "EVEEEN MOOOAAAR POOWAAAAH!!! " +
-                                "\n\nIncrease output to 120 MW!", MessageTextures.Leader),
+                                "\n\nIncrease output to 130 MW!", MessageTextures.Leader),
                         new Event(Events.EarthQuake, 80.0, "AFTERSHOCK!!!", MessageTextures.Player),
                         new Event(Events.BreakdownCoolantPump, 85.0,"It's gone quiet...", MessageTextures.Player),
                         new Event(Events.SheCantTakeMuchMoreCaptain, 90.0,"She can't take much more of this!", MessageTextures.Player),
