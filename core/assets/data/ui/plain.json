@@ -12,6 +12,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	small: {
 		file: small.fnt
 	}
+	tiny: {
+		file: tiny.fnt
+	}
 	title: {
 		file: title.fnt
 	}

@@ -199,14 +199,14 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(152,632))
-                .add(new ActionableComponent(1.0f, 5.0f, 16f, Color.PURPLE))
+                .add(new PositionComponent(168,632))
+                .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Raise\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodDecrease))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(296,632))
-                .add(new ActionableComponent(1.0f, 5.0f, 16f, Color.PURPLE))
+                .add(new PositionComponent(280,632))
+                .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Lower\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodIncrease))
         );
 
