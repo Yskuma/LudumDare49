@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.CameraModes;
 import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.AnimationLabels;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
@@ -84,6 +85,7 @@ public class PowerStationScreen extends AbstractScreen {
         powerStation = new PowerStation();
 
         //Camera Systems
+        engine.addSystem(new RumbleSystem(screenState));
         engine.addSystem(new CameraSystem(camera, screenState));
 
         //Movement/Position Systems
@@ -263,8 +265,9 @@ public class PowerStationScreen extends AbstractScreen {
 
         engine.addEntity(new Entity()
                 .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("kimmy32"))));
-
          */
+
+        engine.addEntity(new Entity().add(new RumbleComponent(CameraModes.ShakeLarge, 3.0f)));
 
 
     }
