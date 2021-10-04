@@ -141,6 +141,7 @@ public class PowerStationScreen extends AbstractScreen {
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
         engine.addSystem(new ReactorUiSystem(screenState, powerStation, assetManager));
+        engine.addSystem(new EffectUiSystem(screenState, powerStation, assetManager));
 
         //Sound
         engine.addSystem(new SoundLocalSystem(player.position));
@@ -220,13 +221,13 @@ public class PowerStationScreen extends AbstractScreen {
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(168,632))
+                .add(new PositionComponent(168,696))
                 .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Raise\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodDecrease))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(280,632))
+                .add(new PositionComponent(280,696))
                 .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Lower\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodIncrease))
         );
