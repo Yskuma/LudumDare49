@@ -97,10 +97,10 @@ public abstract class StageSystemBase extends IntervalSystem {
                         DoCoolantLeak();
                         break;
                     case MoarPowah:
-                        powerStation.targetPower = 230.0f;
+                        powerStation.targetPower = 110.0f;
                         break;
                     case EvenMoarPowah:
-                        powerStation.targetPower = 260.0f;
+                        powerStation.targetPower = 120.0f;
                         break;
                     case SheCantTakeMuchMoreCaptain:
                         DoCoolantPumpBreakdown();
@@ -172,7 +172,7 @@ public abstract class StageSystemBase extends IntervalSystem {
         if(lowPowerTime > 10){
             DoGameOver(LoseConditions.LowPower);
         }
-        else if(powerStation.reactorTemp > 873){
+        else if(powerStation.reactorTemp > powerStation.REACTOR_TEMP_BOOM){
             DoGameOver(LoseConditions.Meltdown);
         }
     };
