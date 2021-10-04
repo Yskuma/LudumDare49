@@ -26,16 +26,16 @@ public class WallCollisionSystem extends IteratingSystem {
     private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
 
     public WallCollisionSystem(TiledMap tiledMap) {
-        super(Family.all(SpriteComponent.class, PositionComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
+        super(Family.all(PositionComponent.class, VelocityComponent.class, WallCollisionComponent.class).get());
         this.tiledMap = tiledMap;
     }
 
     @Override
     public void processEntity(Entity entity, float deltaTime) {
-        SpriteComponent sprite = sm.get(entity);
+        //SpriteComponent sprite = sm.get(entity);
         PositionComponent pos = pm.get(entity);
         VelocityComponent vel = vm.get(entity);
-        Rectangle br = sprite.sprite.getBoundingRectangle();
+        Rectangle br = new Rectangle(pos.x - 8, pos.y - 8, 16, 16);
 
         int xleft = (int)((br.x) / 16);
         int xright = (int)((br.x + br.width)/ 16);
@@ -67,7 +67,6 @@ public class WallCollisionSystem extends IteratingSystem {
             pos.x = (xright * 16) + (br.width / 2) + 0.1f;
         }
 
-        sprite.sprite.setCenter(pos.x, pos.y);
     }
 
     private boolean isBlocked(int x, int y)

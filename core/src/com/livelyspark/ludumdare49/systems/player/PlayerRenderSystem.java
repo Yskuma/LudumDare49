@@ -59,16 +59,16 @@ public class PlayerRenderSystem extends EntitySystem {
         switch (player.direction)
         {
             case UP:
-                batch.draw(upFrames.get(frame), player.position.x, player.position.y);
+                batch.draw(upFrames.get(frame), player.position.x - 8, player.position.y - 8);
                 break;
             case RIGHT:
-                batch.draw(rightFrames.get(frame), player.position.x, player.position.y);
+                batch.draw(rightFrames.get(frame), player.position.x - 8, player.position.y - 8);
                 break;
             case DOWN:
-                batch.draw(downFrames.get(frame), player.position.x, player.position.y);
+                batch.draw(downFrames.get(frame), player.position.x - 8, player.position.y - 8);
                 break;
             case LEFT:
-                batch.draw(leftFrames.get(frame), player.position.x, player.position.y);
+                batch.draw(leftFrames.get(frame), player.position.x - 8, player.position.y - 8);
                 break;
         }
 
