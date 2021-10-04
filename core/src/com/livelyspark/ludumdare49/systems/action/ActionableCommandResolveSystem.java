@@ -35,13 +35,13 @@ public class ActionableCommandResolveSystem extends EntitySystem {
         if(state.completedCommands.contains(Commands.ControlRodIncrease))
         {
             ps.controlRodPosition += 0.2f;
-            ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0.4f, 0.8f);
+            ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0f, 1f);
         }
 
         if(state.completedCommands.contains(Commands.ControlRodDecrease))
         {
             ps.controlRodPosition -= 0.2f;
-            ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0.4f, 0.8f);
+            ps.controlRodPosition = MathUtils.clamp(ps.controlRodPosition, 0f, 1f);
         }
 
         if(state.completedCommands.contains(Commands.CoolantPumpIncrease))
