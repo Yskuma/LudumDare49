@@ -41,14 +41,9 @@ public class ReactorSystem extends EntitySystem {
         ps.deltaFuelAtoms = 0.4f * (1.00150f - 0.0025f*ps.controlRodPosition) * (ps.deltaSlowNeutrons);
         ps.deltaFuelAtoms = MathUtils.clamp(ps.deltaFuelAtoms, 4.5e10f, 4.5e11f);
 
-        if(ps.coolantLevel > 0.5f){
-            ps.deltaSlowNeutrons = 2.5f * ps.deltaFuelAtoms
-                    + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
-        }
-        else if(ps.coolantLevel <= 0.5f){
-            ps.deltaSlowNeutrons = 2.5f * (ps.coolantLevel/0.5f) * ps.deltaFuelAtoms
-                    + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
-        }
+
+        ps.deltaSlowNeutrons = 2.5f * ps.deltaFuelAtoms + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
+
 
         float oldCoolantLevel  = ps.coolantLevel;
         ps.coolantLevel -= ps.coolantLeakActive ? ps.coolantLeakRate * deltaTime : 0;

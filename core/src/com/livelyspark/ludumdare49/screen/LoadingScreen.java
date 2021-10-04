@@ -71,6 +71,10 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load("sound/footstep/Footstep7.mp3", Sound.class);
         assetManager.load("sound/footstep/Footstep8.mp3", Sound.class);
 
+        assetManager.load("sound/bubble-fast.mp3", Sound.class);
+        assetManager.load("sound/bubble-normal.mp3", Sound.class);
+        assetManager.load("sound/leak.mp3", Sound.class);
+        assetManager.load("sound/pump.mp3", Sound.class);
     }
 
     @Override

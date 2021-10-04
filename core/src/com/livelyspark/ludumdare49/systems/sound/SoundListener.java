@@ -9,6 +9,7 @@ import com.livelyspark.ludumdare49.components.SoundComponent;
 public class SoundListener implements EntityListener {
 
     private ComponentMapper<SoundComponent> sm = ComponentMapper.getFor(SoundComponent.class);
+    private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
 
     public SoundListener()
     {
