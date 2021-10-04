@@ -12,12 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
-import com.livelyspark.ludumdare49.managers.FloatFormatter;
 import com.livelyspark.ludumdare49.managers.FormatManager;
-
-import java.text.NumberFormat;
 
 public class ReactorUiSystem extends EntitySystem {
 
@@ -27,13 +25,21 @@ public class ReactorUiSystem extends EntitySystem {
 
     private Stage stage;
 
-    private Table table;
+    private Table tableStatus;
     private ProgressBar reactorTempPb;
     private ProgressBar coolantLevelPb;
     private Label reactorTempText;
     private Label coolantLevelText;
     private Label reactorTempDeltaText;
     private Label coolantLevelDeltaText;
+    private Label powerText;
+    private Label powerTargetText;
+
+    private final Color DARK_GREEN = new Color(0.0f, 0.7f, 0.0f, 1.0f);
+    private Table tablePower;
+    private Table tableControl;
+    private Label controlRodText;
+    private Label coolantPumpText;
 
     public ReactorUiSystem(ScreenState state, PowerStation powerStation, AssetManager assetManager) {
         this.state = state;
@@ -49,38 +55,82 @@ public class ReactorUiSystem extends EntitySystem {
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         Drawable tableBackground = uiSkin.getDrawable("textfield");
 
-        table = new Table(uiSkin);
-        table.setBackground(tableBackground);
+        tableStatus = new Table(uiSkin);
+        tableStatus.setBackground(tableBackground);
         //debugTable.setDebug(true);
-        table.columnDefaults(0).pad(5).center();
-        table.columnDefaults(1).pad(5).center();
+        tableStatus.columnDefaults(0).pad(5).padLeft(15).padRight(15).center();
+        tableStatus.columnDefaults(1).pad(5).padLeft(15).padRight(15).center();
 
-        table.add("Reactor\r\n Temp", "small", Color.BLACK);
-        table.add("Coolant\r\n Level", "small", Color.BLACK);
-        table.row();
+        tableStatus.add("Reactor\r\n Temp", "small", Color.BLACK);
+        tableStatus.add("Coolant\r\n Level", "small", Color.BLACK);
+        tableStatus.row();
 
         //table.add("ReactorHeat:", "small", Color.BLACK);
         reactorTempPb = new ProgressBar(0, ps.REACTOR_TEMP_BOOM, 1, true, uiSkin);
-        table.add(reactorTempPb);
+        tableStatus.add(reactorTempPb);
 
         coolantLevelPb = new ProgressBar(0f, ps.coolantLevelMax, 0.01f, true, uiSkin);
-        table.add(coolantLevelPb);
-        table.row();
+        tableStatus.add(coolantLevelPb);
+        tableStatus.row();
 
-        reactorTempText = table.add("", "small", Color.BLACK).getActor();
-        coolantLevelText = table.add("", "small", Color.BLACK).getActor();
-        table.row();
+        reactorTempText = tableStatus.add("", "small", Color.BLACK).getActor();
+        coolantLevelText = tableStatus.add("", "small", Color.BLACK).getActor();
+        tableStatus.row();
 
-        reactorTempDeltaText = table.add("", "small", Color.BLACK).getActor();
-        coolantLevelDeltaText = table.add("", "small", Color.BLACK).getActor();
-        table.row();
+        reactorTempDeltaText = tableStatus.add("", "small", Color.WHITE).getActor();
+        coolantLevelDeltaText = tableStatus.add("", "small", Color.WHITE).getActor();
+        tableStatus.pack();
 
-        table.pack();
+        tableStatus.setPosition(stage.getWidth() - tableStatus.getWidth(),
+                stage.getHeight() - tableStatus.getHeight());
 
-        table.setPosition(stage.getWidth() - table.getWidth(),
-                stage.getHeight() - table.getHeight());
+        stage.addActor(tableStatus);
 
-        stage.addActor(table);
+        tablePower = new Table(uiSkin);
+        tablePower.setBackground(tableBackground);
+        //tablePower.setDebug(true);
+        tablePower.columnDefaults(0).pad(5).expandX().right();
+        tablePower.columnDefaults(1).pad(5).width(50f).right();
+
+        tablePower.add("Power:", "small", Color.BLACK).getActor();
+        powerText = tablePower.add("", "small", Color.BLACK).getActor();
+        powerText.setAlignment(Align.right);
+        tablePower.row();
+
+        tablePower.add("Target:", "small", Color.BLACK).getActor();
+        powerTargetText = tablePower.add("", "small", Color.WHITE).getActor();
+        powerTargetText.setAlignment(Align.right);
+
+        tablePower.pack();
+        tablePower.setWidth(tableStatus.getWidth());
+
+        tablePower.setPosition(stage.getWidth() - tablePower.getWidth(),
+                stage.getHeight() - tablePower.getHeight() - tableStatus.getHeight());
+
+        stage.addActor(tablePower);
+
+        tableControl = new Table(uiSkin);
+        tableControl.setBackground(tableBackground);
+        //tableControl.setDebug(true);
+        tableControl.columnDefaults(0).pad(5).expandX().right();
+        tableControl.columnDefaults(1).pad(5).width(50f).right();
+
+        tableControl.add("Control Rods:", "small", Color.BLACK).getActor();
+        controlRodText = tableControl.add("", "small", Color.BLACK).getActor();
+        controlRodText.setAlignment(Align.right);
+        tableControl.row();
+
+        tableControl.add("Coolant Pump:", "small", Color.BLACK).getActor();
+        coolantPumpText = tableControl.add("", "small", Color.BLACK).getActor();
+        coolantPumpText.setAlignment(Align.right);
+
+        tableControl.pack();
+        tableControl.setWidth(tableStatus.getWidth());
+
+        tableControl.setPosition(stage.getWidth() - tableControl.getWidth(),
+                stage.getHeight() - tableControl.getHeight() - tablePower.getHeight() - tableStatus.getHeight());
+
+        stage.addActor(tableControl);
     }
 
     @Override
@@ -102,12 +152,21 @@ public class ReactorUiSystem extends EntitySystem {
         } else {
             reactorTempPb.setColor(Color.RED);
         }
+        reactorTempDeltaText.setColor(deltaColour(ps.reactorTempDelta));
 
         coolantLevelPb.setValue(ps.coolantLevel);
-        coolantLevelText.setText(Integer.toString((int) ((ps.coolantLevel / ps.coolantLevelMax) * 100)) + "%");
+        coolantLevelText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantLevel * 100)  + "%");
         coolantLevelDeltaText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantLevelDelta) + "%\\S");
 
         coolantLevelPb.setColor(0, 0, ps.coolantLevel, 1.0f);
+        coolantLevelDeltaText.setColor(deltaColour(ps.coolantLevelDelta));
+
+        powerText.setText(FormatManager.floatFormatter.getFormattedString(ps.power) + "MW");
+        powerTargetText.setText(FormatManager.floatFormatter.getFormattedString(ps.targetPower) + "MW");
+        powerTargetText.setColor(ps.power > ps.targetPower ? DARK_GREEN : Color.RED);
+
+        controlRodText.setText(FormatManager.floatFormatter.getFormattedString(ps.controlRodPosition * 100) + "%");
+        coolantPumpText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantPumpSpeed * 100)  + "%");
 
         stage.act();
         stage.draw();
@@ -118,6 +177,13 @@ public class ReactorUiSystem extends EntitySystem {
         bgPixmap.setColor(Color.BLACK);
         bgPixmap.fill();
         return new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+    }
+
+    private Color deltaColour(float d)
+    {
+        if(d<0){return Color.RED;}
+        if(d>0){return DARK_GREEN;}
+        return Color.DARK_GRAY;
     }
 
 }
