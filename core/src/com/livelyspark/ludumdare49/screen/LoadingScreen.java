@@ -60,8 +60,17 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load("tilemaps/powerstation.tmx", TiledMap.class);
 
         assetManager.load("sound/earthquake.mp3", Sound.class);
-        assetManager.load("sound/footsteps.mp3", Sound.class);
         assetManager.load("sound/turbine.mp3", Sound.class);
+
+        assetManager.load("sound/footstep/Footstep1.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep2.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep3.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep4.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep5.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep6.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep7.mp3", Sound.class);
+        assetManager.load("sound/footstep/Footstep8.mp3", Sound.class);
+
     }
 
     @Override

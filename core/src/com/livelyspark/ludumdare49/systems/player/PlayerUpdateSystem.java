@@ -14,9 +14,6 @@ import com.livelyspark.ludumdare49.gameobj.Player;
 public class PlayerUpdateSystem extends EntitySystem {
 
     private final Player player;
-    private ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
-    private ComponentMapper<PlayerComponent>pm = ComponentMapper.getFor(PlayerComponent.class);
-
     public PlayerUpdateSystem(Player player) {
         this.player = player;
             }

@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.*;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
-import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
-import com.livelyspark.ludumdare49.screen.GameOverScreen;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.stages.Stage;
 
@@ -85,13 +83,13 @@ public abstract class StageSystemBase extends IntervalSystem {
                     case OppositionHacker:
                         DoOppositionHacker();
                         break;
-                    case PartBreakdownOne:
+                    case BreakdownCoolantPump:
                         DoCoolantPumpBreakdown();
                         break;
-                    case PartBreakdownTwo:
+                    case BreakdownWaterPump:
                         DoWaterPumpBreakdown();
                         break;
-                    case PartBreakdownThree:
+                    case BreakdownHeatExchange:
                         DoHeatExchangerBreakdown();
                         break;
                     case Bombers:
