@@ -41,7 +41,7 @@ public class Stage01System extends StageSystemBase {
                         new Event(Events.PartBreakdownOne, 85.0,"It's gone quiet...", MessageTextures.Player),
                         new Event(Events.SheCantTakeMuchMoreCaptain, 90.0,"She can't take much more of this!", MessageTextures.Player),
                 },
-                32000.0
+                45000.0
         );
     }
 }

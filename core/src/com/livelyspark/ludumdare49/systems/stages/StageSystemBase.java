@@ -3,10 +3,8 @@ package com.livelyspark.ludumdare49.systems.stages;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.graphics.Color;
-import com.livelyspark.ludumdare49.components.ActionableComponent;
-import com.livelyspark.ludumdare49.components.EffectComponent;
-import com.livelyspark.ludumdare49.components.MessageComponent;
-import com.livelyspark.ludumdare49.components.PositionComponent;
+import com.livelyspark.ludumdare49.components.*;
+import com.livelyspark.ludumdare49.enums.CameraModes;
 import com.livelyspark.ludumdare49.enums.Effects;
 import com.livelyspark.ludumdare49.enums.LoseConditions;
 import com.livelyspark.ludumdare49.enums.MessageTextures;
@@ -125,12 +123,13 @@ public abstract class StageSystemBase extends IntervalSystem {
                 .add(new PositionComponent(336,512))
                 .add(new ActionableComponent(1f, 2.0f,32, Color.YELLOW))
                 .add(new EffectComponent(Effects.Rubble))
+                .add(new RumbleComponent(CameraModes.ShakeLarge, 3.0f))
         );
     }
 
     private void DoCoolantLeak() {
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(27,855))
+                .add(new PositionComponent(37,859))
                 .add(new ActionableComponent(1f, 2.0f,25, Color.RED))
                 .add(new EffectComponent(Effects.CoolantLeak))
         );
@@ -146,7 +145,7 @@ public abstract class StageSystemBase extends IntervalSystem {
 
     private void DoCoolantPumpBreakdown(){
         this.getEngine().addEntity((new Entity())
-                .add(new PositionComponent(70,860))
+                .add(new PositionComponent(80,864))
                 .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.CoolantPumpBreakdown))
         );

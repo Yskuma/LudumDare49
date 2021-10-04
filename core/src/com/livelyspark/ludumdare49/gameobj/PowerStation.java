@@ -23,7 +23,7 @@ public class PowerStation {
 
     public float coolantLevel = 1;
 
-    public float coolantLeakRate = 0.04f;
+    public float coolantLeakRate = 0.03f;
 
     public float reactorHeat = 33650;
     public float reactorTemp = 673;
