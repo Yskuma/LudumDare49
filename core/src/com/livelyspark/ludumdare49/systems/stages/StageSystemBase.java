@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.*;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.stages.Stage;
@@ -16,15 +17,17 @@ public abstract class StageSystemBase extends IntervalSystem {
     protected Stage thisStage;
     protected PowerStation powerStation;
     private IScreenManager screenManager;
+    private ScreenState screenState;
 
     private int lowPowerTime;
 
-    public StageSystemBase(PowerStation powerStation, IScreenManager screenManager) {
+    public StageSystemBase(PowerStation powerStation, IScreenManager screenManager, ScreenState screenState) {
         super(1.0f);
         GenerateStage();
         this.powerStation = powerStation;
         powerStation.targetPower = 100;
         this.screenManager = screenManager;
+        this.screenState = screenState;
     }
 
     protected abstract void GenerateStage();
@@ -137,9 +140,12 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoOppositionHacker() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(224,638))
-                .add(new ActionableComponent(1f, 2.0f,32, Color.RED))
+                .add(new ActionableComponent(15.0f, 2.0f,32, Color.RED))
                 .add(new EffectComponent(Effects.HackedComputer))
         );
+
+        screenState.disabledCommands.add(Commands.ControlRodDecrease);
+        screenState.disabledCommands.add(Commands.ControlRodIncrease);
     }
 
     private void DoCoolantPumpBreakdown(){

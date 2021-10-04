@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
 import com.livelyspark.ludumdare49.components.MessageComponent;
+import com.livelyspark.ludumdare49.enums.Commands;
 import com.livelyspark.ludumdare49.enums.Effects;
 import com.livelyspark.ludumdare49.enums.MessageTextures;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -37,6 +38,10 @@ public class ActionableEffectResolveSystem extends EntitySystem {
         {
             ResolveReadNote();
         }
+        if(state.completedEffects.contains(Effects.HackedComputer))
+        {
+            ResolveHackedComputer();
+        }
 
         state.completedEffects  = EnumSet.noneOf(Effects.class);
     }
@@ -59,6 +64,8 @@ public class ActionableEffectResolveSystem extends EntitySystem {
     }
 
     private void ResolveHackedComputer() {
+        state.disabledCommands.remove(Commands.ControlRodIncrease);
+        state.disabledCommands.remove(Commands.ControlRodDecrease);
     }
 
     private void ResolveOSReinstall() {
