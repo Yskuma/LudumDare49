@@ -49,7 +49,7 @@ public class MessageUiSystem extends EntitySystem {
         Table table = new Table(uiSkin);
         //table.setDebug(true);
         table.setWidth(stage.getWidth() - (spaceSide * 2));
-        table.setHeight(50);
+        table.setHeight(60);
         table.setX(spaceSide);
         table.setY(spaceBottom);
         table.background(tableBackground);

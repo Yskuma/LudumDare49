@@ -23,18 +23,18 @@ public class SoundListener implements EntityListener {
         {
             if(s.isLooped)
             {
-                s.soundId = s.sound.loop();
+                s.soundId = s.sound.loop(s.volume);
             }
             else
             {
-                s.soundId = s.sound.play();
+                s.soundId = s.sound.play(s.volume);
             }
         }
     }
 
     @Override
     public void entityRemoved(Entity entity) {
-        //SoundComponent s = sm.get(entity);
-        //s.sound.dispose();
+        SoundComponent s = sm.get(entity);
+        s.sound.stop();
     }
 }
