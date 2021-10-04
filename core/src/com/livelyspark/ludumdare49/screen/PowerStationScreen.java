@@ -108,7 +108,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new MessageInputProcessor(screenState));
 
         //Reactor Systems
-        engine.addSystem(new ReactorSystem(powerStation));
+        engine.addSystem(new ReactorSystem(powerStation, screenState));
         engine.addSystem(new TurbineSpeedSystem(powerStation));
         ControlRodAnimationSystem controlRodAnimationSystem = new ControlRodAnimationSystem(assetManager, powerStation);
         engine.addSystem(controlRodAnimationSystem);
@@ -212,7 +212,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         engine.addEntity((new Entity())
                 .add(new PositionComponent(288,858))
-                .add(new ActionableComponent(1.0f, 5.0f, 32f, Color.PURPLE))
+                .add(new ActionableComponent(1.0f, 5.0f, 32f, Color.PURPLE, "Add\nCoolant"))
                 .add(new CommandComponent(Commands.CoolantLevelIncrease))
         );
 
@@ -223,10 +223,6 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity(new Entity()
                 .add(new MessageComponent("You must build additional pylons!",  atlas.findRegion("kimmy32"))));
          */
-
-        engine.addEntity(new Entity().add(new RumbleComponent(CameraModes.ShakeLarge, 3.0f)));
-
-
     }
 
     @Override
