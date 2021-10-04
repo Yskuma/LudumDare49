@@ -53,8 +53,6 @@ public class EffectUiSystem extends EntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
         stage = new Stage();
-        ps.isPaused = true;
-        state.isDebug = true;
         Skin uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         Drawable tableBackground = uiSkin.getDrawable("textfield");
         atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
