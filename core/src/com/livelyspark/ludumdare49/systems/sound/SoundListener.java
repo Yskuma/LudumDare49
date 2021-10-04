@@ -23,11 +23,11 @@ public class SoundListener implements EntityListener {
         {
             if(s.isLooped)
             {
-                s.soundId = s.sound.loop();
+                s.soundId = s.sound.loop(s.volume);
             }
             else
             {
-                s.soundId = s.sound.play();
+                s.soundId = s.sound.play(s.volume);
             }
         }
     }
