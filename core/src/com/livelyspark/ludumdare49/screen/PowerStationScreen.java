@@ -134,7 +134,7 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addSystem(new ShapeRenderSystem(camera));
         engine.addSystem(new ActionableEffectRenderSystem(camera,assetManager));
         engine.addSystem(new ActionableEffectHintRenderSystem(camera, player.position, assetManager));
-        engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager));
+        engine.addSystem(new ActionableCommandRenderSystem(camera, assetManager, screenState));
         engine.addSystem(new PlayerRenderSystem(camera,player,assetManager));
 
         //UI
