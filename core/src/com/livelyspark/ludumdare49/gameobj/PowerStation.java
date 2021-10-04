@@ -6,7 +6,7 @@ public class PowerStation {
     public final float coolantThermalMass = 30;
     public final float reactorThermalMass = 20;
     public final float tempAmbient = 283;
-    public final float coolantFlowMax = 0.008f;
+    public final float coolantFlowMax = 0.005f;
     public final float deltaArtificialNeutrons = 10000000;
 
     public boolean pumpOK = true;
@@ -18,14 +18,14 @@ public class PowerStation {
 
     public float coolantLevel = 1;
 
-    public float coolantLeakRate = 0.01f;
+    public float coolantLeakRate = 0.015f;
 
     public float reactorHeat = 33650;
     public float reactorTemp = 673;
 
-    public float deltaFuelAtoms = 2.5E11f;
+    public float deltaFuelAtoms = 1.2E11f;
 
-    public float deltaSlowNeutrons = 6.25E11f;
+    public float deltaSlowNeutrons = 3E11f;
 
     public float power = 0;
 

@@ -39,6 +39,7 @@ public class DebugReactorUiSystem extends EntitySystem {
     private Label deltaArtificialNeutronsLabel;
     private Label deltaSlowNeutronsLabel;
     private Label powerLabel;
+    private Label deltaTimeLabel;
 
     public DebugReactorUiSystem(ScreenState state, PowerStation powerStation) {
         this.state = state;
@@ -147,8 +148,8 @@ public class DebugReactorUiSystem extends EntitySystem {
                 .colspan(2).align(Align.center);
         table.row();
 
-        table.add("O - Enable/Disable Debug", "small", Color.BLACK)
-                .colspan(2).align(Align.center);
+        table.add("deltaTime:", "small", Color.BLACK);
+        deltaTimeLabel  = table.add("", "small", Color.BLACK).getActor();
         table.row();
 
         table.pack();
@@ -183,6 +184,8 @@ public class DebugReactorUiSystem extends EntitySystem {
 
             isPausedLabel.setText((ps.isPaused ? "true" : "false"));
             isDebugLabel.setText((state.isDebug ? "true" : "false"));
+
+            deltaTimeLabel.setText(Float.toString(deltaTime));
 
             stage.act();
             stage.draw();
