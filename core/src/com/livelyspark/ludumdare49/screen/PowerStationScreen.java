@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -141,6 +140,7 @@ public class PowerStationScreen extends AbstractScreen {
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
         engine.addSystem(new ReactorUiSystem(screenState, powerStation, assetManager));
+        engine.addSystem(new EffectUiSystem(screenState, powerStation, assetManager));
 
         //Sound
         engine.addSystem(new SoundLocalSystem(player.position));
@@ -217,16 +217,31 @@ public class PowerStationScreen extends AbstractScreen {
         engine.addEntity((new Entity())
                 .add(new PositionComponent(192,808))
                 .add(new AnimationComponent(new Animation<TextureRegion>(1.0f, reactor), 1.0f, AnimationLabels.Reactor))
+                .add(new SoundComponent(
+                        assetManager.get("sound/bubble-normal.mp3", Sound.class),
+                        true))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(168,632))
+                        .add(new PositionComponent(48, 640))
+                        .add(new SoundComponent(
+                                assetManager.get("sound/pump.mp3", Sound.class),
+                                true)));
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(80, 864))
+                .add(new SoundComponent(
+                        assetManager.get("sound/pump.mp3", Sound.class),
+                        true)));
+
+        engine.addEntity((new Entity())
+                .add(new PositionComponent(168,696))
                 .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Raise\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodDecrease))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(280,632))
+                .add(new PositionComponent(280,696))
                 .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Lower\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodIncrease))
         );

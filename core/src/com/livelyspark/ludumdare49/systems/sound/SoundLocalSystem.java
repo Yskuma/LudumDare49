@@ -44,7 +44,10 @@ public class SoundLocalSystem extends EntitySystem {
 
             float dist = p.dst(playerPos);
 
-            float vol = dist == 0 ? 1.0f : 1/((dist/96)*(dist/96));
+            float vol = dist == 0 ? 1.0f : 1/((dist/32)*(dist/32));
+            if(dist > 176){
+                vol = 0;
+            }
             s.sound.setVolume(s.soundId, vol);
         }
     }
