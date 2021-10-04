@@ -37,6 +37,8 @@ public class MainMenuScreen extends AbstractScreen {
     private Label clickContinueLabel;
     private Sprite sprite;
     private PositionComponent spritePos;
+    private Label moveLabel;
+    private Label useLabel;
 
     public MainMenuScreen(IScreenManager screenManager, AssetManager assetManager) {
         super(screenManager, assetManager);
@@ -65,14 +67,24 @@ public class MainMenuScreen extends AbstractScreen {
         camera.position.y = height/2;
         camera.update();
 
-        titleLabel.setX((stage.getWidth() - titleLabel.getWidth() - 30));
+        float midX = stage.getWidth() - (titleLabel.getWidth() / 2) - 30;
+
+        titleLabel.setX(midX - (titleLabel.getWidth() / 2));
         titleLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 300));
 
         spritePos.x = width/2;
         spritePos.y = height / 2;
 
-        clickContinueLabel.setX((stage.getWidth() - titleLabel.getWidth() - 30));
-        clickContinueLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 330));
+
+
+        moveLabel.setX(midX - (moveLabel.getWidth() / 2));
+        moveLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 340));
+
+        useLabel.setX(midX - (useLabel.getWidth() / 2));
+        useLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 360));
+
+        clickContinueLabel.setX(midX - (clickContinueLabel.getWidth() / 2));
+        clickContinueLabel.setY((stage.getHeight() - titleLabel.getHeight()  - 400));
     }
 
     @Override
@@ -85,8 +97,13 @@ public class MainMenuScreen extends AbstractScreen {
         titleLabel = new Label("Everything's Unstable", uiSkin, "title", Color.WHITE);
         clickContinueLabel = new Label("Click To Continue", uiSkin, "medium", Color.WHITE);
 
+        moveLabel = new Label("W,A,S,D to Move", uiSkin, "medium", Color.WHITE);
+        useLabel = new Label("Hold Space to Use", uiSkin, "medium", Color.WHITE);
+
         stage.addActor(titleLabel);
         stage.addActor(clickContinueLabel);
+        stage.addActor(moveLabel);
+        stage.addActor(useLabel);
 
         addEntities();
 
