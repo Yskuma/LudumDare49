@@ -32,13 +32,13 @@ public class Stage01System extends StageSystemBase {
                         new Event(Events.BreakdownCoolantPump, 35.0, "Power levels are dropping, better check the coolant pump.", MessageTextures.Player),
                         new Event(Events.CoolantLeak, 40.0, "Sounds like I'll be getting wet feet again.", MessageTextures.Player),
                         new Event(Events.BreakdownWaterPump, 45.0, "Water pump breakdown, this is getting ridiculous.", MessageTextures.Player),
-                        new Event(Events.MoarPowah, 45.0, "MOOOAAAR POOWAAAAH!!! " +
+                        new Event(Events.MoarPowah, 50.0, "MOOOAAAR POOWAAAAH!!! " +
                                 "\n\nIncrease output to 110 MW!", MessageTextures.Leader),
                         new Event(Events.EarthQuake, 55.0, "Our buildings are the strongest in the world. " +
                                 "\n\nThey are able to withstand any natural disaster!", MessageTextures.Leader),
                         new Event(Events.CoolantLeak, 65.0, "I hear water running.", MessageTextures.Player),
                         new Event(Events.EvenMoarPowah, 75.0, "EVEEEN MOOOAAAR POOWAAAAH!!! " +
-                                "\n\nIncrease output to 130 MW!", MessageTextures.Leader),
+                                "\n\nIncrease output to 120 MW!", MessageTextures.Leader),
                         new Event(Events.EarthQuake, 80.0, "AFTERSHOCK!!!", MessageTextures.Player),
                         new Event(Events.BreakdownCoolantPump, 85.0,"It's gone quiet...", MessageTextures.Player),
                         new Event(Events.SheCantTakeMuchMoreCaptain, 90.0,"She can't take much more of this!", MessageTextures.Player),

@@ -106,7 +106,7 @@ public abstract class StageSystemBase extends IntervalSystem {
                         powerStation.targetPower = 110.0f;
                         break;
                     case EvenMoarPowah:
-                        powerStation.targetPower = 130.0f;
+                        powerStation.targetPower = 120.0f;
                         break;
                     case SheCantTakeMuchMoreCaptain:
                         DoCoolantPumpBreakdown();
@@ -151,7 +151,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoOppositionHacker() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(224,638))
-                .add(new ActionableComponent(15.0f, 2.0f,32, Color.RED))
+                .add(new ActionableComponent(10.0f, 2.0f,32, Color.RED))
                 .add(new EffectComponent(Effects.HackedComputer))
         );
 
@@ -162,7 +162,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoCoolantPumpBreakdown(){
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(80,864))
-                .add(new ActionableComponent(4f, 2.0f,64, Color.RED))
+                .add(new ActionableComponent(3f, 2.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.CoolantPumpBreakdown))
         );
     }
@@ -170,7 +170,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoWaterPumpBreakdown() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48,640))
-                .add(new ActionableComponent(4f, 2.0f,64, Color.RED))
+                .add(new ActionableComponent(3f, 2.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.WaterPumpBreakdown))
         );
     }
@@ -178,7 +178,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoHeatExchangerBreakdown() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48, 560))
-                .add(new ActionableComponent(6f, 1.0f,64, Color.RED))
+                .add(new ActionableComponent(4f, 1.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.HeatExchangerBreakdown))
         );
     }
