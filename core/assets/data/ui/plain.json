@@ -94,6 +94,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 			a: 1
 		}
 	}
+	progress-bar-fill-vert-blue: {
+		name: progress-bar-fill-vert
+		color: {
+			r: 0
+			g: 0.29033327
+			b: 1
+			a: 1
+		}
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {

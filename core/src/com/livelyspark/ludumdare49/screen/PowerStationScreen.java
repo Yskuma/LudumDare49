@@ -27,12 +27,9 @@ import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.systems.*;
 import com.livelyspark.ludumdare49.systems.action.*;
 import com.livelyspark.ludumdare49.input.DebugInputProcessor;
-import com.livelyspark.ludumdare49.systems.ui.DebugPlayerPosUiSystem;
-import com.livelyspark.ludumdare49.systems.ui.DebugReactorUiSystem;
+import com.livelyspark.ludumdare49.systems.ui.*;
 import com.livelyspark.ludumdare49.systems.render.*;
 import com.livelyspark.ludumdare49.systems.stages.Stage01System;
-import com.livelyspark.ludumdare49.systems.ui.DebugScreenStateUiSystem;
-import com.livelyspark.ludumdare49.systems.ui.MessageUiSystem;
 
 public class PowerStationScreen extends AbstractScreen {
 
@@ -129,6 +126,7 @@ public class PowerStationScreen extends AbstractScreen {
 
         //UI
         engine.addSystem(new MessageUiSystem(screenState, assetManager));
+        engine.addSystem(new ReactorUiSystem(screenState, powerStation, assetManager));
 
         //Debug
         engine.addSystem(new DebugReactorUiSystem(screenState, powerStation));

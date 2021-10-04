@@ -2,6 +2,8 @@ package com.livelyspark.ludumdare49;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
+import com.livelyspark.ludumdare49.managers.FloatFormatter;
+import com.livelyspark.ludumdare49.managers.FormatManager;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.screen.LoadingScreen;
 import com.livelyspark.ludumdare49.screen.MainMenuScreen;
@@ -69,8 +71,10 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
 
     private HashMap<Screens, Screen> screenStore = new HashMap<>();
 
-    public LudumDare49(){
+    public LudumDare49(FloatFormatter floatFormatter){
+
         this.assetManager = new AssetManager();
+        FormatManager.floatFormatter = floatFormatter;
     }
 
     /** Sets the current screen. {@link Screen#hide()} is called on any old screen, and {@link Screen#show()} is called on the new

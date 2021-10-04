@@ -42,9 +42,11 @@ public class ReactorSystem extends EntitySystem {
                     + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
         }
 
+        float oldCoolantLevel  = ps.coolantLevel;
         ps.coolantLevel -= ps.coolantLeakActive ? ps.coolantLeakRate * deltaTime : 0;
         ps.coolantLevel += ps.pumpOK ? ps.coolantPumpSpeed * ps.coolantFlowMax * deltaTime : 0;
         ps.coolantLevel = MathUtils.clamp(ps.coolantLevel, 0, ps.coolantLevelMax);
+        ps.coolantLevelDelta = (ps.coolantLevel - oldCoolantLevel ) / deltaTime;
 
         float deltaReactorHeat = ps.deltaFuelAtoms * ps.heatPerFission * deltaTime;
 
@@ -63,15 +65,17 @@ public class ReactorSystem extends EntitySystem {
 
         ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat + deltaCoolantHeat;
 
+        float oldReactorTemp = ps.reactorTemp;
         ps.reactorTemp = ps.reactorHeat / ((ps.coolantLevel * ps.coolantThermalMass) + ps.reactorThermalMass);
+        ps.reactorTempDelta = (ps.reactorTemp - oldReactorTemp) / deltaTime;
 
-        if(ps.reactorTemp < 473)
+        if(ps.reactorTemp < ps.REACTOR_TEMP_LOW)
         {
             ps.power = 0;
         }
-        else if(ps.reactorTemp >= 473 && ps.reactorTemp < 673)
+        else if(ps.reactorTemp >= ps.REACTOR_TEMP_LOW && ps.reactorTemp < ps.REACTOR_TEMP_OK)
         {
-            float e = (ps.reactorTemp - 473)/(673 - 473);
+            float e = (ps.reactorTemp - ps.REACTOR_TEMP_LOW)/(ps.REACTOR_TEMP_OK - ps.REACTOR_TEMP_LOW);
             ps.power = (deltaTurbineHeat * e) / deltaTime;
         }
         else

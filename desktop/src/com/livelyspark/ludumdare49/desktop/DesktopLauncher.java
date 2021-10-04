@@ -8,6 +8,6 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowSizeLimits(1040,592,1920,1080);
-		new Lwjgl3Application(new LudumDare49(), config);
+		new Lwjgl3Application(new LudumDare49(new DesktopFloatFormatter()), config);
 	}
 }

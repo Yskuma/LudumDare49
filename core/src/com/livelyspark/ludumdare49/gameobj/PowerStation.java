@@ -1,6 +1,11 @@
 package com.livelyspark.ludumdare49.gameobj;
 
 public class PowerStation {
+    public final float REACTOR_TEMP_LOW = 473;
+    public final float REACTOR_TEMP_OK = 673;
+    public final float REACTOR_TEMP_HIGH = 973;
+    public final float REACTOR_TEMP_BOOM = 1073;
+
     public final float heatPerFission = 0.00000000083333f;
     public final float coolantLevelMax = 1;
     public final float coolantThermalMass = 30;
@@ -22,6 +27,9 @@ public class PowerStation {
 
     public float reactorHeat = 33650;
     public float reactorTemp = 673;
+
+    public float reactorTempDelta = 0;
+    public float coolantLevelDelta = 0;
 
     public float deltaFuelAtoms = 1.2E11f;
 

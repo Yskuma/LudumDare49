@@ -11,8 +11,6 @@ buildscript {
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.0.13'
         classpath 'org.gretty:gretty:3.0.2'
-        
-
     }
 }
 
@@ -75,7 +73,10 @@ project(":html") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
         api "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
-        
+        //compile group: 'com.google.gwt', name: 'gwt-servlet', version: '1.4.62'
+        api "com.google.gwt:gwt-user:2.9.0"
+        //api "com.google.web.bindery:requestfactory-server:2.6.0"
+
     }
 }
 

@@ -154,7 +154,7 @@ public class DebugReactorUiSystem extends EntitySystem {
 
         table.pack();
 
-        table.setPosition(stage.getWidth() - table.getWidth(),
+        table.setPosition((stage.getWidth()/2) - (table.getWidth()/2),
                 stage.getHeight() - table.getHeight());
 
         stage.addActor(table);

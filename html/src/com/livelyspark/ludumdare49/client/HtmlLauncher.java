@@ -16,7 +16,7 @@ public class HtmlLauncher extends GwtApplication {
         }
 
         @Override
-        public ApplicationListener createApplicationListener () {
-                return new LudumDare49();
+        public ApplicationListener createApplicationListener() {
+                return new LudumDare49(new HtmlFloatFormatter());
         }
 }
