@@ -108,7 +108,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new MessageInputProcessor(screenState));
 
         //Reactor Systems
-        engine.addSystem(new ReactorSystem(powerStation));
+        engine.addSystem(new ReactorSystem(powerStation, screenState));
         engine.addSystem(new TurbineSpeedSystem(powerStation));
         ControlRodAnimationSystem controlRodAnimationSystem = new ControlRodAnimationSystem(assetManager, powerStation);
         engine.addSystem(controlRodAnimationSystem);

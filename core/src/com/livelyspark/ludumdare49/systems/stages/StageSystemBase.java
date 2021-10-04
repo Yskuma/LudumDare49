@@ -175,6 +175,9 @@ public abstract class StageSystemBase extends IntervalSystem {
         else if(powerStation.reactorTemp > powerStation.REACTOR_TEMP_BOOM){
             DoGameOver(LoseConditions.Meltdown);
         }
+        else if(powerStation.coolantLevel <= 0){
+            DoGameOver(LoseConditions.NoCoolant);
+        }
     };
 
     private void DoGameOver(LoseConditions loseCondition){

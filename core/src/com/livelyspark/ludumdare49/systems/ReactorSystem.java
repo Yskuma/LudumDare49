@@ -3,14 +3,20 @@ package com.livelyspark.ludumdare49.systems;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.math.MathUtils;
+import com.livelyspark.ludumdare49.enums.Commands;
+import com.livelyspark.ludumdare49.enums.Effects;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
+import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class ReactorSystem extends EntitySystem {
 
     private final PowerStation ps;
+    private ScreenState ss;
 
-    public ReactorSystem(PowerStation powerStation) {
+    public ReactorSystem(PowerStation powerStation, ScreenState screenState) {
+
         this.ps = powerStation;
+        this.ss = screenState;
     }
 
     @Override
@@ -30,6 +36,8 @@ public class ReactorSystem extends EntitySystem {
             return;
         }
 
+        CheckEffects();
+
         ps.deltaFuelAtoms = 0.4f * (1.00150f - 0.0025f*ps.controlRodPosition) * (ps.deltaSlowNeutrons);
         ps.deltaFuelAtoms = MathUtils.clamp(ps.deltaFuelAtoms, 4.5e10f, 4.5e11f);
 
@@ -44,7 +52,7 @@ public class ReactorSystem extends EntitySystem {
 
         float oldCoolantLevel  = ps.coolantLevel;
         ps.coolantLevel -= ps.coolantLeakActive ? ps.coolantLeakRate * deltaTime : 0;
-        ps.coolantLevel += ps.pumpOK ? ps.coolantPumpSpeed * ps.coolantFlowMax * deltaTime : 0;
+        ps.coolantLevel += ss.actioningCommands.contains(Commands.CoolantLevelIncrease) ? ps.coolantLeakRate * deltaTime : 0;
         ps.coolantLevel = MathUtils.clamp(ps.coolantLevel, 0, ps.coolantLevelMax);
         ps.coolantLevelDelta = (ps.coolantLevel - oldCoolantLevel ) / deltaTime;
 
@@ -83,6 +91,14 @@ public class ReactorSystem extends EntitySystem {
             ps.power = deltaTurbineHeat / deltaTime;
         }
 
+    }
+
+    private void CheckEffects() {
+        ps.pumpOK = !ss.activeEffects.contains(Effects.CoolantPumpBreakdown)
+                && !ss.activeEffects.contains(Effects.WaterPumpBreakdown)
+                && !ss.activeEffects.contains(Effects.HeatExchangerBreakdown);
+
+        ps.coolantLeakActive = ss.activeEffects.contains(Effects.CoolantLeak);
     }
 
 }
