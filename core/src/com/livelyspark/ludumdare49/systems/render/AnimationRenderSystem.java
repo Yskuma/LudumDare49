@@ -84,10 +84,10 @@ public class AnimationRenderSystem extends EntitySystem {
     }
 
     private TextureRegion GenerateReactorFrame(Animation<TextureRegion> animation) {
-        if(powerStation.reactorTemp < 493){
+        if(powerStation.reactorTemp < powerStation.REACTOR_TEMP_OK){
             return animation.getKeyFrames()[0];
         }
-        else if(powerStation.reactorTemp >= 493 && powerStation.reactorTemp < 793){
+        else if(powerStation.reactorTemp >= powerStation.REACTOR_TEMP_OK && powerStation.reactorTemp < powerStation.REACTOR_TEMP_HIGH){
             return animation.getKeyFrames()[1];
         }
         else{

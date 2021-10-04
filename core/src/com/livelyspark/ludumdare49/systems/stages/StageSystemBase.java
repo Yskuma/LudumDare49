@@ -193,10 +193,12 @@ public abstract class StageSystemBase extends IntervalSystem {
                         "\nOur Glorious Leader is displeased.");
                 break;
             case Meltdown:
-                screenManager.setGameOverMessage("Meltdown! The reactor got too hot!");
+                screenManager.setGameOverMessage("Meltdown!" +
+                        "\nThe reactor got too hot!");
                 break;
             case NoCoolant:
-                screenManager.setGameOverMessage("Meltdown! The reactor ran out of coolant.");
+                screenManager.setGameOverMessage("Meltdown!" +
+                        "\nThe reactor ran out of coolant.");
                 break;
         }
 
