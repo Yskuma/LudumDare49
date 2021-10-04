@@ -3,6 +3,7 @@ package com.livelyspark.ludumdare49.systems.stages;
 import com.livelyspark.ludumdare49.enums.MessageTextures;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
+import com.livelyspark.ludumdare49.managers.IScreenManager;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.enums.Events;
 import com.livelyspark.ludumdare49.stages.Stage;
@@ -10,8 +11,8 @@ import com.livelyspark.ludumdare49.stages.Stage;
 public class Stage01System extends StageSystemBase {
 
 
-    public Stage01System(PowerStation powerStation) {
-        super(powerStation);
+    public Stage01System(PowerStation powerStation, IScreenManager screenManager) {
+        super(powerStation, screenManager);
     }
 
     @Override

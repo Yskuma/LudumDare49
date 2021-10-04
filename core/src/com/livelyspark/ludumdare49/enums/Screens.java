@@ -3,5 +3,7 @@ package com.livelyspark.ludumdare49.enums;
 public enum Screens {
     Loading,
     MainMenu,
-    PowerStation
+    PowerStation,
+    YouWin,
+    GameOver
 }

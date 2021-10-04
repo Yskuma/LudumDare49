@@ -5,9 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.livelyspark.ludumdare49.managers.FloatFormatter;
 import com.livelyspark.ludumdare49.managers.FormatManager;
 import com.livelyspark.ludumdare49.managers.IScreenManager;
-import com.livelyspark.ludumdare49.screen.LoadingScreen;
-import com.livelyspark.ludumdare49.screen.MainMenuScreen;
-import com.livelyspark.ludumdare49.screen.PowerStationScreen;
+import com.livelyspark.ludumdare49.screen.*;
 import com.livelyspark.ludumdare49.enums.Screens;
 
 import java.util.HashMap;
@@ -21,6 +19,10 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
     private LoadingScreen loadingScreen;
     private MainMenuScreen mainMenuScreen;
     private PowerStationScreen powerStationScreen;
+    private GameOverScreen gameOverScreen;
+    private YouWinScreen youWinScreen;
+
+    private String gameOverMessage;
 
     public void switchScreen(Screens screen)  {
         switch (screen) {
@@ -36,7 +38,21 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
                 if(powerStationScreen == null){powerStationScreen = new PowerStationScreen(this, assetManager);}
                 setScreen(powerStationScreen);
                 break;
+            case GameOver:
+                if(gameOverScreen == null){gameOverScreen = new GameOverScreen(this, assetManager);}
+                gameOverScreen.gameOverMessage = gameOverMessage;
+                setScreen(gameOverScreen);
+                break;
+            case YouWin:
+                if(youWinScreen == null){youWinScreen = new YouWinScreen(this, assetManager);}
+                setScreen(youWinScreen);
+                break;
         }
+    }
+
+    @Override
+    public void setGameOverMessage(String gameOverMessage) {
+        this.gameOverMessage = gameOverMessage;
     }
 
     @Override

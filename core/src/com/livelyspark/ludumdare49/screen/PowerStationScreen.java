@@ -151,7 +151,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
-        engine.addSystem(new Stage01System(powerStation));
+        engine.addSystem(new Stage01System(powerStation, screenManager));
     }
 
     private void addEntities() {

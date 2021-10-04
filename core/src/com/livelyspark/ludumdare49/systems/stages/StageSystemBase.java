@@ -2,14 +2,14 @@ package com.livelyspark.ludumdare49.systems.stages;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.systems.IntervalSystem;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.*;
-import com.livelyspark.ludumdare49.enums.CameraModes;
-import com.livelyspark.ludumdare49.enums.Effects;
-import com.livelyspark.ludumdare49.enums.LoseConditions;
-import com.livelyspark.ludumdare49.enums.MessageTextures;
+import com.livelyspark.ludumdare49.enums.*;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
+import com.livelyspark.ludumdare49.managers.IScreenManager;
+import com.livelyspark.ludumdare49.screen.GameOverScreen;
 import com.livelyspark.ludumdare49.stages.Event;
 import com.livelyspark.ludumdare49.stages.Stage;
 
@@ -18,14 +18,20 @@ public abstract class StageSystemBase extends IntervalSystem {
     protected Stage thisStage;
     private ActionableComponent actionableComponent;
     protected PowerStation powerStation;
+    private Screen youWinScreen;
+    private Screen gameOverScreen;
+    private IScreenManager screenManager;
 
     private int lowPowerTime;
 
-    public StageSystemBase(PowerStation powerStation) {
+    public StageSystemBase(PowerStation powerStation, IScreenManager screenManager) {
         super(1.0f);
         GenerateStage();
         this.powerStation = powerStation;
-        powerStation.targetPower = 150;
+        powerStation.targetPower = 100;
+        this.youWinScreen = youWinScreen;
+        this.gameOverScreen = gameOverScreen;
+        this.screenManager = screenManager;
     }
 
     protected abstract void GenerateStage();
@@ -168,7 +174,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     }
 
     private void CheckGameOver(){
-        if(lowPowerTime > 10){
+        if(lowPowerTime > 30){
             DoGameOver(LoseConditions.LowPower);
         }
         else if(powerStation.reactorTemp > powerStation.REACTOR_TEMP_BOOM){
@@ -180,10 +186,24 @@ public abstract class StageSystemBase extends IntervalSystem {
     };
 
     private void DoGameOver(LoseConditions loseCondition){
+        switch (loseCondition){
 
+            case LowPower:
+                screenManager.setGameOverMessage("You didn't meet your target." +
+                        "\nOur Glorious Leader is displeased.");
+                break;
+            case Meltdown:
+                screenManager.setGameOverMessage("Meltdown! The reactor got too hot!");
+                break;
+            case NoCoolant:
+                screenManager.setGameOverMessage("Meltdown! The reactor ran out of coolant.");
+                break;
+        }
+
+        screenManager.switchScreen(Screens.GameOver);
     };
 
     private void DoStageWin(){
-
+        screenManager.switchScreen(Screens.YouWin);
     };
 }
