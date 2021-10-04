@@ -44,6 +44,7 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
         uiSkin = new Skin(Gdx.files.internal("data/ui/plain.json"));
         font = uiSkin.getFont("small");
+        font.setColor(Color.BLACK);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
             if(!Objects.equals(a.label, ""))
             {
-                GlyphLayout layout = new GlyphLayout(font, a.label, Color.WHITE, a.size, Align.center, false);
+                GlyphLayout layout = new GlyphLayout(font, a.label, Color.BLACK, a.size, Align.center, false);
                 font.draw(batch, a.label, p.x - (layout.width / 2) , p.y + a.size, a.size, Align.center, false);
             }
 
