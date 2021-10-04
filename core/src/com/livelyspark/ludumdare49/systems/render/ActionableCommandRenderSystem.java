@@ -74,7 +74,7 @@ public class ActionableCommandRenderSystem extends EntitySystem {
 
             if(a.size * (a.timeActivated/a.timeToActivate) > 2) {
                 progressNp.setColor(a.color);
-                progressNp.draw(batch, p.x - (a.size / 2), p.y - (a.size / 2) - a.size - 8, a.size * (a.timeActivated / a.timeToActivate), 6);
+                progressNp.draw(batch, p.x - (a.size / 2), p.y + (a.size / 2) - a.size - 8, a.size * (a.timeActivated / a.timeToActivate), 6);
             }
 
             if(!Objects.equals(a.label, ""))
