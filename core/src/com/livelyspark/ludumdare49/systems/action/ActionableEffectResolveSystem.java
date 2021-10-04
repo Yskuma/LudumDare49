@@ -3,7 +3,9 @@ package com.livelyspark.ludumdare49.systems.action;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.livelyspark.ludumdare49.components.ActionableComponent;
+import com.livelyspark.ludumdare49.components.MessageComponent;
 import com.livelyspark.ludumdare49.enums.Effects;
+import com.livelyspark.ludumdare49.enums.MessageTextures;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 import java.util.EnumSet;
@@ -31,11 +33,20 @@ public class ActionableEffectResolveSystem extends EntitySystem {
         {
             ResolveCoolantLeak();
         }
+        if(state.completedEffects.contains(Effects.ReadNote))
+        {
+            ResolveReadNote();
+        }
 
         state.completedEffects  = EnumSet.noneOf(Effects.class);
     }
 
     private void ResolveReadNote() {
+        this.getEngine().addEntity(new Entity()
+                .add(new MessageComponent(
+                        "Sorry I couldn't give you an induction, the state won't pay for more than one worker on site. " +
+                                "\n\nYou must keep the reactor running and meet your power production targets. " +
+                                "\n\nIf you fail our Glorious Leader will not be happy!", MessageTextures.Note)));
     }
 
     private void ResolveCoolantLeak() {

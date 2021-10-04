@@ -12,15 +12,15 @@ import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class ActionableTiledLayerSystem extends EntitySystem {
 
-    private final TiledMap tiledMap;
     private final ScreenState state;
     private final MapLayer coolantLeak1Layer;
+    private final MapLayer rubble1Layer;
 
     public ActionableTiledLayerSystem(TiledMap tiledMap, ScreenState state) {
-        this.tiledMap = tiledMap;
         this.state = state;
 
         this.coolantLeak1Layer = tiledMap.getLayers().get("CoolantLeak1");
+        this.rubble1Layer = tiledMap.getLayers().get("Rubble1");
     }
 
     @Override
@@ -35,5 +35,13 @@ public class ActionableTiledLayerSystem extends EntitySystem {
     @Override
     public void update (float deltaTime) {
         coolantLeak1Layer.setVisible(state.activeEffects.contains(Effects.CoolantLeak));
+        rubble1Layer.setVisible(state.activeEffects.contains(Effects.Rubble));
+
+        if(rubble1Layer.isVisible() && !rubble1Layer.getProperties().containsKey("Blocks")){
+            rubble1Layer.getProperties().put("Blocks", true);
+        }
+        else if(!rubble1Layer.isVisible() && rubble1Layer.getProperties().containsKey("Blocks")){
+            rubble1Layer.getProperties().remove("Blocks");
+        }
     }
 }

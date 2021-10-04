@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.livelyspark.ludumdare49.components.MessageComponent;
 import com.livelyspark.ludumdare49.components.SpriteComponent;
+import com.livelyspark.ludumdare49.enums.MessageTextures;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
 
 public class MessageUiSystem extends EntitySystem {
@@ -24,10 +27,14 @@ public class MessageUiSystem extends EntitySystem {
     private Stage stage;
     private Label textLabel;
     private Image icon;
+    private TextureAtlas atlas;
+    private TextureAtlas actionablesAtlas;
 
     public MessageUiSystem(ScreenState screenState, AssetManager assetManager) {
         this.screenState = screenState;
         this.assetManager = assetManager;
+        atlas = assetManager.get("textures/sprites.atlas", TextureAtlas.class);
+        actionablesAtlas = assetManager.get("textures/actionables.atlas", TextureAtlas.class);
     }
 
     @Override
@@ -68,10 +75,24 @@ public class MessageUiSystem extends EntitySystem {
     public void update (float deltaTime) {
         if(screenState.activeMessage != null) {
             textLabel.setText(screenState.activeMessage.message);
-            icon.setDrawable(new TextureRegionDrawable(screenState.activeMessage.icon));
+            icon.setDrawable(new TextureRegionDrawable(GetTextureRegion(screenState.activeMessage.icon)));
             stage.act();
             stage.draw();
         }
-
     }
+
+    private TextureRegion GetTextureRegion(MessageTextures icon) {
+        switch (icon){
+            case Leader:
+                return atlas.findRegion("kimmy32");
+            case Note:
+                return actionablesAtlas.findRegion("DeskWithPaper");
+            case Player:
+                return atlas.findRegion("dude");
+        }
+
+        return atlas.findRegion("kimmy32");
+    }
+
+
 }

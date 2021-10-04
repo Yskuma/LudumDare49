@@ -4,11 +4,12 @@ public enum Events {
     StartNote,
     EarthQuake,
     CoolantLeak,
-    GloriousLeader,
     OppositionHacker,
-    RebelInvasion,
     PartBreakdownOne,
     PartBreakdownTwo,
     PartBreakdownThree,
-    Bombers
+    Bombers,
+    MoarPowah,
+    EvenMoarPowah,
+    SheCantTakeMuchMoreCaptain
 }

@@ -5,6 +5,7 @@ public enum Effects {
     CoolantLeak,
     WaterPumpBreakdown,
     CoolantPumpBreakdown,
+    HeatExchangerBreakdown,
     HackedComputer,
     OSReinstall,
     Rubble
