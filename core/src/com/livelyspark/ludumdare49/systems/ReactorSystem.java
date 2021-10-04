@@ -33,16 +33,21 @@ public class ReactorSystem extends EntitySystem {
         ps.deltaFuelAtoms = 0.4f * (1.00150f - 0.0025f*ps.controlRodPosition) * (ps.deltaSlowNeutrons);
         ps.deltaFuelAtoms = MathUtils.clamp(ps.deltaFuelAtoms, 4.5e10f, 4.5e11f);
 
-        ps.deltaSlowNeutrons = 2.5f * ps.coolantLevel * ps.deltaFuelAtoms
-                + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
-
-
+        if(ps.coolantLevel > 0.5f){
+            ps.deltaSlowNeutrons = 2.5f * ps.deltaFuelAtoms
+                    + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
+        }
+        else if(ps.coolantLevel <= 0.5f){
+            ps.deltaSlowNeutrons = 2.5f * (ps.coolantLevel/0.5f) * ps.deltaFuelAtoms
+                    + (ps.artificialNeutronActive ? (ps.deltaArtificialNeutrons * deltaTime) : 0f);
+        }
 
         ps.coolantLevel -= ps.coolantLeakActive ? ps.coolantLeakRate * deltaTime : 0;
         ps.coolantLevel += ps.pumpOK ? ps.coolantPumpSpeed * ps.coolantFlowMax * deltaTime : 0;
         ps.coolantLevel = MathUtils.clamp(ps.coolantLevel, 0, ps.coolantLevelMax);
 
         float deltaReactorHeat = ps.deltaFuelAtoms * ps.heatPerFission * deltaTime;
+
         float deltaTurbineHeat = 0;
         if(ps.coolantLevel > 0 && ps.pumpOK) {
             deltaTurbineHeat = ps.coolantPumpSpeed * ps.coolantFlowMax * ps.coolantThermalMass * ps.reactorTemp * deltaTime;
@@ -50,10 +55,10 @@ public class ReactorSystem extends EntitySystem {
 
         float deltaCoolantHeat = 0;
         if(ps.coolantLevel < 1 && ps.pumpOK) {
-            deltaCoolantHeat = ps.coolantPumpSpeed*ps.coolantFlowMax*ps.coolantThermalMass*ps.tempAmbient;
+            deltaCoolantHeat = ps.coolantPumpSpeed*ps.coolantFlowMax*ps.coolantThermalMass*ps.reactorTemp*deltaTime;
         }
         if(ps.coolantLevel > 0 && ps.coolantLeakActive) {
-            deltaCoolantHeat = deltaCoolantHeat - ps.coolantLeakRate*ps.coolantThermalMass*ps.reactorTemp;
+            deltaCoolantHeat = deltaCoolantHeat - ps.coolantLeakRate*ps.coolantThermalMass*ps.reactorTemp*deltaTime;
         }
 
         ps.reactorHeat = ps.reactorHeat + deltaReactorHeat - deltaTurbineHeat + deltaCoolantHeat;
