@@ -70,7 +70,8 @@ public abstract class StageSystemBase extends IntervalSystem {
 
                 if(event.message != ""){
                     this.getEngine().addEntity(new Entity()
-                            .add(new MessageComponent(event.message, event.texture)));
+                            .add(new MessageComponent(event.message, event.texture))
+                            .add(new SoundComponent(assetManager.get("sound/blip.mp3", Sound.class),false,0.5f)));
                 }
 
                 switch (event.events){

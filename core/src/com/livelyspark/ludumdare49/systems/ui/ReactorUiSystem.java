@@ -161,7 +161,7 @@ public class ReactorUiSystem extends EntitySystem {
 
         coolantLevelPb.setValue(ps.coolantLevel);
         coolantLevelText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantLevel * 100)  + "%");
-        coolantLevelDeltaText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantLevelDelta) + "%\\S");
+        coolantLevelDeltaText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantLevelDelta * 100) + "%\\S");
 
         coolantLevelPb.setColor(0, 0, ps.coolantLevel, 1.0f);
         coolantLevelDeltaText.setColor(deltaColour(ps.coolantLevelDelta));
