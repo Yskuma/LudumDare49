@@ -115,7 +115,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoStartNote(){
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(352,320))
-                .add(new ActionableComponent(1f, 2.0f,32, Color.BLUE))
+                .add(new ActionableComponent(1f, 2.0f,32, Color.BLUE, "Read\nNote"))
                 .add(new EffectComponent(Effects.ReadNote))
         );
     }
