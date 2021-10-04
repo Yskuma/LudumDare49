@@ -34,7 +34,7 @@ public class SoundListener implements EntityListener {
 
     @Override
     public void entityRemoved(Entity entity) {
-        //SoundComponent s = sm.get(entity);
-        //s.sound.dispose();
+        SoundComponent s = sm.get(entity);
+        s.sound.stop();
     }
 }

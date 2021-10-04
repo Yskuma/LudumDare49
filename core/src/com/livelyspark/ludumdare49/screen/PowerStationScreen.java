@@ -263,5 +263,6 @@ public class PowerStationScreen extends AbstractScreen {
 
     @Override
     public void hide() {
+        engine.removeAllEntities();
     }
 }
