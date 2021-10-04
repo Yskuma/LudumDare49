@@ -46,8 +46,10 @@ public abstract class StageSystemBase extends IntervalSystem {
 
         if (powerStation.power < powerStation.targetPower){
             lowPowerTime++;
+            screenState.timoutCountdown = 30 - lowPowerTime;
         }
         else{
+            screenState.timoutCountdown = 30;
             lowPowerTime = 0;
         }
         CheckGameOver();

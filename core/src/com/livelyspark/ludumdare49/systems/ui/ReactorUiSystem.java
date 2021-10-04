@@ -34,6 +34,7 @@ public class ReactorUiSystem extends EntitySystem {
     private Label coolantLevelDeltaText;
     private Label powerText;
     private Label powerTargetText;
+    private Label powerOutageText;
 
     private final Color DARK_GREEN = new Color(0.0f, 0.7f, 0.0f, 1.0f);
     private Table tablePower;
@@ -100,8 +101,14 @@ public class ReactorUiSystem extends EntitySystem {
         tablePower.add("Target:", "small", Color.BLACK).getActor();
         powerTargetText = tablePower.add("", "small", Color.WHITE).getActor();
         powerTargetText.setAlignment(Align.right);
+        tablePower.row();
+
+        tablePower.add("Countdown:", "small", Color.BLACK).getActor();
+        powerOutageText = tablePower.add("", "small", Color.WHITE).getActor();
+        powerOutageText.setAlignment(Align.right);
 
         tablePower.pack();
+
         tablePower.setWidth(tableStatus.getWidth());
 
         tablePower.setPosition(stage.getWidth() - tablePower.getWidth(),
@@ -164,6 +171,8 @@ public class ReactorUiSystem extends EntitySystem {
         powerText.setText(FormatManager.floatFormatter.getFormattedString(ps.power) + "MW");
         powerTargetText.setText(FormatManager.floatFormatter.getFormattedString(ps.targetPower) + "MW");
         powerTargetText.setColor(ps.power > ps.targetPower ? DARK_GREEN : Color.RED);
+        powerOutageText.setText(FormatManager.floatFormatter.getFormattedString(state.timoutCountdown) + "s");
+        powerOutageText.setColor(state.timoutCountdown == 30 ? DARK_GREEN : Color.RED);
 
         controlRodText.setText(FormatManager.floatFormatter.getFormattedString(ps.controlRodPosition * 100) + "%");
         coolantPumpText.setText(FormatManager.floatFormatter.getFormattedString(ps.coolantPumpSpeed * 100)  + "%");

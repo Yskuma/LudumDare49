@@ -25,4 +25,6 @@ public class ScreenState {
 
     public EnumSet<Commands> disabledCommands = EnumSet.noneOf(Commands.class);
 
+    public int timoutCountdown = 30;
+
 }
