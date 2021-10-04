@@ -1,5 +1,6 @@
 package com.livelyspark.ludumdare49.systems.stages;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.livelyspark.ludumdare49.enums.MessageTextures;
 import com.livelyspark.ludumdare49.gameobj.PowerStation;
 import com.livelyspark.ludumdare49.gameobj.ScreenState;
@@ -11,8 +12,8 @@ import com.livelyspark.ludumdare49.stages.Stage;
 public class Stage01System extends StageSystemBase {
 
 
-    public Stage01System(PowerStation powerStation, IScreenManager screenManager, ScreenState screenState) {
-        super(powerStation, screenManager, screenState);
+    public Stage01System(PowerStation powerStation, IScreenManager screenManager, ScreenState screenState, AssetManager assetManager) {
+        super(powerStation, screenManager, screenState, assetManager);
     }
 
     @Override

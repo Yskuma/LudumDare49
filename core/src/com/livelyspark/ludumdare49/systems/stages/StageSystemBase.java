@@ -3,6 +3,8 @@ package com.livelyspark.ludumdare49.systems.stages;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.livelyspark.ludumdare49.components.*;
 import com.livelyspark.ludumdare49.enums.*;
@@ -18,16 +20,18 @@ public abstract class StageSystemBase extends IntervalSystem {
     protected PowerStation powerStation;
     private IScreenManager screenManager;
     private ScreenState screenState;
+    private AssetManager assetManager;
 
     private int lowPowerTime;
 
-    public StageSystemBase(PowerStation powerStation, IScreenManager screenManager, ScreenState screenState) {
+    public StageSystemBase(PowerStation powerStation, IScreenManager screenManager, ScreenState screenState, AssetManager assetManager) {
         super(1.0f);
         GenerateStage();
         this.powerStation = powerStation;
         powerStation.targetPower = 100;
         this.screenManager = screenManager;
         this.screenState = screenState;
+        this.assetManager = assetManager;
     }
 
     protected abstract void GenerateStage();
@@ -127,6 +131,11 @@ public abstract class StageSystemBase extends IntervalSystem {
                 .add(new EffectComponent(Effects.Rubble))
                 .add(new RumbleComponent(CameraModes.ShakeLarge, 3.0f))
         );
+        this.getEngine().addEntity((new Entity())
+                .add(new SoundComponent(
+                        assetManager.get("sound/earthquake.mp3", Sound.class),
+                        false,
+                        0.5f)));
     }
 
     private void DoCoolantLeak() {

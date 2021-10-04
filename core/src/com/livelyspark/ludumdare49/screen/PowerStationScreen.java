@@ -153,7 +153,7 @@ public class PowerStationScreen extends AbstractScreen {
         inputMultiplexer.addProcessor(new DebugInputProcessor(screenState, powerStation));
 
         //StageSystem
-        engine.addSystem(new Stage01System(powerStation, screenManager, screenState));
+        engine.addSystem(new Stage01System(powerStation, screenManager, screenState, assetManager));
     }
 
     private void addEntities() {
@@ -235,14 +235,14 @@ public class PowerStationScreen extends AbstractScreen {
                         true)));
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(168,696))
-                .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Raise\nControl\nRods"))
+                .add(new PositionComponent(176,696))
+                .add(new ActionableComponent(1.0f, 5.0f, 64f, Color.PURPLE, "Raise\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodDecrease))
         );
 
         engine.addEntity((new Entity())
-                .add(new PositionComponent(280,696))
-                .add(new ActionableComponent(1.0f, 5.0f, 48f, Color.PURPLE, "Lower\nControl\nRods"))
+                .add(new PositionComponent(272,696))
+                .add(new ActionableComponent(1.0f, 5.0f, 64f, Color.PURPLE, "Lower\nControl\nRods"))
                 .add(new CommandComponent(Commands.ControlRodIncrease))
         );
 
