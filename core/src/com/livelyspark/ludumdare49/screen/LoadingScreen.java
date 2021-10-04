@@ -52,6 +52,8 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load("textures/actionables.atlas", TextureAtlas.class);
 
         assetManager.load("textures/nuclear.png", Texture.class);
+        assetManager.load("textures/nuclear-night.png", Texture.class);
+        assetManager.load("textures/nuclear-boom.png", Texture.class);
 
         assetManager.load("tilemaps/testmapsmall.tmx", TiledMap.class);
         assetManager.load("tilemaps/powerstation.tmx", TiledMap.class);
