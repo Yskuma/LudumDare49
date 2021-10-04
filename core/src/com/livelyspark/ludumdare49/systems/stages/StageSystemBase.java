@@ -14,10 +14,7 @@ import com.livelyspark.ludumdare49.stages.Stage;
 public abstract class StageSystemBase extends IntervalSystem {
 
     protected Stage thisStage;
-    private ActionableComponent actionableComponent;
     protected PowerStation powerStation;
-    private Screen youWinScreen;
-    private Screen gameOverScreen;
     private IScreenManager screenManager;
 
     private int lowPowerTime;
@@ -27,8 +24,6 @@ public abstract class StageSystemBase extends IntervalSystem {
         GenerateStage();
         this.powerStation = powerStation;
         powerStation.targetPower = 100;
-        this.youWinScreen = youWinScreen;
-        this.gameOverScreen = gameOverScreen;
         this.screenManager = screenManager;
     }
 
@@ -150,7 +145,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoCoolantPumpBreakdown(){
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(80,864))
-                .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
+                .add(new ActionableComponent(4f, 2.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.CoolantPumpBreakdown))
         );
     }
@@ -158,7 +153,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoWaterPumpBreakdown() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48,640))
-                .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
+                .add(new ActionableComponent(4f, 2.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.WaterPumpBreakdown))
         );
     }
@@ -166,7 +161,7 @@ public abstract class StageSystemBase extends IntervalSystem {
     private void DoHeatExchangerBreakdown() {
         this.getEngine().addEntity((new Entity())
                 .add(new PositionComponent(48, 560))
-                .add(new ActionableComponent(10f, 2.0f,64, Color.RED))
+                .add(new ActionableComponent(6f, 1.0f,64, Color.RED))
                 .add(new EffectComponent(Effects.HeatExchangerBreakdown))
         );
     }

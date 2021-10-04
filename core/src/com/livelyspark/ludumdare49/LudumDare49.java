@@ -35,7 +35,7 @@ public class LudumDare49 extends ApplicationAdapter implements IScreenManager {
                 setScreen(mainMenuScreen);
                 break;
             case PowerStation:
-                if(powerStationScreen == null){powerStationScreen = new PowerStationScreen(this, assetManager);}
+                powerStationScreen = new PowerStationScreen(this, assetManager);
                 setScreen(powerStationScreen);
                 break;
             case GameOver:
