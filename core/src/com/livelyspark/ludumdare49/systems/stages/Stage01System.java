@@ -19,7 +19,7 @@ public class Stage01System extends StageSystemBase {
     protected void GenerateStage() {
         thisStage = new Stage(
                 new Event[]{
-                        new Event(Events.StartNote, 0.0, "First day on the job! It looks like someone has left me player note.", MessageTextures.Player),
+                        new Event(Events.StartNote, 0.0, "First day on the job! It looks like someone has left me a note.", MessageTextures.Player),
                         new Event(Events.CoolantLeak, 5, "Our world leading pipe manufacturers make the best pipes, they never leak!", MessageTextures.Leader),
                         new Event(Events.PartBreakdownOne, 10.0, "We make the best, most reliable, and heaviest pumps. No one makes heavier pumps!", MessageTextures.Leader),
                         new Event(Events.CoolantLeak, 15.0, "Coolant levels are dropping again, the pipe must be leaking", MessageTextures.Player),
